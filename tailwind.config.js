@@ -1,6 +1,7 @@
 /** Design tokens live here. Change a colour once, it changes everywhere. */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: ['./app/**/*.{js,jsx}', './components/**/*.{js,jsx}'],
   theme: {
     extend: {
