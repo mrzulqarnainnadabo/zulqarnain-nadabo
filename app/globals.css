@@ -4,13 +4,49 @@
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
+/* ============================================================
+   Theme transition system
+   Smooth colour changes when toggling light / dark.
+   Respects prefers-reduced-motion.
+   ============================================================ */
+
+/* Default transition timing for theme changes */
+:root {
+  --theme-duration: 0.35s;
+  --theme-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --theme-duration: 0.01ms;
+  }
+}
+
+/* Core surfaces & text */
+body,
+.bg-cream,
+.bg-bone,
+.bg-ink,
+.text-forest,
+.text-mute,
+.border-rule,
+header,
+section,
+article,
+footer {
+  transition:
+    background-color var(--theme-duration) var(--theme-ease),
+    color var(--theme-duration) var(--theme-ease),
+    border-color var(--theme-duration) var(--theme-ease),
+    box-shadow var(--theme-duration) var(--theme-ease);
+}
+
 /* Light (default) */
 body {
   @apply bg-cream text-[#1b1f1c] font-sans antialiased;
-  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Dark mode */
+/* Dark mode overrides */
 html.dark body {
   @apply bg-[#0c1914] text-[#e8efe6];
 }
@@ -34,7 +70,16 @@ html.dark .bg-ink {
   background-color: #0a1511;
 }
 
-:focus-visible { outline: 3px solid #d2b365; outline-offset: 3px; border-radius: 2px; }
+/* Cards get a slightly softer shadow transition in dark */
+html.dark .card-lift:hover {
+  box-shadow: 0 14px 40px -18px rgba(0, 0, 0, 0.55);
+}
+
+:focus-visible {
+  outline: 3px solid #d2b365;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
 
 /* Zigzag band: drawn from the border pattern of the traditional cap. Only decoration on the site. */
 .zig {
@@ -58,9 +103,12 @@ html.dark .bg-ink {
 
   /* Subtle card lift on hover — institutional, not playful */
   .card-lift {
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                border-color 0.25s ease;
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.25s ease,
+      background-color var(--theme-duration) var(--theme-ease),
+      color var(--theme-duration) var(--theme-ease);
   }
   .card-lift:hover {
     transform: translateY(-3px);
