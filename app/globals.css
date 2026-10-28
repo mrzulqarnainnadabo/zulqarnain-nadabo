@@ -12,9 +12,56 @@ body { @apply bg-cream text-[#1b1f1c] font-sans antialiased; }
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='10' viewBox='0 0 28 10'%3E%3Cpath d='M0 10L7 1l7 9 7-9 7 9' fill='none' stroke='%23a98a3d' stroke-width='1.3'/%3E%3C/svg%3E") repeat-x 0 0;
 }
 
-/* One entrance animation, hero only. Respects reduced motion. */
+/* Purposeful motion system — transform + opacity only. Respects reduced motion. */
 @media (prefers-reduced-motion: no-preference) {
-  .rise { animation: rise .8s ease-out both; }
-  .rise-2 { animation-delay: .12s; }
-  @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .rise {
+    animation: rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .rise-2 { animation-delay: 0.1s; }
+  .rise-3 { animation-delay: 0.2s; }
+  .rise-4 { animation-delay: 0.3s; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Subtle card lift on hover — institutional, not playful */
+  .card-lift {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.25s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px -18px rgba(15, 35, 25, 0.35);
+  }
+
+  /* Underline draw for CTAs */
+  .cta-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cta-underline:hover,
+  .cta-underline:focus-visible {
+    background-size: 100% 2px;
+  }
+}
+
+/* Fallback when motion is reduced */
+@media (prefers-reduced-motion: reduce) {
+  .rise, .rise-2, .rise-3, .rise-4 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .card-lift {
+    transition: none;
+  }
+  .card-lift:hover {
+    transform: none;
+  }
 }
