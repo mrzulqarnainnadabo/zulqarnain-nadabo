@@ -3,7 +3,37 @@
 @tailwind utilities;
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { @apply bg-cream text-[#1b1f1c] font-sans antialiased; }
+
+/* Light (default) */
+body {
+  @apply bg-cream text-[#1b1f1c] font-sans antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Dark mode */
+html.dark body {
+  @apply bg-[#0c1914] text-[#e8efe6];
+}
+
+html.dark .bg-bone {
+  background-color: #13261e;
+}
+html.dark .bg-cream {
+  background-color: #0c1914;
+}
+html.dark .text-forest {
+  color: #e8efe6;
+}
+html.dark .text-mute {
+  color: #9aaf9f;
+}
+html.dark .border-rule {
+  border-color: #2a3f34;
+}
+html.dark .bg-ink {
+  background-color: #0a1511;
+}
+
 :focus-visible { outline: 3px solid #d2b365; outline-offset: 3px; border-radius: 2px; }
 
 /* Zigzag band: drawn from the border pattern of the traditional cap. Only decoration on the site. */
