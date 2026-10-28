@@ -1,4 +1,5 @@
 import LocalTime from './LocalTime';
+import ThemeToggle from './ThemeToggle';
 import { person, roles } from '@/lib/content';
 
 /**
@@ -12,12 +13,15 @@ export default function Hero() {
       <div className="mx-auto max-w-6xl px-6 md:px-10">
         <nav aria-label="Primary" className="flex items-center justify-between gap-4 border-b border-white/10 py-6 text-sm">
           <a href="#top" className="font-serif text-2xl tracking-[.08em] text-goldl no-underline" aria-label="Top of page">ZYN</a>
-          <ul className="flex flex-wrap justify-end gap-x-5 gap-y-2 text-[#cdd8c9] sm:gap-x-7">
-            <li><a className="underline-offset-4 hover:text-white hover:underline" href="#systems">Systems</a></li>
-            <li><a className="underline-offset-4 hover:text-white hover:underline" href="#profile">Profile</a></li>
-            <li><a className="underline-offset-4 hover:text-white hover:underline" href="#principles">Principles</a></li>
-            <li><a className="underline-offset-4 hover:text-white hover:underline" href="#contact">Contact</a></li>
-          </ul>
+          <div className="flex items-center gap-4 sm:gap-6">
+            <ul className="flex flex-wrap justify-end gap-x-5 gap-y-2 text-[#cdd8c9] sm:gap-x-7">
+              <li><a className="underline-offset-4 hover:text-white hover:underline" href="#systems">Systems</a></li>
+              <li><a className="underline-offset-4 hover:text-white hover:underline" href="#profile">Profile</a></li>
+              <li><a className="underline-offset-4 hover:text-white hover:underline" href="#principles">Principles</a></li>
+              <li><a className="underline-offset-4 hover:text-white hover:underline" href="#contact">Contact</a></li>
+            </ul>
+            <ThemeToggle />
+          </div>
         </nav>
 
         <div id="top" className="max-w-5xl pb-16 pt-14 md:pb-24 md:pt-20">
