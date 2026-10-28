@@ -11,7 +11,7 @@ const Arrow = () => (
 /** Whole card is one link (stretched link pattern) so the target is large and obvious. */
 function Card({ accent, tag, title, lead, href, cta, children }) {
   return (
-    <article className={`group relative flex flex-col border border-t-4 border-rule bg-bone p-6 transition-shadow hover:shadow-[0_10px_30px_-18px_rgba(15,35,25,.5)] md:p-8 ${accent}`}>
+    <article className={`card-lift group relative flex flex-col border border-t-4 border-rule bg-bone p-6 md:p-8 ${accent}`}>
       <p className="mb-3 text-sm font-medium text-mute">{tag}</p>
       <h3 className="font-serif text-3xl font-medium leading-tight text-forest">{title}</h3>
       <p className="mt-3 font-serif text-xl font-light leading-snug text-forest">{lead}</p>

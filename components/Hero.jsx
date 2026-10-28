@@ -2,8 +2,8 @@ import LocalTime from './LocalTime';
 import { person, roles } from '@/lib/content';
 
 /**
- * Image-free editorial hero. The portrait slot is removed entirely; typography,
- * generous spacing and a restrained gold rule carry the opening screen.
+ * Image-free editorial hero. Typography, generous spacing and a restrained gold rule
+ * carry the opening screen. Motion is purposeful and respects reduced-motion.
  */
 export default function Hero() {
   return (
@@ -14,13 +14,14 @@ export default function Hero() {
           <a href="#top" className="font-serif text-2xl tracking-[.08em] text-goldl no-underline" aria-label="Top of page">ZYN</a>
           <ul className="flex flex-wrap justify-end gap-x-5 gap-y-2 text-[#cdd8c9] sm:gap-x-7">
             <li><a className="underline-offset-4 hover:text-white hover:underline" href="#systems">Systems</a></li>
+            <li><a className="underline-offset-4 hover:text-white hover:underline" href="#profile">Profile</a></li>
             <li><a className="underline-offset-4 hover:text-white hover:underline" href="#principles">Principles</a></li>
             <li><a className="underline-offset-4 hover:text-white hover:underline" href="#contact">Contact</a></li>
           </ul>
         </nav>
 
         <div id="top" className="max-w-5xl pb-16 pt-14 md:pb-24 md:pt-20">
-          <div className="mb-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-[.18em] text-[#b9c7b6]">
+          <div className="rise mb-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-[.18em] text-[#b9c7b6]">
             <span>Public systems</span>
             <span aria-hidden="true" className="h-1 w-1 rounded-full bg-gold" />
             <span>Civic responsibility</span>
@@ -28,16 +29,16 @@ export default function Hero() {
             <span>Enterprise operations</span>
           </div>
 
-          <p className="mb-5 text-sm text-[#b9c7b6]"><LocalTime place={person.location} /></p>
-          <h1 className="max-w-4xl font-serif text-[clamp(2.8rem,8.5vw,6.5rem)] font-light leading-[.98] tracking-[-.045em] text-white">
+          <p className="rise-2 mb-5 text-sm text-[#b9c7b6]"><LocalTime place={person.location} /></p>
+          <h1 className="rise-2 max-w-4xl font-serif text-[clamp(2.8rem,8.5vw,6.5rem)] font-light leading-[.98] tracking-[-.045em] text-white">
             {person.name}
           </h1>
-          <div className="mt-8 h-px w-20 bg-gold" />
-          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-[#d9e2d5] md:text-2xl md:leading-relaxed">
+          <div className="rise-3 mt-8 h-px w-20 bg-gold" />
+          <p className="rise-3 mt-7 max-w-2xl text-lg leading-relaxed text-[#d9e2d5] md:text-2xl md:leading-relaxed">
             {person.sentence}
           </p>
 
-          <ul className="mt-12 grid max-w-4xl gap-3 sm:grid-cols-2">
+          <ul className="rise-4 mt-12 grid max-w-4xl gap-3 sm:grid-cols-2">
             {roles.map((r, i) => (
               <li key={r.id}>
                 <a href={r.href} className="group flex h-full min-h-32 flex-col justify-between border border-white/15 bg-white/[.03] p-5 transition-colors hover:border-gold/70 hover:bg-white/[.06] md:p-6">
@@ -50,7 +51,7 @@ export default function Hero() {
               </li>
             ))}
           </ul>
-          <a href="#systems" className="mt-9 inline-flex items-center gap-3 text-sm font-semibold text-white underline decoration-gold decoration-2 underline-offset-8 hover:text-goldl">
+          <a href="#systems" className="rise-4 mt-9 inline-flex items-center gap-3 text-sm font-semibold text-white underline decoration-gold decoration-2 underline-offset-8 hover:text-goldl">
             Explore the work <span aria-hidden="true">↓</span>
           </a>
         </div>

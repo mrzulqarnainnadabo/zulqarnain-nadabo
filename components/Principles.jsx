@@ -1,28 +1,36 @@
 import Section from './Section';
 import { principles } from '@/lib/content';
 
-function Group({ title, items }) {
+function PrincipleCard({ name, line }) {
   return (
-    <div>
-      <h3 className="mb-3 font-serif text-2xl font-medium text-forest">{title}</h3>
-      <ul className="border-b border-rule">
-        {items.map(([name, line]) => (
-          <li key={name} className="border-t border-rule py-3">
-            <span className="font-serif text-xl leading-snug">{name}</span>
-            <span className="mt-0.5 block text-[15px] text-mute">{line}</span>
-          </li>
-        ))}
-      </ul>
+    <div className="card-lift flex flex-col border border-rule bg-bone p-5 md:p-6">
+      <p className="font-serif text-xl font-medium leading-snug text-forest">{name}</p>
+      <p className="mt-2 text-[15px] leading-relaxed text-mute">{line}</p>
     </div>
   );
 }
 
 export default function Principles() {
   return (
-    <Section id="principles" title="Principles">
-      <div className="grid gap-10 md:grid-cols-2 md:gap-12">
-        <Group title="Civic products" items={principles.civic} />
-        <Group title="Enterprise" items={principles.enterprise} />
+    <Section id="principles" title="Principles" kicker="How the work is held">
+      <div className="space-y-10">
+        <div>
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-gold">Civic products</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {principles.civic.map(([name, line]) => (
+              <PrincipleCard key={name} name={name} line={line} />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-gold">Enterprise</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {principles.enterprise.map(([name, line]) => (
+              <PrincipleCard key={name} name={name} line={line} />
+            ))}
+          </div>
+        </div>
       </div>
     </Section>
   );
