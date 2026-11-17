@@ -2,8 +2,6 @@ import Hero from '@/components/Hero';
 import Framing from '@/components/Framing';
 import CaseStudies from '@/components/CaseStudies';
 import ImpactProfile from '@/components/ImpactProfile';
-import FeaturedSystems from '@/components/FeaturedSystems';
-import Method from '@/components/Method';
 import Principles from '@/components/Principles';
 import Research from '@/components/Research';
 import Architecture from '@/components/Architecture';
@@ -19,8 +17,6 @@ export default function Page() {
         <Framing />
         <CaseStudies />
         <ImpactProfile />
-        <FeaturedSystems />
-        <Method />
         <Principles />
         <Research />
         <Architecture />
