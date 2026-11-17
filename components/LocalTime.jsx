@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 
 /**
- * The one "living" detail: local time in Abuja (WAT).
+ * The one "living" detail: local time in Nigeria (WAT).
  * Server renders the plain location, the client adds the time after mount,
  * so there is no hydration mismatch and no layout shift.
  */
