@@ -1,7 +1,6 @@
 import './globals.css';
 import { Newsreader, Hanken_Grotesk } from 'next/font/google';
 
-// next/font self-hosts these at build time: no layout shift, no external request at runtime.
 const serif = Newsreader({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
@@ -17,22 +16,41 @@ const sans = Hanken_Grotesk({
 });
 
 const url = 'https://zulqarnain-nadabo.vercel.app';
-const title = 'Ambassador Zulqarnain Yusuf Nadabo | ISEYC · Hubil Group';
-const description =
-  'National President of ISEYC and Managing Director of Hubil Group. Builds civic information systems and enterprise systems. Abuja, Nigeria.';
+const title = 'Zulqarnain Yusuf Nadabo | Institutional Architect & Digital Systems Strategist';
+const description = 'Institutional architecture, digital systems and evidence-led development. Selected civic, enterprise and research work from Nigeria.';
 
 export const metadata = {
   metadataBase: new URL(url),
-  title,
+  title: {
+    default: title,
+    template: '%s | Zulqarnain Yusuf Nadabo',
+  },
   description,
+  applicationName: 'Zulqarnain Yusuf Nadabo',
   alternates: { canonical: '/' },
-  openGraph: { type: 'profile', url, title, description, images: ['/zulqarnain.jpg'] },
-  twitter: { card: 'summary', title, description, images: ['/zulqarnain.jpg'] },
+  openGraph: {
+    type: 'profile',
+    url,
+    title,
+    description,
+    siteName: 'Zulqarnain Yusuf Nadabo',
+    images: [{ url: '/og.svg', width: 1200, height: 630, alt: 'Zulqarnain Yusuf Nadabo — Institutional Architect & Digital Systems Strategist' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: ['/og.svg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
 };
 
-export const viewport = { themeColor: '#0f2319' };
+export const viewport = { themeColor: '#0f2319', width: 'device-width', initialScale: 1 };
 
-// Inline script to set theme class before first paint (avoids flash)
 const themeScript = `
 (function() {
   try {
@@ -47,9 +65,7 @@ const themeScript = `
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable}`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
+      <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
       <body>{children}</body>
     </html>
   );
