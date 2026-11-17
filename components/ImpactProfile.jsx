@@ -27,7 +27,7 @@ export default function ImpactProfile() {
               {departments.map((department) => <li key={department} className="border-b border-rule pb-2 last:border-0">{department}</li>)}
             </ul>
           </div>
-          <div>
+          <div id="enterprise">
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-gold">Enterprise leadership</p>
             <h3 className="font-serif text-2xl font-medium text-forest">Hubil Group</h3>
             <p className="mt-2 text-[15px] leading-relaxed text-mute">
