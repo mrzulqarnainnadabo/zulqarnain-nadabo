@@ -1,18 +1,15 @@
 import Hero from '@/components/Hero';
 import Framing from '@/components/Framing';
-import FeaturedSystems from '@/components/FeaturedSystems';
+import CaseStudies from '@/components/CaseStudies';
 import ImpactProfile from '@/components/ImpactProfile';
+import FeaturedSystems from '@/components/FeaturedSystems';
 import Method from '@/components/Method';
 import Principles from '@/components/Principles';
+import Research from '@/components/Research';
 import Architecture from '@/components/Architecture';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
-/**
- * Page order = reading order:
- * who (Hero) > framing > proof of work > impact profile > method > principles > architecture > contact.
- * Reorder by moving a line. Edit copy in lib/content.js.
- */
 export default function Page() {
   return (
     <>
@@ -20,10 +17,12 @@ export default function Page() {
       <Hero />
       <main id="main" className="mx-auto max-w-6xl px-6 md:px-10">
         <Framing />
-        <FeaturedSystems />
+        <CaseStudies />
         <ImpactProfile />
+        <FeaturedSystems />
         <Method />
         <Principles />
+        <Research />
         <Architecture />
         <Contact />
       </main>
