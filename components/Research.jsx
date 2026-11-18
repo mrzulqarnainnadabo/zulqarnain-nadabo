@@ -8,7 +8,7 @@ export default function Research() {
       <ul className="divide-y divide-rule border-y border-rule">
         {research.map((item) => <li key={item.title} className="flex flex-col gap-2 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
           <div><p className="font-serif text-xl font-medium text-forest">{item.title}</p><p className="mt-1 text-sm text-mute">{item.description}</p></div>
-          <div className="flex shrink-0 items-center gap-4"><span className="text-xs text-mute">{item.type}</span><a className="text-sm font-semibold text-forest underline decoration-gold decoration-2 underline-offset-4" href={item.href} target="_blank" rel="noreferrer">View work ↗</a></div>
+          <div className="flex shrink-0 flex-wrap items-center gap-4"><span className="text-xs text-mute">{item.type}</span><a className="text-sm font-semibold text-forest underline decoration-gold decoration-2 underline-offset-4" href={item.href} target="_blank" rel="noreferrer">View work ↗</a>{item.briefHref && <a className="text-sm font-semibold text-forest underline decoration-gold decoration-2 underline-offset-4" href={item.briefHref} target="_blank" rel="noreferrer">Research brief ↗</a>}</div>
         </li>)}
       </ul>
     </Section>
