@@ -1,5 +1,6 @@
 import LocalTime from './LocalTime';
 import ThemeToggle from './ThemeToggle';
+import EvidenceField from './EvidenceField';
 import { person, roles } from '@/lib/content';
 
 export default function Hero() {
@@ -20,41 +21,49 @@ export default function Hero() {
           </div>
         </nav>
 
-        <div id="top" className="max-w-5xl pb-16 pt-14 md:pb-24 md:pt-20">
-          <div className="rise mb-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-[.18em] text-[#b9c7b6]">
-            <span>Institutional architecture</span>
-            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-gold" />
-            <span>Digital systems</span>
-            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-gold" />
-            <span>Evidence-led development</span>
+        <div id="top" className="grid gap-10 pb-14 pt-14 md:grid-cols-[1.12fr_.88fr] md:items-center md:gap-12 md:pb-20 md:pt-20">
+          <div>
+            <div className="rise mb-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-[.18em] text-[#b9c7b6]">
+              <span>Institutional architecture</span>
+              <span aria-hidden="true" className="h-1 w-1 rounded-full bg-gold" />
+              <span>Digital systems</span>
+              <span aria-hidden="true" className="h-1 w-1 rounded-full bg-gold" />
+              <span>Evidence-led development</span>
+            </div>
+
+            <p className="rise-2 mb-4 text-sm font-semibold tracking-wide text-goldl">{person.role}</p>
+            <p className="rise-2 mb-5 text-sm text-[#b9c7b6]"><LocalTime place={person.location} /></p>
+            <h1 className="rise-2 max-w-4xl font-serif text-[clamp(2.8rem,8.5vw,6.5rem)] font-light leading-[.98] tracking-[-.045em] text-white">
+              {person.name}
+            </h1>
+            <div className="rise-3 mt-8 h-px w-20 bg-gold" />
+            <p className="rise-3 mt-7 max-w-2xl text-lg leading-relaxed text-[#d9e2d5] md:text-xl md:leading-relaxed">
+              {person.sentence}
+            </p>
           </div>
 
-          <p className="rise-2 mb-4 text-sm font-semibold tracking-wide text-goldl">{person.role}</p>
-          <p className="rise-2 mb-5 text-sm text-[#b9c7b6]"><LocalTime place={person.location} /></p>
-          <h1 className="rise-2 max-w-4xl font-serif text-[clamp(2.8rem,8.5vw,6.5rem)] font-light leading-[.98] tracking-[-.045em] text-white">
-            {person.name}
-          </h1>
-          <div className="rise-3 mt-8 h-px w-20 bg-gold" />
-          <p className="rise-3 mt-7 max-w-2xl text-lg leading-relaxed text-[#d9e2d5] md:text-2xl md:leading-relaxed">
-            {person.sentence}
-          </p>
+          <div className="rise-3 md:pl-2">
+            <EvidenceField />
+          </div>
 
-          <ul className="rise-4 mt-12 grid max-w-4xl gap-3 sm:grid-cols-2">
-            {roles.map((r, i) => (
-              <li key={r.id}>
-                <a href={r.href} className="group flex h-full min-h-32 flex-col justify-between border border-white/15 bg-white/[.03] p-5 transition-colors hover:border-gold/70 hover:bg-white/[.06] md:p-6">
-                  <span className="mb-5 block text-xs font-semibold uppercase tracking-[.16em] text-goldl">
-                    {i === 0 ? 'Institutional leadership' : 'Enterprise leadership'}
-                  </span>
-                  <span className="block font-serif text-xl leading-snug text-white md:text-2xl">{r.title}</span>
-                  <span className="mt-2 block text-sm leading-relaxed text-[#b9c7b6]">{r.sub}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <a href="#work" className="rise-4 mt-9 inline-flex items-center gap-3 text-sm font-semibold text-white underline decoration-gold decoration-2 underline-offset-8 hover:text-goldl">
-            Explore selected work <span aria-hidden="true">↓</span>
-          </a>
+          <div className="rise-4 md:col-span-2">
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {roles.map((r, i) => (
+                <li key={r.id}>
+                  <a href={r.href} className="group flex h-full min-h-28 flex-col justify-between border border-white/15 bg-white/[.03] p-5 transition-colors hover:border-gold/70 hover:bg-white/[.06] md:p-6">
+                    <span className="mb-4 block text-xs font-semibold uppercase tracking-[.16em] text-goldl">
+                      {i === 0 ? 'Institutional leadership' : 'Enterprise leadership'}
+                    </span>
+                    <span className="block font-serif text-xl leading-snug text-white md:text-2xl">{r.title}</span>
+                    <span className="mt-2 block text-sm leading-relaxed text-[#b9c7b6]">{r.sub}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href="#work" className="mt-8 inline-flex items-center gap-3 text-sm font-semibold text-white underline decoration-gold decoration-2 underline-offset-8 hover:text-goldl">
+              Explore selected work <span aria-hidden="true">↓</span>
+            </a>
+          </div>
         </div>
       </div>
       <div className="zig" aria-hidden="true" />
