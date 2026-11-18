@@ -143,3 +143,26 @@ html.dark .card-lift:hover {
     transform: none;
   }
 }
+
+
+/* Evidence-field hero visual: quiet cartographic texture, no external assets. */
+.field-panel {
+  background-image: radial-gradient(circle at 76% 18%, rgba(210,179,101,.08), transparent 34%);
+}
+.field-contours {
+  max-height: 340px;
+}
+.field-orbit {
+  transform-origin: 264px 219px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .field-orbit {
+    animation: field-orbit 18s linear infinite;
+  }
+  @keyframes field-orbit {
+    to { transform: rotate(360deg); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .field-orbit { animation: none; }
+}
