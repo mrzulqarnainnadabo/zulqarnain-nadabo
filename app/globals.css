@@ -2,167 +2,94 @@
 @tailwind components;
 @tailwind utilities;
 
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: 2rem; }
+:root { --theme-duration: .25s; --theme-ease: cubic-bezier(.2,.7,.2,1); }
+body, header, section, article, footer, .bg-cream, .bg-bone, .bg-ink, .text-forest, .text-mute, .border-rule {
+  transition: background-color var(--theme-duration) var(--theme-ease), color var(--theme-duration) var(--theme-ease), border-color var(--theme-duration) var(--theme-ease);
+}
+body { @apply bg-cream text-[#1b1f1c] font-sans antialiased; }
+html.dark body { @apply bg-[#0c1914] text-[#e8efe6]; }
+html.dark .bg-bone { background-color: #13261e; }
+html.dark .bg-cream { background-color: #0c1914; }
+html.dark .text-forest { color: #e8efe6; }
+html.dark .text-mute { color: #9aaf9f; }
+html.dark .border-rule { border-color: #2a3f34; }
+html.dark .bg-ink { background-color: #0a1511; }
+:focus-visible { outline: 2px solid #d2b365; outline-offset: 4px; border-radius: 2px; }
 
-/* ============================================================
-   Theme transition system
-   Smooth colour changes when toggling light / dark.
-   Respects prefers-reduced-motion.
-   ============================================================ */
-
-/* Default transition timing for theme changes */
-:root {
-  --theme-duration: 0.35s;
-  --theme-ease: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --theme-duration: 0.01ms;
-  }
-}
-
-/* Core surfaces & text */
-body,
-.bg-cream,
-.bg-bone,
-.bg-ink,
-.text-forest,
-.text-mute,
-.border-rule,
-header,
-section,
-article,
-footer {
-  transition:
-    background-color var(--theme-duration) var(--theme-ease),
-    color var(--theme-duration) var(--theme-ease),
-    border-color var(--theme-duration) var(--theme-ease),
-    box-shadow var(--theme-duration) var(--theme-ease);
-}
-
-/* Light (default) */
-body {
-  @apply bg-cream text-[#1b1f1c] font-sans antialiased;
-}
-
-/* Dark mode overrides */
-html.dark body {
-  @apply bg-[#0c1914] text-[#e8efe6];
-}
-
-html.dark .bg-bone {
-  background-color: #13261e;
-}
-html.dark .bg-cream {
-  background-color: #0c1914;
-}
-html.dark .text-forest {
-  color: #e8efe6;
-}
-html.dark .text-mute {
-  color: #9aaf9f;
-}
-html.dark .border-rule {
-  border-color: #2a3f34;
-}
-html.dark .bg-ink {
-  background-color: #0a1511;
-}
-
-/* Cards get a slightly softer shadow transition in dark */
-html.dark .card-lift:hover {
-  box-shadow: 0 14px 40px -18px rgba(0, 0, 0, 0.55);
-}
-
-:focus-visible {
-  outline: 3px solid #d2b365;
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-/* Zigzag band: drawn from the border pattern of the traditional cap. Only decoration on the site. */
 .zig {
-  height: 10px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='10' viewBox='0 0 28 10'%3E%3Cpath d='M0 10L7 1l7 9 7-9 7 9' fill='none' stroke='%23a98a3d' stroke-width='1.3'/%3E%3C/svg%3E") repeat-x 0 0;
+  height: 8px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='8' viewBox='0 0 28 8'%3E%3Cpath d='M0 8L7 1l7 7 7-7 7 7' fill='none' stroke='%23a98a3d' stroke-width='1'/%3E%3C/svg%3E") repeat-x 0 0;
 }
 
-/* Purposeful motion system — transform + opacity only. Respects reduced motion. */
+.hero-nav { position: relative; z-index: 20; }
+.nav-link { text-underline-offset: 6px; transition: color .2s ease; }
+.nav-link:hover { color: #fff; text-decoration: underline; text-decoration-color: #d2b365; }
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 1.25rem; border-bottom: 1px solid #d2b365;
+  padding: 0 0 9px; color: #fff; font-size: .875rem; font-weight: 600;
+  transition: gap .25s ease, color .25s ease;
+}
+.hero-cta:hover { gap: 1.75rem; color: #d2b365; }
+.role-line { border-right: 1px solid rgba(255,255,255,.15); padding-right: 1.5rem; }
+.role-line + .role-line { padding-left: 1.5rem; border-right: 0; }
+.field-panel { background-color: #142b20; background-image: radial-gradient(circle at 76% 18%, rgba(210,179,101,.06), transparent 34%); }
+.field-contours { max-height: 340px; }
+.field-orbit { transform-origin: 264px 219px; }
 @media (prefers-reduced-motion: no-preference) {
-  .rise {
-    animation: rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-  .rise-2 { animation-delay: 0.1s; }
-  .rise-3 { animation-delay: 0.2s; }
-  .rise-4 { animation-delay: 0.3s; }
+  .field-orbit { animation: field-orbit 24s linear infinite; }
+  @keyframes field-orbit { to { transform: rotate(360deg); } }
+  .rise { animation: rise .7s cubic-bezier(.22,1,.36,1) both; }
+  .rise-2 { animation-delay: .08s; }
+  .rise-3 { animation-delay: .16s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .role-line, .repository-row, .work-item { transition: border-color .25s ease, background-color .25s ease, transform .3s cubic-bezier(.2,.7,.2,1); }
+  .work-item:hover { transform: translateY(-3px); }
+}
+.page-section { padding: 5.5rem 0; border-bottom: 1px solid #d8d1bd; }
+.page-section-last { border-bottom: 0; }
+.section-heading { align-self: start; }
+.section-content { min-width: 0; }
+.work-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 2.5rem; border-top: 1px solid #d8d1bd; }
+.work-item { padding: 2rem 0 2.25rem; border-bottom: 1px solid #d8d1bd; }
+.work-item-1, .work-item-4 { grid-column: span 2; }
+.work-item-1 { padding-right: 15%; }
+.work-item-4 { padding-left: 15%; }
+.project-notes summary::-webkit-details-marker { display: none; }
+.project-notes[open] summary { color: #173528; }
+.architecture-flow { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); border-top: 1px solid #d8d1bd; border-bottom: 1px solid #d8d1bd; }
+.architecture-step { position: relative; min-height: 180px; padding: 1.5rem 1rem 1.5rem 0; }
+.architecture-step + .architecture-step { border-left: 1px solid #d8d1bd; padding-left: 1.5rem; }
+.architecture-connector { position: absolute; right: 1rem; top: 1.5rem; color: #a98a3d; }
+.repository-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.15rem .25rem; border-bottom: 1px solid #d8d1bd; }
+.repository-row:hover { padding-left: .65rem; }
+.research-row { display: grid; grid-template-columns: 2rem minmax(0,1fr) auto; align-items: center; gap: 1rem; padding: 1.5rem .25rem; border-bottom: 1px solid #d8d1bd; }
+.principle-row { display: grid; grid-template-columns: 2rem minmax(9rem,.7fr) minmax(0,1fr); gap: 1rem; align-items: baseline; padding: 1rem .25rem; border-bottom: 1px solid #d8d1bd; }
+html.dark .page-section, html.dark .work-grid, html.dark .work-item, html.dark .architecture-flow, html.dark .architecture-step + .architecture-step, html.dark .repository-row, html.dark .research-row, html.dark .principle-row { border-color: #2a3f34; }
+html.dark .project-notes[open] summary { color: #e8efe6; }
 
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  /* Subtle card lift on hover — institutional, not playful */
-  .card-lift {
-    transition:
-      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.25s ease,
-      background-color var(--theme-duration) var(--theme-ease),
-      color var(--theme-duration) var(--theme-ease);
-  }
-  .card-lift:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 40px -18px rgba(15, 35, 25, 0.35);
-  }
-
-  /* Underline draw for CTAs */
-  .cta-underline {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 2px;
-    transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .cta-underline:hover,
-  .cta-underline:focus-visible {
-    background-size: 100% 2px;
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-reveal { animation: reveal-in both linear; animation-timeline: view(); animation-range: entry 0% entry 32%; }
+    @keyframes reveal-in { from { opacity: .35; transform: translateY(18px); } to { opacity: 1; transform: none; } }
   }
 }
-
-/* Fallback when motion is reduced */
-@media (prefers-reduced-motion: reduce) {
-  .rise, .rise-2, .rise-3, .rise-4 {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-  .card-lift {
-    transition: none;
-  }
-  .card-lift:hover {
-    transform: none;
-  }
-}
-
-
-/* Evidence-field hero visual: quiet cartographic texture, no external assets. */
-.field-panel {
-  background-image: radial-gradient(circle at 76% 18%, rgba(210,179,101,.08), transparent 34%);
-}
-.field-contours {
-  max-height: 340px;
-}
-.field-orbit {
-  transform-origin: 264px 219px;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .field-orbit {
-    animation: field-orbit 18s linear infinite;
-  }
-  @keyframes field-orbit {
-    to { transform: rotate(360deg); }
-  }
+@media (max-width: 767px) {
+  .page-section { padding: 3.75rem 0; }
+  .work-grid { grid-template-columns: 1fr; }
+  .work-item-1, .work-item-4 { grid-column: auto; padding-left: 0; padding-right: 0; }
+  .architecture-flow { grid-template-columns: 1fr; }
+  .architecture-step { min-height: auto; padding: 1.25rem 0; }
+  .architecture-step + .architecture-step { border-left: 0; border-top: 1px solid #d8d1bd; padding-left: 0; }
+  .architecture-connector { right: .5rem; top: 1.25rem; }
+  .research-row { grid-template-columns: 1.5rem minmax(0,1fr); }
+  .research-row > div:last-child { grid-column: 2; }
+  .principle-row { grid-template-columns: 1.5rem minmax(0,1fr); gap: .35rem .8rem; }
+  .principle-row p { grid-column: 2; }
+  .role-line { padding-right: .75rem; }
+  .role-line + .role-line { padding-left: .75rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .field-orbit { animation: none; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
