@@ -22,6 +22,7 @@ npm run build
 - `app/robots.js` and `app/sitemap.js` — search discovery.
 - `public/og.svg` — social preview image.
 - `docs/CLAIMS-TO-VERIFY.md` — claims requiring documentary confirmation.
+- `docs/SIGMA-GEO-RESEARCH-BRIEF.md` — evidence-bounded research concept brief for the current hackathon prototype.
 - `docs/GITHUB-PROFILE-README-DRAFT.md` — draft for the dedicated GitHub profile README repository.
 
 ## Editorial rules
