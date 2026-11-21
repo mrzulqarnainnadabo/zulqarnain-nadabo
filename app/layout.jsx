@@ -81,7 +81,7 @@ export const metadata = {
   },
   description,
   applicationName: 'Zulqarnain Yusuf Nadabo',
-  alternates: { canonical: '/' },
+  alternates: { canonical: `${url}/` },
   openGraph: {
     type: 'profile',
     url: `${url}/`,
