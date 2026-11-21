@@ -99,6 +99,12 @@ function FirstLineArtwork() {
 }
 
 function SigmaArtwork() {
+  const lenses = [
+    ['SOURCE', 'Provenance'],
+    ['LOCATION', 'Spatial fit'],
+    ['CONSISTENCY', 'Internal logic'],
+    ['CONFIDENCE', 'Evidence limits'],
+  ];
   return (
     <svg viewBox="0 0 600 260" className="project-svg sigma-diagram" aria-hidden="true">
       <defs>
@@ -107,25 +113,26 @@ function SigmaArtwork() {
         </pattern>
       </defs>
       <rect width="600" height="260" fill="url(#sigma-grid)" />
-      <g transform="translate(58 35)">
-        <path d="M0 0H300V178H0Z" fill="none" stroke="#d4b46d" strokeOpacity=".55" />
-        {Array.from({length:5},(_,i)=><path key={i} d={`M0 ${i*44}H300`} stroke="currentColor" strokeOpacity=".16" />)}
-        {Array.from({length:7},(_,i)=><path key={i} d={`M${i*50} 0V178`} stroke="currentColor" strokeOpacity=".16" />)}
-        <path className="sigma-trace" d="M0 140L48 126L96 130L146 72L194 89L244 38L300 50" fill="none" stroke="#d4b46d" strokeWidth="2.5" />
-        {[[0,140],[48,126],[96,130],[146,72],[194,89],[244,38],[300,50]].map(([x,y],i)=><circle key={i} cx={x} cy={y} r="4" fill="#d4b46d" />)}
-        <circle cx="146" cy="72" r="17" fill="none" stroke="#d4b46d" strokeDasharray="3 4" />
+      <g transform="translate(48 35)">
+        <path d="M0 0H270V178H0Z" fill="none" stroke="#d4b46d" strokeOpacity=".55" />
+        {Array.from({length:5},(_,i)=><path key={i} d={`M0 ${i*44}H270`} stroke="currentColor" strokeOpacity=".16" />)}
+        {Array.from({length:7},(_,i)=><path key={i} d={`M${i*45} 0V178`} stroke="currentColor" strokeOpacity=".16" />)}
+        <path className="sigma-trace" d="M0 140L43 126L88 130L132 72L177 89L222 38L270 50" fill="none" stroke="#d4b46d" strokeWidth="2.5" />
+        {[[0,140],[43,126],[88,130],[132,72],[177,89],[222,38],[270,50]].map(([x,y],i)=><circle key={i} cx={x} cy={y} r="4" fill="#d4b46d" />)}
+        <circle cx="132" cy="72" r="17" fill="none" stroke="#d4b46d" strokeDasharray="3 4" />
       </g>
-      <g transform="translate(408 53)">
-        <text x="0" y="0" fill="#d4b46d" fontSize="10" letterSpacing="2">EVALUATION</text>
-        {['SOURCE','LOCATION','CONSISTENCY','CONFIDENCE'].map((label,i)=>(
-          <g key={label} transform={`translate(0 ${30+i*37})`}>
-            <text x="0" y="0" fill="#e9e6dc" fontSize="9" letterSpacing="1.2">{label}</text>
-            <rect x="0" y="10" width="128" height="4" fill="#e9e6dc" fillOpacity=".16" />
-            <rect x="0" y="10" width={[92,68,108,54][i]} height="4" fill="#d4b46d" />
+      <g transform="translate(360 48)">
+        <text x="0" y="0" fill="#d4b46d" fontSize="10" letterSpacing="2">EVALUATION LENSES</text>
+        {lenses.map(([label,detail],i)=>(
+          <g key={label} transform={`translate(0 ${30+i*39})`}>
+            <circle cx="5" cy="3" r="4" fill="none" stroke="#d4b46d" />
+            <text x="19" y="1" fill="#e9e6dc" fontSize="9" letterSpacing="1.1">{label}</text>
+            <text x="19" y="16" fill="#aebbb0" fontSize="9">{detail}</text>
+            <path d="M0 25H184" stroke="currentColor" strokeOpacity=".16" />
           </g>
         ))}
       </g>
-      <text x="58" y="237" fill="#c2c9c0" fontSize="9" letterSpacing="2">SPATIAL EVIDENCE / MODEL TEST</text>
+      <text x="48" y="237" fill="#c2c9c0" fontSize="9" letterSpacing="2">ILLUSTRATIVE RESEARCH FRAMEWORK · NOT SCORES</text>
     </svg>
   );
 }
