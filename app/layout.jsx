@@ -7,6 +7,7 @@ const serif = Newsreader({
   style: ['normal', 'italic'],
   variable: '--font-serif',
   display: 'swap',
+  adjustFontFallback: false,
 });
 const sans = Hanken_Grotesk({
   subsets: ['latin'],
@@ -66,7 +67,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable}`} suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
-      <body>{children}</body>
+      <body>
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-cream focus:px-3 focus:py-2">Skip to content</a>
+        {children}
+      </body>
     </html>
   );
 }
