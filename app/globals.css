@@ -161,3 +161,104 @@ html.dark .theme-toggle { color: #e9e6dc; }
   html { scroll-behavior: auto; }
   *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+
+/* Motion language — restrained, spatial and accessible */
+.scroll-progress {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  pointer-events: none;
+  background: #d4b46d;
+  transform: scaleX(var(--page-progress, 0));
+  transform-origin: 0 50%;
+}
+.motion-ready [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+  will-change: opacity, transform;
+}
+.motion-ready [data-reveal="fade-left"] { transform: translate3d(28px, 0, 0); }
+.motion-ready [data-reveal].is-visible { opacity: 1; transform: none; }
+.portfolio-card:nth-child(2) { transition-delay: .08s; }
+.portfolio-card:nth-child(3) { transition-delay: .16s; }
+.portfolio-card:nth-child(4) { transition-delay: .24s; }
+.portfolio-card { transition: background-color .35s ease, transform .5s cubic-bezier(.2,.7,.2,1); }
+.portfolio-card:hover { transform: translateY(-4px); }
+.project-art { isolation: isolate; }
+.project-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .25;
+  background: radial-gradient(circle at 50% 50%, transparent 0 28%, currentColor 100%);
+  mask-image: linear-gradient(135deg, transparent 12%, #000 100%);
+}
+.project-svg { position: relative; z-index: 1; }
+.project-art-top, .project-stage { z-index: 2; }
+.project-art .draw-path path,
+.field-network path {
+  stroke-dasharray: 1400 1400;
+  stroke-dashoffset: 1400;
+}
+.is-visible .draw-path path,
+.is-visible .field-network path {
+  animation: trace-system 2.2s cubic-bezier(.4,0,.2,1) forwards;
+}
+.project-art .contour-drift { transform-origin: center; }
+.is-visible .contour-drift { animation: contour-shift 16s ease-in-out infinite alternate; }
+.field-contour-lines { animation: contour-shift 24s ease-in-out infinite alternate; transform-origin: center; }
+.field-orbit { stroke-dasharray: 4 7; }
+.is-visible .field-orbit { animation: orbit 28s linear infinite, orbit-breathe 5s ease-in-out infinite alternate; }
+.field-panel { box-shadow: 0 30px 90px rgba(0,0,0,.12); }
+.field-panel::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 25%, rgba(212,180,109,.08) 50%, transparent 75%);
+  transform: translateX(-100%);
+}
+.is-visible .field-panel::before { animation: field-scan 8s ease-in-out 1s infinite; }
+.project-copy > a { transition: color .25s ease; }
+.project-copy > a:hover { color: #9a7432; }
+.contact-panel { position: relative; overflow: hidden; }
+.contact-panel::after {
+  content: "Z";
+  position: absolute;
+  right: 4%;
+  top: -34%;
+  pointer-events: none;
+  color: rgba(241,238,229,.045);
+  font-family: var(--serif),serif;
+  font-size: clamp(18rem,42vw,38rem);
+  line-height: 1;
+}
+.contact-panel > * { position: relative; z-index: 1; }
+.profile-facts div { transition: transform .35s ease; }
+.profile-facts div:hover { transform: translateY(-4px); }
+@keyframes trace-system { to { stroke-dashoffset: 0; } }
+@keyframes contour-shift { from { transform: translate3d(-5px, 2px, 0); } to { transform: translate3d(7px, -3px, 0); } }
+@keyframes orbit-breathe { from { opacity: .35; } to { opacity: .95; } }
+@keyframes field-scan { 0%, 15% { transform: translateX(-100%); } 65%, 100% { transform: translateX(100%); } }
+@media (hover: hover) and (pointer: fine) {
+  .hero-art { perspective: 1100px; }
+  .field-panel { transition: transform .7s cubic-bezier(.2,.7,.2,1), border-color .4s ease; }
+  .field-panel:hover { transform: rotateY(-2deg) rotateX(1deg) translateY(-3px); border-color: rgba(212,180,109,.5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { display: none; }
+  .motion-ready [data-reveal] { opacity: 1; transform: none; }
+  .field-contour-lines, .is-visible .contour-drift, .is-visible .field-orbit,
+  .is-visible .field-panel::before, .is-visible .draw-path path, .is-visible .field-network path {
+    animation: none !important;
+  }
+  .project-art .draw-path path, .field-network path { stroke-dasharray: none; stroke-dashoffset: 0; }
+}
