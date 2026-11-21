@@ -266,3 +266,66 @@ html.dark .theme-toggle { color: #e9e6dc; }
 .profile-copy { min-width: 0; }
 .profile-bio { max-width: 54ch; margin: 1.25rem 0 0; color: var(--ink-soft); font-size: clamp(.94rem,1.3vw,1.05rem); line-height: 1.75; }
 .field-panel > * { position: relative; z-index: 1; }
+
+
+/* Project identities — each study has its own visual grammar */
+.portfolio-card-observatory .project-art { background: #e4e6dc; }
+.portfolio-card-observatory .project-svg { filter: saturate(.86); }
+.portfolio-card-firstline .project-art { background: #d7e0d2; }
+.portfolio-card-sigma-geo .project-art { background: #252e29; }
+.portfolio-card-civic .project-art { background: #173528; }
+.portfolio-card-observatory .project-stage { color: #354c3e; }
+.portfolio-card-firstline .project-stage { color: #173528; }
+.portfolio-card-sigma-geo .project-stage { color: #e9e6dc; }
+.project-art { isolation: isolate; }
+.project-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .28;
+  background: linear-gradient(115deg, transparent 0 48%, rgba(255,255,255,.18) 49%, transparent 51%);
+  transform: translateX(-100%);
+}
+.portfolio-card:hover .project-art::before { animation: project-sheen 1.1s ease both; }
+.project-art-top { max-width: 100%; }
+.project-art-top span:last-child { text-align: right; }
+.project-svg { flex: 1 1 auto; min-height: 0; }
+.project-svg text { user-select: none; }
+.diagram-lines path, .firstline-flow, .sigma-trace { stroke-dasharray: 800; stroke-dashoffset: 800; }
+.is-visible .diagram-lines path,
+.is-visible .firstline-flow,
+.is-visible .sigma-trace { animation: trace-system 2s cubic-bezier(.4,0,.2,1) forwards; }
+.is-visible .map-contours { animation: contour-shift 18s ease-in-out infinite alternate; transform-origin: center; }
+.project-copy { min-height: 185px; }
+.portfolio-card-1 .project-copy { min-height: 265px; }
+.project-copy > div { min-width: 0; }
+.project-copy > a { display: inline-flex; align-items: center; gap: .2rem; padding-bottom: .35rem; border-bottom: 1px solid var(--line); }
+.project-copy > a span { margin-left: .25rem; }
+@keyframes project-sheen { to { transform: translateX(100%); } }
+
+@media (min-width: 901px) {
+  .portfolio-card-2 { display: grid; grid-template-rows: minmax(250px, 1fr) auto; }
+  .portfolio-card-3 { display: grid; grid-template-columns: 1.05fr .95fr; grid-column: 1 / -1; }
+  .portfolio-card-3 .project-art { min-height: 280px; }
+  .portfolio-card-3 .project-copy { min-height: 280px; flex-direction: column; align-items: flex-start; justify-content: center; padding-inline: clamp(1.5rem,4vw,4rem); }
+  .portfolio-card-4 { display: grid; grid-template-rows: minmax(250px, 1fr) auto; }
+  .portfolio-card-4 .project-art { background-image: linear-gradient(145deg,rgba(255,255,255,.025),transparent 65%); }
+}
+@media (max-width: 900px) {
+  .portfolio-card-3 { grid-column: auto; }
+  .portfolio-card-3 .project-copy { min-height: 0; }
+}
+@media (max-width: 640px) {
+  .project-copy, .portfolio-card-1 .project-copy, .portfolio-card-3 .project-copy { min-height: 0; }
+  .project-art { padding: .9rem; }
+  .project-art-top { font-size: .56rem; }
+  .project-svg { height: 145px; }
+  .portfolio-card-3 { display: flex; flex-direction: column; }
+  .portfolio-card-3 .project-art { min-height: 225px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-art::before { display: none; }
+  .diagram-lines path, .firstline-flow, .sigma-trace { stroke-dasharray: none; stroke-dashoffset: 0; }
+}
