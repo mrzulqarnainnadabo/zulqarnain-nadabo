@@ -12,6 +12,5 @@ export default function robots() {
       { userAgent: 'PerplexityBot', allow: '/' },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl,
   };
 }
