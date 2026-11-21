@@ -16,7 +16,6 @@ export default function Hero() {
           <div className="hero-nav-right">
             <a href="#work">Work</a>
             <a href="#approach">About</a>
-            <a href="#journal">Journal</a>
             <a href="#contact">Contact</a>
             <ThemeToggle />
           </div>
