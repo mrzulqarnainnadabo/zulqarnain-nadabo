@@ -2,7 +2,7 @@ import Section from './Section';
 import { contact } from '@/lib/content';
 
 export default function Contact() {
-  const [professional, ...institutional] = contact.links;
+  const [professional, ...otherLinks] = contact.links;
 
   return (
     <Section id="contact" title="Professional contact" kicker="A clear route for the right conversation" last>
@@ -25,7 +25,7 @@ export default function Contact() {
       </div>
 
       <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
-        {institutional.map(([key, label, href]) => (
+        {otherLinks.map(([key, label, href]) => (
           <a key={key} href={href} target="_blank" rel="noreferrer" className="font-medium text-forest underline decoration-gold underline-offset-4 hover:text-black">
             {key}: {label} ↗
           </a>
