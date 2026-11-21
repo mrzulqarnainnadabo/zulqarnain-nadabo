@@ -125,3 +125,18 @@ body { background: var(--paper); }
  .drawing-route { stroke-dasharray:none; stroke-dashoffset:0; }
  .is-visible .drawing-route { animation:none; }
 }
+/* Dark theme keeps the same hierarchy without sacrificing contrast */
+html.dark body { background:#101b16; color:#e9e6dc; }
+html.dark .portfolio-section { color:#e9e6dc; }
+html.dark .work-heading h2, html.dark .entry-title-row h3, html.dark .method-row h3 { color:#e9e6dc; }
+html.dark .work-heading > p, html.dark .entry-question, html.dark .entry-side p, html.dark .entry-stage,
+html.dark .entry-index i, html.dark .work-footnote, html.dark .strip-step, html.dark .method-intro > p:last-child,
+html.dark .method-row p, html.dark .profile-footnote { color:#a9b5aa; }
+html.dark .work-heading, html.dark .work-ledger, html.dark .work-entry { border-color:rgba(233,230,220,.2); }
+html.dark .strip-track { background:rgba(233,230,220,.25); }
+html.dark .strip-line { background:#c49b51; }
+html.dark .entry-side a { color:#e9e6dc; border-color:#c49b51; }
+html.dark .profile-band { background:#17271f; }
+html.dark .method-intro h2 { color:#e9e6dc; }
+html.dark .method-list, html.dark .method-row { border-color:rgba(233,230,220,.2); }
+html.dark .method-intro h2 em, html.dark .work-heading h2 em { color:#d4b16b; }
