@@ -166,6 +166,7 @@ html.dark .card-lift:hover {
   pointer-events: none;
   background-image: linear-gradient(rgba(210,179,101,.35) 1px, transparent 1px), linear-gradient(90deg, rgba(210,179,101,.35) 1px, transparent 1px);
   background-size: 44px 44px;
+  -webkit-mask-image: linear-gradient(to left, black, transparent);
   mask-image: linear-gradient(to left, black, transparent);
 }
 .nav-links { scrollbar-width: none; }
