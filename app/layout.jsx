@@ -28,7 +28,7 @@ const structuredData = {
       '@type': 'Person',
       '@id': personId,
       name: 'Zulqarnain Yusuf Nadabo',
-      url: `${url}/`,
+      url: url,
       jobTitle: 'Institutional Architect & Digital Systems Strategist',
       description: 'Institutional architect and digital systems strategist working across civic information systems, enterprise tools and evidence-led development in Nigeria. National President of ISEYC and Managing Director of Hubil Group.',
       address: {
@@ -56,7 +56,7 @@ const structuredData = {
     {
       '@type': 'WebSite',
       '@id': `${url}/#website`,
-      url: `${url}/`,
+      url: url,
       name: 'Zulqarnain Yusuf Nadabo',
       description,
       inLanguage: 'en',
@@ -65,7 +65,7 @@ const structuredData = {
     {
       '@type': 'ProfilePage',
       '@id': `${url}/#profile`,
-      url: `${url}/`,
+      url: url,
       name: title,
       mainEntity: { '@id': personId },
       isPartOf: { '@id': `${url}/#website` },
@@ -81,10 +81,10 @@ export const metadata = {
   },
   description,
   applicationName: 'Zulqarnain Yusuf Nadabo',
-  alternates: { canonical: `${url}/` },
+  alternates: { canonical: url },
   openGraph: {
     type: 'profile',
-    url: `${url}/`,
+    url: url,
     title,
     description,
     siteName: 'Zulqarnain Yusuf Nadabo',
