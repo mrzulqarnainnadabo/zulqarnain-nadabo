@@ -177,7 +177,7 @@ export default function CaseStudies() {
                 <h3>{project.title}</h3>
                 <p>{project.summary}</p>
               </div>
-              <a href={project.links[0].href} target="_blank" rel="noreferrer" aria-label={`Explore ${project.title}`}>
+              <a href={project.links[0].href} target="_blank" rel="noreferrer" aria-label={`${project.links[0].label}: ${project.title}`}>
                 {project.links[0].label} <span aria-hidden="true">↗</span>
               </a>
             </div>
