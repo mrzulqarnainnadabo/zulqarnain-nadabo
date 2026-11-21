@@ -36,7 +36,6 @@ export default function ImpactProfile() {
             <div className="mt-6 border-t border-rule pt-5">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold">Academic background</p>
               <p className="mt-2 text-[15px] leading-relaxed text-forest">Geography and Sustainability Studies</p>
-              <p className="mt-1 text-sm leading-relaxed text-mute">Qualification and award details are being verified before a formal degree designation is published.</p>
             </div>
           </div>
         </div>
