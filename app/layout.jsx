@@ -19,7 +19,7 @@ const sans = Hanken_Grotesk({
 
 const url = 'https://zulqarnain-nadabo.vercel.app';
 const title = 'Zulqarnain Nadabo | Systems Architect';
-const description = 'Systems architect working across research, spatial intelligence, institutional design and digital systems. Explore selected projects and ways of thinking.';
+const description = 'An independent systems thinker exploring spatial intelligence, research and digital systems through visual experiments and selected projects.';
 const personId = `${url}/#person`;
 
 const structuredData = {
@@ -31,7 +31,7 @@ const structuredData = {
       name: 'Zulqarnain Yusuf Nadabo',
       url: url,
       jobTitle: 'Systems Architect',
-      description: 'Systems architect working across research, spatial intelligence, institutional design and digital technology.',
+      description: 'An independent systems thinker exploring spatial intelligence, research and digital systems.',
       address: {
         '@type': 'PostalAddress',
         addressCountry: 'NG',
