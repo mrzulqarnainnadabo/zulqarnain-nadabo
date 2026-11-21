@@ -27,6 +27,7 @@ export default function MotionSystem() {
         window.removeEventListener('scroll', updateProgress);
         window.removeEventListener('resize', updateProgress);
         root.classList.remove('motion-ready');
+        root.style.removeProperty('--page-progress');
       };
     }
 
