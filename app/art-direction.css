@@ -469,3 +469,25 @@ html.dark .atlas-method { background:#20233b; }
 html.dark .atlas-method-heading h2,html.dark .atlas-process-step h3 { color:#f2f0ec; }
 html.dark .atlas-method-heading .eyebrow,html.dark .atlas-process-number,html.dark .atlas-process-step p,html.dark .atlas-method-note { color:#b8bdd8; }
 html.dark .atlas-process-dot { background:#20233b; }
+
+
+/* Interactive NASA-textured 3D Earth */
+.earth-experience { position:relative; isolation:isolate; overflow:hidden; min-height:clamp(390px,48vw,650px); background:radial-gradient(ellipse at 50% 52%,#111b42 0%,#080d20 54%,#050812 100%); border:1px solid rgba(133,151,222,.16); border-radius:2px; }
+.earth-experience::before { content:""; position:absolute; inset:0; z-index:0; pointer-events:none; background:radial-gradient(ellipse at 50% 50%,transparent 30%,rgba(2,5,16,.42) 100%); }
+.earth-experience .earth-webgl { position:absolute; inset:0; z-index:1; width:100%; height:100%; outline:none; cursor:grab; touch-action:pan-y; }
+.earth-experience .earth-webgl:active { cursor:grabbing; }
+.earth-topline,.earth-bottomline { position:absolute; z-index:3; left:1.1rem; right:1.1rem; display:flex; justify-content:space-between; gap:.6rem; color:rgba(219,226,255,.65); font-size:.53rem; letter-spacing:.13em; pointer-events:none; }
+.earth-topline { top:1rem; }
+.earth-bottomline { bottom:1rem; }
+.earth-loader { position:absolute; z-index:2; left:50%; top:50%; transform:translate(-50%,-50%); color:rgba(226,232,255,.6); font-size:.65rem; letter-spacing:.1em; white-space:nowrap; pointer-events:none; }
+.earth-experience:has(.earth-webgl) .earth-loader { display:none; }
+.earth-controls { position:absolute; z-index:4; right:1rem; bottom:3.2rem; display:flex; flex-direction:column; gap:.35rem; }
+.earth-controls button { width:34px; height:34px; border:1px solid rgba(193,205,255,.28); border-radius:50%; background:rgba(9,16,42,.58); color:#e7ebff; font-size:1rem; cursor:pointer; backdrop-filter:blur(10px); transition:background .2s,border-color .2s,transform .2s; }
+.earth-controls button:hover { background:rgba(72,94,174,.5); border-color:rgba(220,228,255,.7); transform:scale(1.06); }
+.earth-source { position:absolute; z-index:4; bottom:3rem; left:1rem; color:#dce4ff; font-size:.6rem; }
+@media(max-width:640px) {
+ .earth-experience { min-height:390px; }
+ .earth-topline,.earth-bottomline { left:.75rem; right:.75rem; font-size:.43rem; letter-spacing:.08em; }
+ .earth-controls { right:.65rem; bottom:2.8rem; }
+}
+@media(prefers-reduced-motion:reduce) { .earth-experience .earth-webgl { cursor:grab; } }
