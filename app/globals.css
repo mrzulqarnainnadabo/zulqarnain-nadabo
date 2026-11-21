@@ -272,11 +272,11 @@ html.dark .theme-toggle { color: #e9e6dc; }
 .portfolio-card-observatory .project-art { background: #e4e6dc; }
 .portfolio-card-observatory .project-svg { filter: saturate(.86); }
 .portfolio-card-firstline .project-art { background: #d7e0d2; }
-.portfolio-card-sigma-geo .project-art { background: #252e29; }
+.portfolio-card-sigma .project-art { background: #252e29; }
 .portfolio-card-civic .project-art { background: #173528; }
 .portfolio-card-observatory .project-stage { color: #354c3e; }
 .portfolio-card-firstline .project-stage { color: #173528; }
-.portfolio-card-sigma-geo .project-stage { color: #e9e6dc; }
+.portfolio-card-sigma .project-stage { color: #e9e6dc; }
 .project-art { isolation: isolate; }
 .project-art::before {
   content: "";
