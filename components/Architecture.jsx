@@ -12,17 +12,12 @@ export default function Architecture() {
         >
           {architecture.flow.map((step, i) => (
             <li key={step} className="flex min-w-0 items-center">
-              <div className="flex min-h-[112px] min-w-0 flex-col justify-center border border-rule bg-bone px-4 py-4 text-left sm:min-h-[132px] sm:px-5">
+              <div className="flex min-h-[112px] w-full min-w-0 flex-col justify-center border border-rule bg-bone px-4 py-4 text-left sm:min-h-[132px] sm:px-5">
                 <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.14em] text-gold">
                   Layer {i + 1}
                 </span>
                 <span className="leading-snug">{step}</span>
               </div>
-              {i < architecture.flow.length - 1 && (
-                <div aria-hidden="true" className="hidden">
-                  <span className="block h-px w-6 bg-gold md:w-8" />
-                </div>
-              )}
             </li>
           ))}
         </ol>
