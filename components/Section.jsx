@@ -1,7 +1,7 @@
 /** Shared layout: title column on the left, content on the right (stacked on phones). */
 export default function Section({ id, title, kicker, children, last }) {
   return (
-    <section id={id} aria-labelledby={`${id}-h`} className={`py-16 md:py-24 ${last ? '' : 'border-b border-rule'}`}>
+    <section id={id} aria-labelledby={`${id}-h`} className={`section-block py-14 md:py-20 ${last ? '' : 'border-b border-rule'}`}>
       <div className="grid gap-5 md:grid-cols-[220px_1fr] md:gap-14">
         <h2 id={`${id}-h`} className="font-serif text-3xl font-normal leading-tight text-forest">
           {title}
