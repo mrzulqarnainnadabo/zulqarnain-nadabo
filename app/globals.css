@@ -307,15 +307,16 @@ html.dark .theme-toggle { color: #e9e6dc; }
 
 @media (min-width: 901px) {
   .portfolio-card-2 { display: grid; grid-template-rows: minmax(250px, 1fr) auto; }
-  .portfolio-card-3 { display: grid; grid-template-columns: 1.05fr .95fr; grid-column: 1 / -1; }
-  .portfolio-card-3 .project-art { min-height: 280px; }
-  .portfolio-card-3 .project-copy { min-height: 280px; flex-direction: column; align-items: flex-start; justify-content: center; padding-inline: clamp(1.5rem,4vw,4rem); }
-  .portfolio-card-4 { display: grid; grid-template-rows: minmax(250px, 1fr) auto; }
-  .portfolio-card-4 .project-art { background-image: linear-gradient(145deg,rgba(255,255,255,.025),transparent 65%); }
+  .portfolio-card-3 { display: grid; grid-template-rows: minmax(250px, 1fr) auto; }
+  .portfolio-card-3 .project-art { min-height: 250px; }
+  .portfolio-card-3 .project-copy { min-height: 185px; }
+  .portfolio-card-4 { display: grid; grid-column: 1 / -1; grid-template-columns: 1.1fr .9fr; }
+  .portfolio-card-4 .project-art { min-height: 280px; background-image: linear-gradient(145deg,rgba(255,255,255,.025),transparent 65%); }
+  .portfolio-card-4 .project-copy { min-height: 280px; flex-direction: column; align-items: flex-start; justify-content: center; padding-inline: clamp(1.5rem,4vw,4rem); }
 }
 @media (max-width: 900px) {
-  .portfolio-card-3 { grid-column: auto; }
-  .portfolio-card-3 .project-copy { min-height: 0; }
+  .portfolio-card-3, .portfolio-card-4 { grid-column: auto; }
+  .portfolio-card-3 .project-copy, .portfolio-card-4 .project-copy { min-height: 0; }
 }
 @media (max-width: 640px) {
   .project-copy, .portfolio-card-1 .project-copy, .portfolio-card-3 .project-copy { min-height: 0; }
@@ -324,6 +325,8 @@ html.dark .theme-toggle { color: #e9e6dc; }
   .project-svg { height: 145px; }
   .portfolio-card-3 { display: flex; flex-direction: column; }
   .portfolio-card-3 .project-art { min-height: 225px; }
+  .portfolio-card-4 { display: flex; flex-direction: column; }
+  .portfolio-card-4 .project-art { min-height: 225px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .project-art::before { display: none; }
