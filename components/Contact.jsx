@@ -3,7 +3,7 @@ import { contact } from '@/lib/content';
 export default function Contact() {
   const [professional, ...otherLinks] = contact.links;
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="contact-panel">
+    <section id="contact" aria-labelledby="contact-heading" className="contact-panel" data-reveal="rise">
       <div>
         <p className="eyebrow">The next conversation</p>
         <h2 id="contact-heading">Have a meaningful problem to solve?</h2>
