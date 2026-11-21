@@ -6,6 +6,11 @@ export default function ImpactProfile() {
       <div className="profile-statement">
         <p className="eyebrow">The point of view</p>
         <h2 id="profile-heading">Build the system around the work.</h2>
+        <p className="profile-bio">
+          Zulqarnain Yusuf Nadabo works across civic leadership, enterprise systems and geographical research.
+          His approach is to turn complex institutional problems into practical structures, then make the evidence,
+          responsibility and limits clear.
+        </p>
       </div>
       <div className="profile-facts">
         <div><span>01 / Civic</span><strong>National President, ISEYC</strong></div>

@@ -18,7 +18,60 @@ const sans = Hanken_Grotesk({
 
 const url = 'https://zulqarnain-nadabo.vercel.app';
 const title = 'Zulqarnain Yusuf Nadabo | Institutional Architect & Digital Systems Strategist';
-const description = 'Institutional architecture, digital systems and evidence-led development. Selected civic, enterprise and research work from Nigeria.';
+const description = 'Zulqarnain Yusuf Nadabo builds civic information systems, enterprise tools and evidence-led institutional infrastructure in Nigeria. Explore selected work and professional background.';
+const personId = `${url}/#person`;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: 'Zulqarnain Yusuf Nadabo',
+      url: `${url}/`,
+      jobTitle: 'Institutional Architect & Digital Systems Strategist',
+      description: 'Institutional architect and digital systems strategist working across civic information systems, enterprise tools and evidence-led development in Nigeria. National President of ISEYC and Managing Director of Hubil Group.',
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'NG',
+      },
+      sameAs: [
+        'https://www.linkedin.com/in/amb-zulqarnain-yusuf-9b04b0124/',
+        'https://github.com/mrzulqarnainnadabo',
+        'https://x.com/nain_nadabo',
+      ],
+      knowsAbout: [
+        'Institutional architecture',
+        'Digital systems strategy',
+        'Civic intelligence',
+        'Geographical information',
+        'Sustainability studies',
+        'Evidence-led development',
+      ],
+      affiliation: [
+        { '@type': 'Organization', name: 'Initiative for Sustainable Evolution for Youth and Community (ISEYC)' },
+        { '@type': 'Organization', name: 'Hubil Group' },
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${url}/#website`,
+      url: `${url}/`,
+      name: 'Zulqarnain Yusuf Nadabo',
+      description,
+      inLanguage: 'en',
+      publisher: { '@id': personId },
+    },
+    {
+      '@type': 'ProfilePage',
+      '@id': `${url}/#profile`,
+      url: `${url}/`,
+      name: title,
+      mainEntity: { '@id': personId },
+      isPartOf: { '@id': `${url}/#website` },
+    },
+  ],
+};
 
 export const metadata = {
   metadataBase: new URL(url),
@@ -31,11 +84,11 @@ export const metadata = {
   alternates: { canonical: '/' },
   openGraph: {
     type: 'profile',
-    url,
+    url: `${url}/`,
     title,
     description,
     siteName: 'Zulqarnain Yusuf Nadabo',
-    images: [{ url: '/og.svg', width: 1200, height: 630, alt: 'Zulqarnain Yusuf Nadabo — Institutional Architect & Digital Systems Strategist' }],
+    images: [{ url: '/og.svg', width: 1200, height: 630, alt: 'Zulqarnain Yusuf Nadabo, Institutional Architect and Digital Systems Strategist' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -66,7 +119,10 @@ const themeScript = `
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable}`} suppressHydrationWarning>
-      <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
+      </head>
       <body>
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-cream focus:px-3 focus:py-2">Skip to content</a>
         {children}
