@@ -17,8 +17,8 @@ const sans = Hanken_Grotesk({
 });
 
 const url = 'https://zulqarnain-nadabo.vercel.app';
-const title = 'Zulqarnain Yusuf Nadabo | Institutional Architect & Digital Systems Strategist';
-const description = 'Zulqarnain Yusuf Nadabo builds civic information systems, enterprise tools and evidence-led institutional infrastructure in Nigeria. Explore selected work and professional background.';
+const title = 'Zulqarnain Nadabo | Institutional Architect & Digital Strategist';
+const description = 'Institutional architect and digital systems strategist in Nigeria. Explore Zulqarnain Nadabo’s civic intelligence, enterprise systems and spatial research work.';
 const personId = `${url}/#person`;
 
 const structuredData = {
