@@ -155,26 +155,19 @@ html.dark .card-lift:hover {
 ::selection { background: #d2b365; color: #0f2319; }
 
 .hero-shell { isolation: isolate; }
-.hero-orbit {
+.hero-grid-mark {
   position: absolute;
   z-index: -1;
-  width: min(66vw, 760px);
-  aspect-ratio: 1;
-  right: -18%;
-  top: 8%;
-  border: 1px solid rgba(210,179,101,.12);
-  border-radius: 50%;
+  top: 12%;
+  right: -2rem;
+  width: min(34vw, 440px);
+  height: 68%;
+  opacity: .12;
   pointer-events: none;
+  background-image: linear-gradient(rgba(210,179,101,.35) 1px, transparent 1px), linear-gradient(90deg, rgba(210,179,101,.35) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(to left, black, transparent);
 }
-.hero-orbit::before,
-.hero-orbit::after {
-  content: "";
-  position: absolute;
-  inset: 9%;
-  border: 1px solid rgba(210,179,101,.09);
-  border-radius: 50%;
-}
-.hero-orbit::after { inset: 21%; }
 .nav-links { scrollbar-width: none; }
 .nav-links::-webkit-scrollbar { display: none; }
 
@@ -193,10 +186,3 @@ a:focus-visible, button:focus-visible {
   .hero-index { margin-top: .25rem; }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .hero-orbit { animation: orbit-drift 22s ease-in-out infinite alternate; }
-  @keyframes orbit-drift {
-    from { transform: translate3d(0, 0, 0) scale(1); }
-    to { transform: translate3d(-2%, 2%, 0) scale(1.035); }
-  }
-}
