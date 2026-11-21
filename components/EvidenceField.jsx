@@ -2,13 +2,13 @@ export default function EvidenceField() {
   return (
     <figure className="field-panel relative isolate overflow-hidden border border-white/15 bg-[#142b20] px-5 pb-5 pt-4 md:px-6 md:pb-6">
       <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-3 text-[10px] font-semibold uppercase tracking-[.18em] text-[#b9c7b6]">
-        <span>Evidence field / 01</span>
-        <span className="text-goldl">Nigeria · 2026</span>
+        <span>Evidence framework / 01</span>
+        <span className="text-goldl">Conceptual model</span>
       </div>
 
       <svg className="field-contours mt-2 block w-full" viewBox="0 0 520 350" role="img" aria-labelledby="field-title field-desc">
-        <title id="field-title">Evidence field diagram</title>
-        <desc id="field-desc">An abstract topographic field connecting place, source, time and review.</desc>
+        <title id="field-title">Evidence framework diagram</title>
+        <desc id="field-desc">An abstract topographic field connecting place, source, time, context and review. This is a conceptual illustration, not a geographic dataset or map.</desc>
         <defs>
           <pattern id="field-grid" width="26" height="26" patternUnits="userSpaceOnUse">
             <path d="M26 0H0V26" fill="none" stroke="#d2b365" strokeOpacity=".12" strokeWidth=".7" />
