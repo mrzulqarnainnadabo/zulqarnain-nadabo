@@ -143,3 +143,60 @@ html.dark .card-lift:hover {
     transform: none;
   }
 }
+
+
+/* Portfolio design system: quiet structure, deliberate type and low-cost motion. */
+:root {
+  --page-gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --content-width: 72rem;
+  --focus-ring: #d2b365;
+}
+
+::selection { background: #d2b365; color: #0f2319; }
+
+.hero-shell { isolation: isolate; }
+.hero-orbit {
+  position: absolute;
+  z-index: -1;
+  width: min(66vw, 760px);
+  aspect-ratio: 1;
+  right: -18%;
+  top: 8%;
+  border: 1px solid rgba(210,179,101,.12);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-orbit::before,
+.hero-orbit::after {
+  content: "";
+  position: absolute;
+  inset: 9%;
+  border: 1px solid rgba(210,179,101,.09);
+  border-radius: 50%;
+}
+.hero-orbit::after { inset: 21%; }
+.nav-links { scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+
+.section-block { scroll-margin-top: 1.5rem; }
+.section-block h2 { text-wrap: balance; }
+.section-block p { text-wrap: pretty; }
+
+a, button { -webkit-tap-highlight-color: transparent; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+@media (max-width: 420px) {
+  .nav-links { gap: .7rem; }
+  .hero-index { margin-top: .25rem; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-orbit { animation: orbit-drift 22s ease-in-out infinite alternate; }
+  @keyframes orbit-drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(-2%, 2%, 0) scale(1.035); }
+  }
+}
