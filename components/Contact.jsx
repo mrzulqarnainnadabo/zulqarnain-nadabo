@@ -2,25 +2,35 @@ import Section from './Section';
 import { contact } from '@/lib/content';
 
 export default function Contact() {
+  const [professional, ...institutional] = contact.links;
+
   return (
-    <Section id="contact" title="Professional contact" kicker="Institutional and project enquiries" last>
-      <p className="mb-5 max-w-xl text-[15px] leading-relaxed text-mute">
-        For institutional collaboration and project enquiries, use the channels below.
-      </p>
-      <a href={`mailto:${contact.email}`} className="mb-8 inline-block break-all font-serif text-[clamp(1.6rem,6vw,2.7rem)] font-light text-forest underline decoration-gold underline-offset-8 hover:text-black">
-        {contact.email}
-      </a>
-      <dl className="grid grid-cols-[110px_1fr] border-b border-rule md:grid-cols-[150px_1fr]">
-        {contact.links.map(([key, label, href]) => (
-          <div key={key} className="contents">
-            <dt className="border-t border-rule py-3 text-[15px] text-mute">{key}</dt>
-            <dd className="border-t border-rule py-3 [overflow-wrap:anywhere]">
-              <a href={href} target="_blank" rel="noreferrer" className="font-medium text-forest underline decoration-gold underline-offset-4 hover:text-black">{label}</a>
-            </dd>
-          </div>
+    <Section id="contact" title="Professional contact" kicker="A clear route for the right conversation" last>
+      <div className="grid gap-8 border-y border-rule py-6 sm:grid-cols-2 sm:gap-12">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold">Professional enquiries</p>
+          <a href={professional[2]} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-3 font-serif text-2xl text-forest underline decoration-gold decoration-2 underline-offset-8 hover:text-black">
+            LinkedIn profile <span aria-hidden="true" className="text-sm">↗</span>
+          </a>
+          <p className="mt-4 max-w-[32ch] text-sm leading-relaxed text-mute">For professional introductions, research conversations and collaboration enquiries.</p>
+        </div>
+
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold">Institutional correspondence</p>
+          <a href={`mailto:${contact.email}`} className="mt-3 inline-block break-all font-serif text-xl text-forest underline decoration-gold underline-offset-8 hover:text-black">
+            {contact.email}
+          </a>
+          <p className="mt-4 max-w-[32ch] text-sm leading-relaxed text-mute">This is the ISEYC institutional email address, not a personal mailbox.</p>
+        </div>
+      </div>
+
+      <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+        {institutional.map(([key, label, href]) => (
+          <a key={key} href={href} target="_blank" rel="noreferrer" className="font-medium text-forest underline decoration-gold underline-offset-4 hover:text-black">
+            {key}: {label} ↗
+          </a>
         ))}
-      </dl>
-      <p className="mt-4 text-xs leading-relaxed text-mute">The email address above is an ISEYC institutional contact, not a personal mailbox.</p>
+      </div>
     </Section>
   );
 }
