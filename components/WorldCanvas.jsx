@@ -39,7 +39,7 @@ export default function WorldCanvas() {
 
     const draw=(time=0)=>{
       ctx.clearRect(0,0,width,height);
-      const compact=width<560, radius=Math.min(width*(compact?.43:.39),height*.43),cx=width*.51,cy=height*.51,t=time*.00012;
+      const compact=width<560, radius=Math.min(width*(compact ? .43 : .39),height*.43),cx=width*.51,cy=height*.51,t=time*.00012;
       const halo=ctx.createRadialGradient(cx,cy,radius*.7,cx,cy,radius*1.55);
       halo.addColorStop(0,'rgba(94,112,255,.13)');halo.addColorStop(.58,'rgba(94,112,255,.045)');halo.addColorStop(1,'rgba(94,112,255,0)');
       ctx.fillStyle=halo;ctx.fillRect(0,0,width,height);
