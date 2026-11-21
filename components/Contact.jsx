@@ -11,7 +11,6 @@ export default function Contact() {
       </div>
       <div className="contact-actions">
         <a className="contact-primary" href={professional[2]} target="_blank" rel="noreferrer">Connect on LinkedIn <span aria-hidden="true">↗</span></a>
-        <a href={`mailto:${contact.email}`}>ISEYC institutional email <span aria-hidden="true">↗</span></a>
         <div className="contact-socials">{otherLinks.map(([key,label,href])=><a key={key} href={href} target="_blank" rel="noreferrer">{key} · {label}</a>)}</div>
       </div>
     </section>
