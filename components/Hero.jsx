@@ -27,11 +27,11 @@ export default function Hero() {
               <span className="hero-time"><LocalTime place={person.location} /></span>
             </div>
           </div>
-          <div className="hero-art">
+          <div className="hero-art" data-reveal="fade-left">
             <EvidenceField />
           </div>
         </div>
-        <div className="hero-index">
+        <div className="hero-index" data-reveal="fade-up">
           <span>01 — Research & spatial intelligence</span>
           <span>02 — Institutional architecture</span>
           <span>03 — Digital systems & products</span>
