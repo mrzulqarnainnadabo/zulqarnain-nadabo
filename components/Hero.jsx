@@ -8,7 +8,7 @@ export default function Hero() {
     <header className="hero-shell">
       <div className="mx-auto max-w-6xl px-6 md:px-10">
         <nav aria-label="Primary" className="hero-nav">
-          <a href="#top" className="hero-wordmark" aria-label="Back to top">ZYN<span>.</span></a>
+          <a href="#top" className="hero-wordmark">ZYN<span>.</span></a>
           <div className="hero-nav-right">
             <a href="#work">Work</a>
             <a href="#leadership">Perspective</a>
