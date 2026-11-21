@@ -8,8 +8,7 @@ export default function ImpactProfile() {
         <div className="profile-copy">
           <h2 id="profile-heading">Understand the system. Design what works.</h2>
           <p className="profile-bio">
-            I look at how people, information, institutions and places interact — then shape the
-            structures and tools that help complex work become clearer, more useful and easier to improve.
+            I begin with the evidence, context and incentives around a problem. Then I shape the roles, workflows and digital tools that make action easier to understand, carry out and improve.
           </p>
         </div>
       </div>
