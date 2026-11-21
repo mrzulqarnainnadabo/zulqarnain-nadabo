@@ -38,3 +38,12 @@ npm run build
 ## Deployment
 
 The project is configured for Vercel. Changes are being prepared on a feature branch; production deployment requires a separate explicit approval after preview and build verification.
+
+
+## Design system
+
+The personal portfolio follows a systems-atlas direction: institutional architecture, geography and evidence systems expressed through a restrained forest, warm-paper and brass palette; Hanken Grotesk for interface and identity typography; Newsreader for selective editorial emphasis; asymmetric layouts; meaningful diagrams; and restrained, accessible motion.
+
+Design references (Awwwards, Godly, Land-book, ScrollTide, 60FPS, Taste Skill, Anthropic Frontend Design and Vercel Web Interface Guidelines) are used to study craft and principles, not to copy layouts, visual identities or source code. 3D and shader effects are reserved for cases where they explain the work rather than decorate it.
+
+Before release, verify responsive layouts at 1440, 1024, 768 and 390 px, keyboard and focus states, reduced motion, anchor and external links, public claims, and the production build. Do not deploy without explicit approval.
