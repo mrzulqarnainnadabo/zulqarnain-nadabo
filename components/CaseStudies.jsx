@@ -5,11 +5,11 @@ export default function CaseStudies() {
   return (
     <Section id="work" title="Selected work" kicker="Projects, roles and evidence">
       <div className="divide-y divide-rule border-y border-rule">
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <article key={project.id} className="py-8 md:py-10">
             <div className="grid gap-5 md:grid-cols-[150px_1fr] md:gap-12">
               <div className="flex flex-wrap items-start justify-between gap-2 md:block">
-                <p className="text-xs font-semibold tracking-wide text-gold">{project.category}</p>
+                <p className="text-xs font-semibold tracking-wide text-forest">{project.category}</p>
                 <p className="mt-1 max-w-[22ch] text-xs leading-relaxed text-mute">{project.stage}</p>
               </div>
               <div className="min-w-0">
@@ -22,7 +22,7 @@ export default function CaseStudies() {
                 </div>
 
                 <details className="project-notes mt-5 border-t border-rule pt-4">
-                  <summary className="inline-flex cursor-pointer items-center gap-2 py-1 text-sm font-semibold text-forest underline decoration-gold decoration-2 underline-offset-4 hover:text-black">
+                  <summary className="cursor-pointer py-1 text-sm font-semibold text-forest underline decoration-gold decoration-2 underline-offset-4 hover:text-black">
                     Project notes and evidence
                   </summary>
                   <dl className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2">
@@ -33,7 +33,7 @@ export default function CaseStudies() {
                       ['Limitations', project.limitations],
                     ].map(([label, value]) => (
                       <div key={label} className={label === 'Limitations' ? 'sm:col-span-2' : ''}>
-                        <dt className="text-[11px] font-semibold tracking-wide text-gold">{label}</dt>
+                        <dt className="text-[11px] font-semibold tracking-wide text-forest">{label}</dt>
                         <dd className="mt-1 text-sm leading-relaxed text-mute">{value}</dd>
                       </div>
                     ))}
