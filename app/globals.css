@@ -333,3 +333,23 @@ html.dark .theme-toggle { color: #e9e6dc; }
   .diagram-lines path, .firstline-flow, .sigma-trace { stroke-dasharray: none; stroke-dashoffset: 0; }
   .is-visible .map-contours { animation: none !important; }
 }
+
+
+/* Interaction polish and evidence-first visual clarity */
+.motion-ready .portfolio-card.is-visible:hover { transform: translateY(-4px); }
+.portfolio-card-1 .project-art { min-height: 265px; }
+.project-art-sigma .project-stage { color: #e9e6dc; }
+.sigma-diagram text { font-family: var(--sans), sans-serif; }
+.project-art-observatory .project-svg { max-height: 190px; }
+.project-art-civic .project-svg { max-height: 190px; }
+.project-art-firstline .project-svg { max-height: 190px; }
+.project-copy h3 { text-wrap: balance; }
+.project-copy p { text-wrap: pretty; }
+@media (min-width: 901px) {
+  .portfolio-card-1 .project-art { min-height: 300px; }
+  .portfolio-card-1 .project-copy { min-height: 300px; }
+}
+@media (max-width: 640px) {
+  .portfolio-card-1 .project-art { min-height: 225px; }
+  .portfolio-card-1 .project-copy { min-height: 0; }
+}
