@@ -418,14 +418,14 @@ html.dark .theme-toggle { color: #e9e6dc; }
 }
 
 
-/* Art direction refinement — reduce effects, increase intentionality */
+/* Final art direction — quiet motion, clear hierarchy, deliberate interaction */
 .hero-shell {
   background:
     radial-gradient(ellipse at 78% 48%, rgba(112,137,111,.13), transparent 38%),
     #10251b;
 }
 .hero-grid { min-height: min(760px, calc(100svh - 150px)); }
-.hero-copy h1 { max-width: 10.5ch; }
+.hero-copy h1 { max-width: 10.5ch; text-wrap: balance; }
 .hero-name { letter-spacing: .045em; }
 .hero-art { align-self: center; }
 .field-panel {
@@ -433,13 +433,16 @@ html.dark .theme-toggle { color: #e9e6dc; }
   box-shadow: 0 24px 70px rgba(0,0,0,.16);
 }
 .field-panel::before { display: none; }
-.field-contour-lines { animation: none; }
+.field-panel:hover { transform: none; border-color: rgba(212,180,109,.28); }
+.field-contour-lines { animation: none !important; }
 .field-orbit { animation: none !important; }
 .is-visible .field-orbit { animation: orbit-breathe 3.6s ease-in-out 1 both !important; }
 .is-visible .field-network path { animation-duration: 1.55s; }
 .is-visible .diagram-lines path,
 .is-visible .firstline-flow,
 .is-visible .sigma-trace { animation-duration: 1.55s; }
+.is-visible .map-contours,
+.is-visible .contour-drift { animation: none !important; }
 .portfolio-card { transition: border-color .3s ease, background-color .3s ease; }
 .portfolio-card:hover { transform: none; }
 .project-art::after { opacity: .12; }
@@ -456,6 +459,15 @@ html.dark .theme-toggle { color: #e9e6dc; }
 .profile-bio { max-width: 60ch; }
 .contact-panel::after { opacity: .65; }
 .contact-actions > a:not(.contact-primary) { text-decoration-style: dotted; }
+.hero-nav-right a,
+.back-top,
+.contact-socials a { text-underline-offset: 5px; }
+.hero-nav-right a:focus-visible,
+.hero-cta:focus-visible,
+.project-copy > a:focus-visible,
+.contact-actions a:focus-visible,
+.contact-socials a:focus-visible,
+.back-top:focus-visible { outline-offset: 5px; }
 @media (min-width: 901px) {
   .portfolio-card-2 .project-copy,
   .portfolio-card-3 .project-copy { padding: 1.8rem 2rem 2rem; }
@@ -479,5 +491,7 @@ html.dark .theme-toggle { color: #e9e6dc; }
   .is-visible .field-network path,
   .is-visible .diagram-lines path,
   .is-visible .firstline-flow,
-  .is-visible .sigma-trace { animation: none !important; }
+  .is-visible .sigma-trace,
+  .is-visible .map-contours,
+  .is-visible .contour-drift { animation: none !important; }
 }
