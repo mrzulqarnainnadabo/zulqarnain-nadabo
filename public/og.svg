@@ -1,1 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc"><title id="title">Zulqarnain Yusuf Nadabo</title><desc id="desc">Institutional Architect and Digital Systems Strategist</desc><rect width="1200" height="630" fill="#0f2319"/><path d="M72 88H1128" stroke="#a98a3d" stroke-width="2"/><text x="82" y="165" fill="#d2b365" font-family="Georgia,serif" font-size="24" letter-spacing="5">ZYN</text><text x="82" y="315" fill="#f3eee1" font-family="Georgia,serif" font-size="72">Zulqarnain Yusuf</text><text x="82" y="398" fill="#f3eee1" font-family="Georgia,serif" font-size="72">Nadabo</text><path d="M82 448H180" stroke="#d2b365" stroke-width="3"/><text x="82" y="510" fill="#d9e2d5" font-family="Arial,sans-serif" font-size="27">Institutional Architect &amp; Digital Systems Strategist</text><text x="82" y="565" fill="#b9c7b6" font-family="Arial,sans-serif" font-size="19" letter-spacing="1">INSTITUTIONS · DIGITAL SYSTEMS · EVIDENCE</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Zulqarnain Yusuf Nadabo — Systems Architect</title>
+  <desc id="desc">Research, spatial intelligence, institutional design and digital systems.</desc>
+  <defs>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#d9e2d5" stroke-opacity=".08"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" x2="1">
+      <stop offset="0" stop-color="#0f2319" stop-opacity="0"/>
+      <stop offset="1" stop-color="#0f2319" stop-opacity=".7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0f2319"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <path d="M72 86H1128" stroke="#b9964d" stroke-width="2"/>
+  <text x="82" y="150" fill="#d2b365" font-family="Arial,sans-serif" font-size="18" font-weight="600" letter-spacing="5">ZYN / PORTFOLIO</text>
+  <text x="78" y="300" fill="#f1eee5" font-family="Georgia,serif" font-size="76" letter-spacing="-3">Zulqarnain Yusuf</text>
+  <text x="78" y="385" fill="#f1eee5" font-family="Georgia,serif" font-size="76" letter-spacing="-3">Nadabo</text>
+  <path d="M82 435H180" stroke="#d2b365" stroke-width="3"/>
+  <text x="82" y="493" fill="#d2b365" font-family="Arial,sans-serif" font-size="25" letter-spacing="2">SYSTEMS ARCHITECT</text>
+  <text x="82" y="545" fill="#c5d0c4" font-family="Arial,sans-serif" font-size="19" letter-spacing=".8">RESEARCH · INSTITUTIONS · DIGITAL SYSTEMS</text>
+  <g transform="translate(840 312)" fill="none" stroke="#d2b365">
+    <g stroke="#b9c7b6" stroke-opacity=".2">
+      <path d="M-250 -190C-160 -250 -85 -185 -25 -135S105 -80 245 -155"/>
+      <path d="M-250 -160C-160 -220 -85 -155 -25 -105S105 -50 245 -125"/>
+      <path d="M-250 -130C-160 -190 -85 -125 -25 -75S105 -20 245 -95"/>
+      <path d="M-250 90C-150 25 -75 120 10 72S145 25 245 105"/>
+      <path d="M-250 120C-150 55 -75 150 10 102S145 55 245 135"/>
+      <path d="M-250 150C-150 85 -75 180 10 132S145 85 245 165"/>
+    </g>
+    <path d="M-210 85L-105 18L5 52L105 -62L215 -18" stroke-width="2.2"/>
+    <path d="M-105 18L-86 -88M5 52L22 165M105 -62L130 -155" stroke-dasharray="4 8" stroke-width="1.4"/>
+    <g fill="#0f2319" stroke-width="2.5">
+      <circle cx="-210" cy="85" r="7"/><circle cx="-105" cy="18" r="7"/>
+      <circle cx="5" cy="52" r="7"/><circle cx="105" cy="-62" r="7"/>
+      <circle cx="215" cy="-18" r="7"/>
+    </g>
+    <circle cx="5" cy="52" r="25" stroke-opacity=".45" stroke-dasharray="3 7"/>
+  </g>
+  <rect x="670" y="90" width="458" height="460" fill="url(#fade)"/>
+</svg>
