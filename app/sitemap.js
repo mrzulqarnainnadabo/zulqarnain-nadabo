@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 const siteUrl = 'https://zulqarnain-nadabo.vercel.app';
 
 export default function sitemap() {
