@@ -42,7 +42,7 @@ export default function WorldCanvas() {
     if (!ctx) return;
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let width = 0, height = 0, frame = 0, rotation = -22, drag = false, lastX = 0;
+    let width = 0, height = 0, frame = 0, rotation = -22, drag = false, lastX = 0, inView = true;
     let pointer = {x:0,y:0,active:false};
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
@@ -205,20 +205,20 @@ export default function WorldCanvas() {
     resize();
     if(!reduce)frame=requestAnimationFrame(animate);
     return ()=>{
-      cancelAnimationFrame(frame);observer.disconnect();
+      cancelAnimationFrame(frame);resizeObserver.disconnect();visibilityObserver.disconnect();document.removeEventListener('visibilitychange',onVisibilityChange);
       canvas.removeEventListener('pointerdown',onPointerDown);
       canvas.removeEventListener('pointermove',onPointerMove);
       canvas.removeEventListener('pointerup',onPointerUp);
       canvas.removeEventListener('pointercancel',onPointerUp);
-      canvas.removeEventListener('pointerleave',onPointerLeave);
+      canvas.removeEventListener('pointerleave',onPointerLeave);\n      canvas.removeEventListener('keydown',onKeyDown);
     };
   }, []);
 
   return (
     <div className="world-stage" ref={wrapRef}>
-      <canvas ref={canvasRef} className="world-canvas" aria-label="An interactive rotating globe showing connected places and research signals. Drag to rotate the world." role="img" />
-      <div className="world-coordinate world-coordinate-top"><span>EARTH / SYSTEMS VIEW</span><span>06° 27′ N — 03° 24′ E</span></div>
-      <div className="world-coordinate world-coordinate-bottom"><span>01 — PEOPLE</span><span>02 — PLACE</span><span>03 — POSSIBILITY</span></div>
+      <canvas ref={canvasRef} className="world-canvas" tabIndex={0} aria-label="Conceptual interactive globe showing connected places and research signals. Drag to rotate the world, or use the left and right arrow keys." role="img" />
+      <div className="world-coordinate world-coordinate-top"><span>CONCEPTUAL WORLD VIEW</span><span>NOT LIVE DATA</span></div>
+      <div className="world-coordinate world-coordinate-bottom"><span>PEOPLE</span><span>PLACE</span><span>SYSTEMS</span></div>
       <div className="world-focus"><i /> <span>Drag to explore</span></div>
     </div>
   );
