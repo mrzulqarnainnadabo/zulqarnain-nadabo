@@ -416,3 +416,68 @@ html.dark .theme-toggle { color: #e9e6dc; }
 @media (prefers-reduced-motion: reduce) {
   .contact-socials a, .site-footer a { transition: none; }
 }
+
+
+/* Art direction refinement — reduce effects, increase intentionality */
+.hero-shell {
+  background:
+    radial-gradient(ellipse at 78% 48%, rgba(112,137,111,.13), transparent 38%),
+    #10251b;
+}
+.hero-grid { min-height: min(760px, calc(100svh - 150px)); }
+.hero-copy h1 { max-width: 10.5ch; }
+.hero-name { letter-spacing: .045em; }
+.hero-art { align-self: center; }
+.field-panel {
+  border-color: rgba(212,180,109,.28);
+  box-shadow: 0 24px 70px rgba(0,0,0,.16);
+}
+.field-panel::before { display: none; }
+.field-contour-lines { animation: none; }
+.field-orbit { animation: none !important; }
+.is-visible .field-orbit { animation: orbit-breathe 3.6s ease-in-out 1 both !important; }
+.is-visible .field-network path { animation-duration: 1.55s; }
+.is-visible .diagram-lines path,
+.is-visible .firstline-flow,
+.is-visible .sigma-trace { animation-duration: 1.55s; }
+.portfolio-card { transition: border-color .3s ease, background-color .3s ease; }
+.portfolio-card:hover { transform: none; }
+.project-art::after { opacity: .12; }
+.project-art::before { display: none; }
+.project-art { transition: filter .35s ease; }
+.portfolio-card:hover .project-art { filter: saturate(1.08); }
+.project-copy > a { transition: color .25s ease, border-color .25s ease; }
+.project-copy > a:hover { color: #9a7432; }
+.section-intro { align-items: end; }
+.section-aside { max-width: 25ch; }
+.profile-band { position: relative; }
+.profile-statement { grid-template-columns: .55fr 1.45fr; }
+.profile-statement h2 { max-width: 16ch; }
+.profile-bio { max-width: 60ch; }
+.contact-panel::after { opacity: .65; }
+.contact-actions > a:not(.contact-primary) { text-decoration-style: dotted; }
+@media (min-width: 901px) {
+  .portfolio-card-2 .project-copy,
+  .portfolio-card-3 .project-copy { padding: 1.8rem 2rem 2rem; }
+}
+@media (max-width: 900px) {
+  .hero-grid { min-height: 0; }
+  .profile-statement { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+@media (max-width: 640px) {
+  .hero-grid { padding-top: 3.25rem; }
+  .hero-name { margin-top: 1.75rem; }
+  .hero-copy h1 { max-width: 10ch; font-size: clamp(3.15rem,14.5vw,5.1rem); }
+  .hero-index span { font-size: .64rem; }
+  .section-aside { max-width: 34ch; }
+  .project-copy { align-items: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .field-orbit,
+  .field-contour-lines,
+  .is-visible .field-orbit,
+  .is-visible .field-network path,
+  .is-visible .diagram-lines path,
+  .is-visible .firstline-flow,
+  .is-visible .sigma-trace { animation: none !important; }
+}
