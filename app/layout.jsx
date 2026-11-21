@@ -104,7 +104,7 @@ export const metadata = {
   },
 };
 
-export const viewport = { themeColor: '#0f2319', width: 'device-width', initialScale: 1 };
+export const viewport = { themeColor: '#f0eee8', width: 'device-width', initialScale: 1 };
 
 const themeScript = `
 (function() {
