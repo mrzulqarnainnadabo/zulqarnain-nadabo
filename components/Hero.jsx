@@ -18,7 +18,7 @@ export default function Hero() {
         </nav>
         <div id="top" className="hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow hero-eyebrow">Systems architecture <span>·</span> Research <span>·</span> Digital technology</p>
+            <p className="eyebrow hero-eyebrow">Research <span>·</span> Spatial intelligence <span>·</span> Institutional design</p>
             <p className="hero-name">{person.name}</p>
             <h1>Making complex systems <em>work better.</em></h1>
             <p className="hero-description">I work across research, institutional architecture and digital technology to turn complex challenges into practical, well-structured systems.</p>
