@@ -1,41 +1,39 @@
 # Zulqarnain Yusuf Nadabo — Professional Portfolio
 
-Personal portfolio for **Zulqarnain Yusuf Nadabo**, positioned around institutional architecture, digital systems strategy and evidence-led development.
+A personal portfolio presenting work across systems architecture, research, spatial intelligence, institutional design and digital technology.
 
-The site uses Next.js 14 App Router and Tailwind CSS. The visual direction is editorial and restrained: deep forest green, warm cream, charcoal and restrained gold.
+Built with **Next.js 15** and Tailwind CSS. The visual direction is editorial and restrained: deep forest green, warm cream, charcoal and restrained gold.
 
 ## Run locally
 
 ```bash
-npm install
+npm ci
 npm run dev
 npm run build
 ```
 
-## Content and structure
+## Structure
 
 - `lib/content.js` — public-facing copy, project records, links and stages.
-- `components/CaseStudies.jsx` — selected work with role, evidence and limitations.
-- `components/ImpactProfile.jsx` — leadership, institutional departments and academic background.
-- `components/Research.jsx` — working research and methodology links.
-- `app/layout.jsx` — SEO, canonical URL and social metadata.
+- `components/CaseStudies.jsx` — selected work with explicit project stages and evidence limits.
+- `components/ImpactProfile.jsx` — working approach and areas of practice.
+- `components/EvidenceField.jsx` — original spatial visual in the opening section.
+- `components/MotionSystem.jsx` — restrained scroll reveals and progress indicator with reduced-motion support.
+- `app/layout.jsx` — metadata, canonical URL and structured profile data.
 - `app/robots.js` and `app/sitemap.js` — search discovery.
 - `public/og.svg` — social preview image.
-- `docs/CLAIMS-TO-VERIFY.md` — claims requiring documentary confirmation.
-- `docs/SIGMA-GEO-RESEARCH-BRIEF.md` — evidence-bounded research concept brief for the current hackathon prototype.
-- `docs/GITHUB-PROFILE-README-DRAFT.md` — draft for the dedicated GitHub profile README repository.
+- `docs/CLAIMS-TO-VERIFY.md` — editorial checklist for claims that need documentary confirmation.
 
-## Editorial rules
+## Editorial safeguards
 
 - Do not invent metrics, clients, partnerships, qualifications or outcomes.
 - Distinguish personal work from organisational work.
-- Distinguish pilots, research scaffolds, implementations and operational products.
+- Distinguish pilots, research prototypes, implementations and operational products.
 - Do not describe community submissions as representative public opinion.
 - Do not describe publication as independent verification.
-- Keep the authoritative ISEYC Digital Operations Centre repository private.
 - Confirm permission before naming private commercial engagements.
-- Keep the official ISEYC department names exact.
+- Keep the authoritative ISEYC Digital Operations Centre repository private.
 
-## Deployment
+## Review and deployment
 
-The project is configured for Vercel. Changes are being prepared on a feature branch; production deployment requires a separate explicit approval after preview and build verification.
+Work is prepared on `feat/systems-architect-positioning`. A GitHub Actions workflow builds and uploads a short-lived review artifact only; it does not publish a website or deploy to Vercel. Production deployment requires separate explicit approval after review.

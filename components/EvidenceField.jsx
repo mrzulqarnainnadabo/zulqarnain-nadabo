@@ -19,7 +19,7 @@ export default function EvidenceField() {
           </linearGradient>
         </defs>
         <rect width="520" height="350" fill="url(#field-grid)" />
-        <g fill="none" stroke="#b9c7b6" strokeOpacity=".24" strokeWidth="1.2">
+        <g className="field-contour-lines" fill="none" stroke="#b9c7b6" strokeOpacity=".24" strokeWidth="1.2">
           <path d="M-30 83C44 18 105 30 154 71s91 49 145 11 111-62 248-2" />
           <path d="M-30 103C44 38 105 50 154 91s91 49 145 11 111-62 248-2" />
           <path d="M-30 123C44 58 105 70 154 111s91 49 145 11 111-62 248-2" />
@@ -31,7 +31,7 @@ export default function EvidenceField() {
           <path d="M-30 243C44 178 105 190 154 231s91 49 145 11 111-62 248-2" />
           <path d="M-30 263C44 198 105 210 154 251s91 49 145 11 111-62 248-2" />
         </g>
-        <g fill="none" stroke="url(#field-line)" strokeWidth="1.6">
+        <g className="field-network draw-path" fill="none" stroke="url(#field-line)" strokeWidth="1.6">
           <path d="M72 263L168 186L264 219L358 126L450 92" />
           <path d="M168 186L187 83" strokeDasharray="3 6" />
           <path d="M264 219L287 294" strokeDasharray="3 6" />

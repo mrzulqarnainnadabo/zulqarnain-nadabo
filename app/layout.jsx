@@ -17,8 +17,8 @@ const sans = Hanken_Grotesk({
 });
 
 const url = 'https://zulqarnain-nadabo.vercel.app';
-const title = 'Zulqarnain Nadabo | Institutional Architect & Digital Strategist';
-const description = 'Institutional architect and digital systems strategist in Nigeria. Explore Zulqarnain Nadabo’s civic intelligence, enterprise systems and spatial research work.';
+const title = 'Zulqarnain Nadabo | Systems Architect';
+const description = 'Systems architect working across research, spatial intelligence, institutional design and digital systems. Explore selected projects and ways of thinking.';
 const personId = `${url}/#person`;
 
 const structuredData = {
@@ -29,8 +29,8 @@ const structuredData = {
       '@id': personId,
       name: 'Zulqarnain Yusuf Nadabo',
       url: url,
-      jobTitle: 'Institutional Architect & Digital Systems Strategist',
-      description: 'Institutional architect and digital systems strategist working across civic information systems, enterprise tools and evidence-led development in Nigeria. National President of ISEYC and Managing Director of Hubil Group.',
+      jobTitle: 'Systems Architect',
+      description: 'Systems architect working across research, spatial intelligence, institutional design and digital technology.',
       address: {
         '@type': 'PostalAddress',
         addressCountry: 'NG',
@@ -42,11 +42,11 @@ const structuredData = {
       ],
       knowsAbout: [
         'Institutional architecture',
-        'Digital systems strategy',
-        'Civic intelligence',
-        'Geographical information',
+        'Systems architecture',
+        'Institutional design',
+        'Spatial intelligence',
         'Sustainability studies',
-        'Evidence-led development',
+        'Digital systems',
       ],
       affiliation: [
         { '@type': 'Organization', name: 'Initiative for Sustainable Evolution for Youth and Community (ISEYC)' },
@@ -88,7 +88,7 @@ export const metadata = {
     title,
     description,
     siteName: 'Zulqarnain Yusuf Nadabo',
-    images: [{ url: '/og.svg', width: 1200, height: 630, alt: 'Zulqarnain Yusuf Nadabo, Institutional Architect and Digital Systems Strategist' }],
+    images: [{ url: '/og.svg', width: 1200, height: 630, alt: 'Zulqarnain Yusuf Nadabo, Systems Architect' }],
   },
   twitter: {
     card: 'summary_large_image',

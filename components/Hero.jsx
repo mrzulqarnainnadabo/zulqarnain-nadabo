@@ -11,30 +11,30 @@ export default function Hero() {
           <a href="#top" className="hero-wordmark">ZYN<span>.</span></a>
           <div className="hero-nav-right">
             <a href="#work">Work</a>
-            <a href="#leadership">Perspective</a>
+            <a href="#approach">Approach</a>
             <a href="#contact">Contact</a>
             <ThemeToggle />
           </div>
         </nav>
         <div id="top" className="hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow hero-eyebrow">Institutional architecture <span>·</span> Digital systems <span>·</span> Nigeria</p>
+            <p className="eyebrow hero-eyebrow">Research <span>·</span> Spatial intelligence <span>·</span> Institutional design</p>
             <p className="hero-name">{person.name}</p>
-            <h1>Building the systems behind <em>meaningful work.</em></h1>
-            <p className="hero-description">I turn complex institutional problems into clear structures, useful technology and accountable work.</p>
+            <h1>Making complex systems <em>work better.</em></h1>
+            <p className="hero-description">I work across research, institutional architecture and digital technology to turn complex challenges into practical, well-structured systems.</p>
             <div className="hero-bottom">
               <a href="#work" className="hero-cta">Explore selected work <span aria-hidden="true">↓</span></a>
               <span className="hero-time"><LocalTime place={person.location} /></span>
             </div>
           </div>
-          <div className="hero-art">
+          <div className="hero-art" data-reveal="fade-left">
             <EvidenceField />
           </div>
         </div>
-        <div className="hero-index">
-          <span>01 — Civic leadership / ISEYC</span>
-          <span>02 — Enterprise leadership / Hubil Group</span>
-          <span>03 — Research / Spatial intelligence</span>
+        <div className="hero-index" data-reveal="fade-up">
+          <span>01 — Research & spatial intelligence</span>
+          <span>02 — Institutional architecture</span>
+          <span>03 — Digital systems & products</span>
         </div>
       </div>
     </header>
