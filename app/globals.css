@@ -331,4 +331,5 @@ html.dark .theme-toggle { color: #e9e6dc; }
 @media (prefers-reduced-motion: reduce) {
   .project-art::before { display: none; }
   .diagram-lines path, .firstline-flow, .sigma-trace { stroke-dasharray: none; stroke-dashoffset: 0; }
+  .is-visible .map-contours { animation: none !important; }
 }
