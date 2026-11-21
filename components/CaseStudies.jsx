@@ -1,4 +1,3 @@
-import Section from './Section';
 import { projects } from '@/lib/content';
 
 function CivicArtwork() {
