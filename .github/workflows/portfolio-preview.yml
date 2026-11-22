@@ -1,16 +1,21 @@
-name: Portfolio review build
+name: Unified operating system review build
 
 on:
   push:
     branches:
       - feat/systems-architect-positioning
+      - feat/unified-personal-operating-system
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: portfolio-review-build
+  group: unified-os-review-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -32,7 +37,7 @@ jobs:
       - name: Upload review build
         uses: actions/upload-artifact@v4
         with:
-          name: portfolio-review-build
+          name: unified-os-review-build
           path: out/
           if-no-files-found: error
           retention-days: 3
