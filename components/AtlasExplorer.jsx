@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 
 const MAP_SCRIPT = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js';
 const MAP_STYLE = 'https://tiles.openfreemap.org/styles/positron';
+const NASA_ATTRIBUTION = 'NASA GIBS / NASA Earthdata';
+const SATELLITE_LAYER = 'atlas-satellite-layer';
+const SATELLITE_SOURCE = 'atlas-satellite-source';
 
 const VIEWS = [
   { id: 'world', label: 'World', center: [12, 20], zoom: 1.55, earth: 'Earth', note: 'Global view' },
@@ -12,6 +15,12 @@ const VIEWS = [
   { id: 'nigeria', label: 'Nigeria', center: [8.5, 9.1], zoom: 5.1, earth: 'Nigeria', note: 'National project context' },
   { id: 'africa', label: 'Africa', center: [20, 1], zoom: 2.6, earth: 'Africa', note: 'Continental context' },
 ];
+
+function getSatelliteDate() {
+  const date = new Date();
+  date.setUTCDate(date.getUTCDate() - 2);
+  return date.toISOString().slice(0, 10);
+}
 
 function loadMapLibre() {
   if (window.maplibregl) return Promise.resolve(window.maplibregl);
@@ -45,11 +54,23 @@ function loadMapLibre() {
 export default function AtlasExplorer() {
   const mapHost = useRef(null);
   const mapRef = useRef(null);
+  const modeRef = useRef('road');
   const [activeView, setActiveView] = useState('world');
+  const [mapMode, setMapMode] = useState('road');
   const [status, setStatus] = useState('Preparing the world map…');
   const [failed, setFailed] = useState(false);
-  const [locationMessage, setLocationMessage] = useState('Select the location control on the map to find your position.');
+  const [locationMessage, setLocationMessage] = useState('Requesting your location permission…');
+  const [satelliteDate] = useState(getSatelliteDate);
   const current = VIEWS.find((view) => view.id === activeView) || VIEWS[0];
+
+  function changeMapMode(mode) {
+    modeRef.current = mode;
+    setMapMode(mode);
+    const map = mapRef.current;
+    if (map?.getLayer(SATELLITE_LAYER)) {
+      map.setLayoutProperty(SATELLITE_LAYER, 'visibility', mode === 'satellite' ? 'visible' : 'none');
+    }
+  }
 
   useEffect(() => {
     let disposed = false;
@@ -74,26 +95,30 @@ export default function AtlasExplorer() {
       mapRef.current = map;
       map.addControl(new maplibregl.NavigationControl({ showCompass: true, showZoom: true }), 'bottom-right');
       map.addControl(new maplibregl.ScaleControl({ maxWidth: 110, unit: 'metric' }), 'bottom-left');
+
       const locate = new maplibregl.GeolocateControl({
-        positionOptions: { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
+        positionOptions: { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
         trackUserLocation: false,
         showUserLocation: true,
         showAccuracyCircle: true,
-        fitBoundsOptions: { maxZoom: 14 },
+        fitBoundsOptions: { maxZoom: 13 },
       });
       map.addControl(locate, 'top-right');
       locate.on('geolocate', () => {
         if (!disposed) {
-          setLocationMessage('Your location is shown on this map only. It is not published or saved by this portfolio.');
+          setLocationMessage('Your position is shown for this visit only. It is not saved by this portfolio.');
           setActiveView('world');
         }
       });
       locate.on('error', (event) => {
         if (!disposed) {
-          const message = event?.message || 'Location could not be determined.';
-          setLocationMessage(message.includes('denied') ? 'Location permission was declined. You can enable it in your browser settings and try again.' : 'Could not find your location. Check your device location settings and try again.');
+          const message = event?.message || '';
+          setLocationMessage(message.toLowerCase().includes('denied')
+            ? 'Location permission was declined. The global map remains available; you can enable permission in your browser settings.'
+            : 'Your location could not be determined. Check device location settings or use the map manually.');
         }
       });
+
       const markerNode = document.createElement('div');
       markerNode.className = 'atlas-map-marker';
       markerNode.setAttribute('aria-label', 'Approximate Kaduna South area focus');
@@ -101,8 +126,39 @@ export default function AtlasExplorer() {
       marker = new maplibregl.Marker({ element: markerNode, anchor: 'center' })
         .setLngLat([7.43, 10.45])
         .addTo(map);
+
       map.once('load', () => {
-        if (!disposed) setStatus('World map ready');
+        if (disposed) return;
+        map.addSource(SATELLITE_SOURCE, {
+          type: 'raster',
+          tiles: [`https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/${satelliteDate}/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg`],
+          tileSize: 256,
+          maxzoom: 9,
+          attribution: NASA_ATTRIBUTION,
+        });
+        map.addLayer({
+          id: SATELLITE_LAYER,
+          type: 'raster',
+          source: SATELLITE_SOURCE,
+          layout: { visibility: modeRef.current === 'satellite' ? 'visible' : 'none' },
+          paint: { 'raster-opacity': 1, 'raster-fade-duration': 250 },
+        });
+        // Keep place and road labels legible above the imagery.
+        map.getStyle().layers
+          .filter((layer) => layer.type === 'symbol')
+          .forEach((layer) => map.moveLayer(layer.id));
+        setStatus('World map ready');
+        setLocationMessage('Checking whether your browser can share your location…');
+        // One request per page visit. The browser controls the permission prompt.
+        try {
+          if (typeof navigator !== 'undefined' && navigator.geolocation) {
+            locate.trigger();
+          } else {
+            setLocationMessage('This browser does not support location sharing. You can still explore the world map.');
+          }
+        } catch {
+          setLocationMessage('Automatic location is unavailable here. Use the map manually or try the location control.');
+        }
       });
       map.on('error', (event) => {
         if (!disposed && !map.isStyleLoaded() && event?.error) {
@@ -123,7 +179,7 @@ export default function AtlasExplorer() {
       map?.remove();
       mapRef.current = null;
     };
-  }, []);
+  }, [satelliteDate]);
 
   function selectView(view) {
     setActiveView(view.id);
@@ -140,15 +196,20 @@ export default function AtlasExplorer() {
         <div>
           <p className="atlas-kicker">A geographic lens · 01</p>
           <h2 id="atlas-title">The <em>Living Atlas.</em></h2>
-          <p className="atlas-intro">Start anywhere on Earth. Explore the places behind the work, or find your own position on the map.</p>
+          <p className="atlas-intro">A global view of place, evidence and the work in progress. Begin anywhere on Earth.</p>
         </div>
         <a className="atlas-earth-link" href={`https://earth.google.com/web/search/${encodeURIComponent(current.earth)}`} target="_blank" rel="noreferrer">
           Explore in Google Earth <span aria-hidden="true">↗</span>
         </a>
       </div>
 
-      <div className="atlas-map-frame">
-        <div ref={mapHost} className="atlas-map" role="region" aria-label="Interactive world map with optional visitor geolocation. Use the location control to find your position, or choose a region below." />
+      <div className={`atlas-map-frame atlas-map-frame--${mapMode}`}>
+        <div ref={mapHost} className="atlas-map" role="region" aria-label="Interactive global map. Browser location is requested once on entry; choose road or satellite imagery." />
+        <div className="atlas-map-style-switch" role="group" aria-label="Map presentation">
+          <button type="button" onClick={() => changeMapMode('road')} aria-pressed={mapMode === 'road'}>Road</button>
+          <button type="button" onClick={() => changeMapMode('satellite')} aria-pressed={mapMode === 'satellite'}>Satellite</button>
+        </div>
+        {mapMode === 'satellite' && <div className="atlas-imagery-stamp">NASA MODIS · {satelliteDate} · 250 m</div>}
         {failed && (
           <div className="atlas-map-fallback" role="status">
             <span>Geographic view unavailable</span>
@@ -158,8 +219,8 @@ export default function AtlasExplorer() {
         )}
         {!failed && status !== 'World map ready' && <div className="atlas-map-loading" role="status">{status}</div>}
         <div className="atlas-map-caption">
-          <span>GLOBAL MAP · LOCATION BY PERMISSION</span>
-          <span>© OpenStreetMap contributors · OpenFreeMap</span>
+          <span>GLOBAL MAP · {mapMode === 'satellite' ? 'NASA SATELLITE COMPOSITE' : 'OPEN STREET MAP'}</span>
+          <span>© OpenStreetMap · OpenFreeMap {mapMode === 'satellite' ? '· NASA GIBS' : ''}</span>
         </div>
       </div>
 
@@ -171,9 +232,9 @@ export default function AtlasExplorer() {
             </button>
           ))}
         </div>
-        <p>{locationMessage}</p>
+        <p role="status">{locationMessage}</p>
       </div>
-      <p className="atlas-disclosure">This is an interactive global street and place map. Your browser asks before sharing your location; your coordinates are not published or saved by this portfolio. Map data © OpenStreetMap contributors, rendered by OpenFreeMap.</p>
+      <p className="atlas-disclosure">Location is requested once by your browser and used only to centre this map for your visit. This portfolio does not store your coordinates or send them to its own server. Map providers receive tile requests for the area you view. Satellite imagery is a dated NASA daily composite, not a live feed; detail varies by place and zoom.</p>
     </section>
   );
 }
