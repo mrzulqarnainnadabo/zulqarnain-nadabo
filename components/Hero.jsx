@@ -11,6 +11,7 @@ export default function Hero() {
             <a href="#iseyc">ISEYC</a>
             <a href="#work">Work</a>
             <a href="#contact">Connect <span>↗</span></a>
+            <a className="atlas-nav-workspace" href="/workspace">Workspace</a>
           </div>
         </nav>
         <div className="atlas-hero-grid">
