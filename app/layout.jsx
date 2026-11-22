@@ -1,5 +1,6 @@
 import './globals.css';
 import './art-direction.css';
+import './operating-system.css';
 import { Newsreader, Hanken_Grotesk } from 'next/font/google';
 
 const serif = Newsreader({
