@@ -160,3 +160,6 @@ html.dark{--atlas-paper:#101b16;--atlas-ink:#e9e6dc;--atlas-muted:#a9b5aa;--atla
 @media(max-width:680px){.atlas-chapter-links{grid-column:2;justify-self:start;align-items:flex-start;flex-direction:row;flex-wrap:wrap;gap:.8rem}}
 
 .workspace-project-note{margin:0 0 1rem;padding:.9rem 1rem;border-left:2px solid #b6945f;background:#e7e7de;color:#647067;font-size:.66rem;line-height:1.65}
+
+.atlas-chapter-links{display:flex;flex-direction:column;align-items:flex-end;gap:.7rem}.atlas-chapter-links a{justify-self:auto}
+@media(max-width:680px){.atlas-chapter-links{grid-column:2;align-items:flex-start}}
