@@ -629,3 +629,16 @@ html.dark .atlas-process-dot { background:#20233b; }
   .atlas-map .maplibregl-ctrl-top-right { top:.45rem; right:.45rem; }
   .atlas-map .maplibregl-ctrl-geolocate::after { display:none; }
 }
+
+/* Contrast corrections — keep the editorial palette, meet WCAG AA */
+.work-footnote { color: #54596f; }
+.work-footnote span { color: #a44431; }
+.atlas-heading .atlas-kicker { color: #6f5b38; }
+.atlas-intro { color: #59645b; }
+.atlas-map-footer p { color: #566157; }
+.atlas-disclosure { color: #59635b; }
+.atlas-method-note { color: #505675; }
+html.dark .atlas-intro { color: #c0c9bf; }
+html.dark .atlas-map-footer p,
+html.dark .atlas-disclosure,
+html.dark .atlas-data-credit { color: #b8c3b8; }
