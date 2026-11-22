@@ -26,6 +26,8 @@ Agent Phone main v0.8 uses a shared APP_AUTH_TOKEN. Its helper returns success i
 
 Agent Phone draft PR #2 describes password-based owner sessions, signed cookies, revocation, rate limiting, approval payload hashes/expiry/single-use consumption and allowlisted read-only GitHub tools. It explicitly leaves XSS/session-storage review, provider cost accounting and coordinated API/frontend migration for review. Candidate only; not production-ready.
 
+The Agent Desk design now accounts for Agent Phone's existing control concepts: projects/tasks/checkpoints, agent profiles and permissions, goals and handoffs, approval queue, usage, tool audit and read-only GitHub inspection. These are design mappings, not live controls.
+
 Integration decision: Agent Desk is the unified control surface; AI Platform runs behind a server-side adapter; Agent Phone contributes workflow concepts and candidate API contracts; WhatsApp Assistant is a channel adapter. No consequential execution until identity, resource ownership, approval integrity, idempotency and audit tests pass.
 
 ## Workspace boundary
