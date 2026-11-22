@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Check out review branch
         uses: actions/checkout@v4
+      - name: Check Atlas research script syntax
+        run: python -m py_compile scripts/atlas/kaduna_settlement_screening.py
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
