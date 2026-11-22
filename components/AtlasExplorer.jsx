@@ -498,6 +498,8 @@ export default function AtlasExplorer() {
         <div className="atlas-map-caption">
           <span>GLOBAL ATLAS · {sceneMode === 'earth' ? '3D TERRAIN + MAPPED BUILDINGS' : mapMode === 'satellite' ? 'NASA SATELLITE COMPOSITE' : 'OPEN STREET MAP'}</span>
           <span>© OpenStreetMap · OpenFreeMap {mapMode === 'satellite' && sceneMode === 'map' ? '· NASA GIBS' : ''}</span>
+          {sceneMode === 'earth' && <span><a href="https://mapterhorn.com/attribution/" target="_blank" rel="noreferrer">Terrain © Mapterhorn · regional sources ↗</a></span>}
+          {sceneMode === 'earth' && mapMode === 'satellite' && <span><a href="https://cloudless.eox.at" target="_blank" rel="noreferrer">EOxCloudless by EOX IT Services GmbH · Contains modified Copernicus Sentinel data 2016 &amp; 2017 ↗</a></span>}
         </div>
       </div>
 
@@ -508,8 +510,9 @@ export default function AtlasExplorer() {
               {view.label}
             </button>
           ))}
+          <button type="button" className="atlas-settlement-toggle" onClick={toggleSettlementBlocks} aria-pressed={settlementVisible}>GRID3 blocks</button>
         </div>
-        <p role="status">{locationMessage}</p>
+        <p role="status">{locationMessage}<span className="atlas-settlement-status">{settlementStatus}</span></p>
       </div>
       <p className="atlas-disclosure">
         Location sharing is optional and begins only when you choose the map location control. Your position is used to centre the map for this visit; this portfolio does not store your coordinates or send them to its own server. Map providers receive tile requests for the areas you view. The 2D satellite layer uses a dated NASA daily composite. 3D Earth uses a 2016 Sentinel-2 cloudless mosaic, open elevation data and mapped OpenStreetMap building shapes. Buildings are extruded only where OpenStreetMap height attributes exist; other footprints remain flat. This is not photogrammetric 3D scanning, and coverage varies by place. These are maps and imagery, not live video.
