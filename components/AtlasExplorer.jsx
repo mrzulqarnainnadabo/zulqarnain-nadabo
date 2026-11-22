@@ -40,7 +40,7 @@ async function fetchGrid3SettlementBlocks(bounds, signal) {
     inSR: '4326',
     outSR: '4326',
     spatialRel: 'esriSpatialRelIntersects',
-    outFields: 'block_id,block_area_sqm,building_count,building_count_density,ndvi_mean,extent_type',
+    outFields: 'block_id,block_area_sqm,building_count,building_count_density,building_area_percentage,gbuilding_mean_height,ndvi_mean,evi_mean,extent_type,composite_class',
     returnGeometry: 'true',
     resultRecordCount: '1000',
     orderByFields: 'fid ASC',
@@ -126,6 +126,7 @@ export default function AtlasExplorer() {
     const controller = new AbortController();
     settlementAbortRef.current = controller;
     setSettlementStatus('Loading GRID3 settlement blocks…');
+    map.getSource(SETTLEMENT_SOURCE)?.setData({ type: 'FeatureCollection', features: [] });
     try {
       const collection = await fetchGrid3SettlementBlocks(map.getBounds(), controller.signal);
       if (controller.signal.aborted) return;
@@ -134,7 +135,7 @@ export default function AtlasExplorer() {
       const count = collection.features.length.toLocaleString();
       setSettlementStatus(count + ' blocks in view' + (collection.truncated ? ' · first 4,000 shown' : ''));
     } catch (error) {
-      if (error?.name !== 'AbortError') setSettlementStatus('GRID3 data could not be loaded. The base map remains available.');
+      if (error?.name !== 'AbortError') { settlementBoundsRef.current = ''; setSettlementStatus('GRID3 data could not be loaded. The base map remains available.'); }
     }
   }
 
@@ -369,6 +370,7 @@ export default function AtlasExplorer() {
           type: 'geojson',
           data: { type: 'FeatureCollection', features: [] },
           promoteId: 'block_id',
+          attribution: '<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">GRID3 / CIESIN settlement blocks · CC BY-SA 4.0</a>',
         });
         map.addLayer({
           id: SETTLEMENT_FILL_LAYER,
@@ -398,9 +400,13 @@ export default function AtlasExplorer() {
           const fields = [
             ['Buildings', properties.building_count],
             ['Block area', properties.block_area_sqm == null ? null : Number(properties.block_area_sqm).toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' m²'],
-            ['Building-count density', properties.building_count_density],
-            ['Mean NDVI (source field)', properties.ndvi_mean],
+            ['Building-count density', properties.building_count_density == null ? null : Number(properties.building_count_density).toFixed(1) + ' per hectare'],
+            ['Building area share', properties.building_area_percentage == null ? null : Number(properties.building_area_percentage).toFixed(1) + '%'],
+            ['Mean building height', properties.gbuilding_mean_height == null ? null : Number(properties.gbuilding_mean_height).toFixed(1) + ' m · 2021–23 source'],
+            ['Mean NDVI', properties.ndvi_mean == null ? null : Number(properties.ndvi_mean).toFixed(3) + ' · 2024 composite'],
+            ['Mean EVI', properties.evi_mean == null ? null : Number(properties.evi_mean).toFixed(3) + ' · 2024 composite'],
             ['Extent type', properties.extent_type],
+            ['Composite class', properties.composite_class],
           ];
           fields.forEach(([label, value]) => {
             if (value == null || value === '') return;
@@ -518,6 +524,11 @@ export default function AtlasExplorer() {
       <p className="atlas-disclosure">
         Location sharing is optional and begins only when you choose the map location control. Your position is used to centre the map for this visit; this portfolio does not store your coordinates or send them to its own server. Map providers receive tile requests for the areas you view. The 2D satellite layer uses a dated NASA daily composite. 3D Earth uses a 2016 EOxCloudless Sentinel-2 mosaic, Mapterhorn terrain tiles with region-dependent source data, and mapped OpenStreetMap building shapes. The optional GRID3 NGA Settlement Extents v4.1 layer loads only when selected, at its published local display scale, and only for the visible map extent; settlement blocks are not official administrative boundaries or population counts. Buildings are extruded only where OpenStreetMap height attributes exist; other footprints remain flat. This is not photogrammetric 3D scanning, and coverage varies by place. These are maps and imagery, not live video.
       </p>
+      {settlementVisible && (
+        <p className="atlas-data-credit atlas-grid3-credit">
+          Settlement blocks: <a href="https://guides.ciesin.columbia.edu/pages/analysis/Nigeria_Settlement_Block_GreenSpace_Analysis" target="_blank" rel="noreferrer">GRID3 / CIESIN Settlement Extents v4.1</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a>. Building counts, density and area are source-derived indicators, not population or occupancy. NDVI/EVI are 2024 composites; building-height summaries cover 2021–2023. Not an official administrative boundary.
+        </p>
+      )}
       {sceneMode === 'earth' && (
         <p className="atlas-data-credit">
           Terrain: <a href="https://mapterhorn.com/attribution" target="_blank" rel="noreferrer">Mapterhorn source attribution</a> · Buildings and map data: © OpenStreetMap contributors {mapMode === 'satellite' ? <> · Imagery: <a href="https://cloudless.eox.at/" target="_blank" rel="noreferrer">EOxCloudless</a> (Contains modified Copernicus Sentinel data 2016 &amp; 2017)</> : null}
