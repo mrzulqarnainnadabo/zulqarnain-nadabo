@@ -7,6 +7,10 @@ const MAP_STYLE = 'https://tiles.openfreemap.org/styles/positron';
 const NASA_ATTRIBUTION = 'NASA GIBS / NASA Earthdata';
 const SATELLITE_LAYER = 'atlas-satellite-layer';
 const SATELLITE_SOURCE = 'atlas-satellite-source';
+const EOX_LAYER = 'atlas-eox-imagery-layer';
+const EOX_SOURCE = 'atlas-eox-imagery-source';
+const TERRAIN_SOURCE = 'atlas-terrain-source';
+const BUILDINGS_LAYER = 'atlas-osm-3d-buildings';
 
 const VIEWS = [
   { id: 'world', label: 'World', center: [12, 20], zoom: 1.55, earth: 'Earth', note: 'Global view' },
@@ -55,21 +59,62 @@ export default function AtlasExplorer() {
   const mapHost = useRef(null);
   const mapRef = useRef(null);
   const modeRef = useRef('road');
+  const sceneRef = useRef('map');
   const [activeView, setActiveView] = useState('world');
   const [mapMode, setMapMode] = useState('road');
+  const [sceneMode, setSceneMode] = useState('map');
   const [status, setStatus] = useState('Preparing the world map…');
   const [failed, setFailed] = useState(false);
   const [locationMessage, setLocationMessage] = useState('Requesting your location permission…');
   const [satelliteDate] = useState(getSatelliteDate);
   const current = VIEWS.find((view) => view.id === activeView) || VIEWS[0];
 
+  function applyMapLayers(map, mode, scene) {
+    if (map.getLayer(SATELLITE_LAYER)) {
+      map.setLayoutProperty(SATELLITE_LAYER, 'visibility', mode === 'satellite' && scene === 'map' ? 'visible' : 'none');
+    }
+    if (map.getLayer(EOX_LAYER)) {
+      map.setLayoutProperty(EOX_LAYER, 'visibility', mode === 'satellite' && scene === 'earth' ? 'visible' : 'none');
+    }
+    if (map.getLayer(BUILDINGS_LAYER)) {
+      map.setLayoutProperty(BUILDINGS_LAYER, 'visibility', scene === 'earth' ? 'visible' : 'none');
+    }
+  }
+
   function changeMapMode(mode) {
     modeRef.current = mode;
     setMapMode(mode);
     const map = mapRef.current;
-    if (map?.getLayer(SATELLITE_LAYER)) {
-      map.setLayoutProperty(SATELLITE_LAYER, 'visibility', mode === 'satellite' ? 'visible' : 'none');
-    }
+    if (map) applyMapLayers(map, mode, sceneRef.current);
+  }
+
+  function changeSceneMode(scene) {
+    sceneRef.current = scene;
+    setSceneMode(scene);
+    const map = mapRef.current;
+    if (!map) return;
+    const applyScene = () => {
+      if (scene === 'earth') {
+        map.setProjection({ type: 'globe' });
+        map.setTerrain({ source: TERRAIN_SOURCE, exaggeration: 1.08 });
+        map.setFog({
+          color: '#dce8ed',
+          'high-color': '#16334b',
+          'space-color': '#07111f',
+          'star-intensity': 0.22,
+          range: [0.8, 8],
+        });
+        map.easeTo({ center: [12, 20], zoom: 1.65, pitch: 0, bearing: 0, duration: 1100 });
+      } else {
+        map.setTerrain(null);
+        map.setProjection({ type: 'mercator' });
+        map.setFog(null);
+        map.easeTo({ center: current.center, zoom: current.zoom, pitch: 0, bearing: 0, duration: 900 });
+      }
+      applyMapLayers(map, modeRef.current, scene);
+    };
+    if (map.isStyleLoaded()) applyScene();
+    else map.once('load', applyScene);
   }
 
   useEffect(() => {
@@ -89,7 +134,7 @@ export default function AtlasExplorer() {
         pitch: 0,
         attributionControl: false,
         cooperativeGestures: true,
-        maxPitch: 55,
+        maxPitch: 65,
         maxZoom: 19,
       });
       mapRef.current = map;
@@ -140,16 +185,63 @@ export default function AtlasExplorer() {
           id: SATELLITE_LAYER,
           type: 'raster',
           source: SATELLITE_SOURCE,
-          layout: { visibility: modeRef.current === 'satellite' ? 'visible' : 'none' },
+          layout: { visibility: modeRef.current === 'satellite' && sceneRef.current === 'map' ? 'visible' : 'none' },
           paint: { 'raster-opacity': 1, 'raster-fade-duration': 250 },
         });
-        // Keep place and road labels legible above the imagery.
+
+        // Higher-detail, globally available Sentinel-2 mosaic (2016 vintage, CC BY 4.0).
+        map.addSource(EOX_SOURCE, {
+          type: 'raster',
+          tiles: ['https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/{z}/{y}/{x}.jpg'],
+          tileSize: 256,
+          maxzoom: 14,
+          attribution: 'EOxCloudless by EOX IT Services GmbH · modified Copernicus Sentinel data 2016',
+        });
+        const firstSymbolLayer = map.getStyle().layers.find((layer) => layer.type === 'symbol')?.id;
+        map.addLayer({
+          id: EOX_LAYER,
+          type: 'raster',
+          source: EOX_SOURCE,
+          layout: { visibility: modeRef.current === 'satellite' && sceneRef.current === 'earth' ? 'visible' : 'none' },
+          paint: { 'raster-opacity': 1, 'raster-fade-duration': 300 },
+        }, firstSymbolLayer);
+
+        // Open global DEM tiles: 30 m worldwide, with higher-resolution open
+        // national data in some regions. No Cesium ion or Google credentials.
+        map.addSource(TERRAIN_SOURCE, {
+          type: 'raster-dem',
+          url: 'https://tiles.mapterhorn.com/tilejson.json',
+          tileSize: 512,
+          encoding: 'terrarium',
+        });
+
+        // Extrude mapped OSM building footprints where the vector source has
+        // height attributes. This is mapped geometry, not photogrammetry.
+        const vectorSourceId = Object.entries(map.getStyle().sources)
+          .find(([, source]) => source.type === 'vector')?.[0];
+        if (vectorSourceId) {
+          map.addLayer({
+            id: BUILDINGS_LAYER,
+            type: 'fill-extrusion',
+            source: vectorSourceId,
+            'source-layer': 'building',
+            minzoom: 13,
+            layout: { visibility: sceneRef.current === 'earth' ? 'visible' : 'none' },
+            paint: {
+              'fill-extrusion-color': '#b7c3c3',
+              'fill-extrusion-height': ['max', 3, ['to-number', ['coalesce', ['get', 'render_height'], ['get', 'height'], 6]]],
+              'fill-extrusion-base': ['max', 0, ['to-number', ['coalesce', ['get', 'render_min_height'], ['get', 'min_height'], 0]]],
+              'fill-extrusion-opacity': 0.86,
+            },
+          }, firstSymbolLayer);
+        }
+
+        // Keep labels above imagery and building geometry.
         map.getStyle().layers
           .filter((layer) => layer.type === 'symbol')
           .forEach((layer) => map.moveLayer(layer.id));
         setStatus('World map ready');
         setLocationMessage('Checking whether your browser can share your location…');
-        // One request per page visit. The browser controls the permission prompt.
         try {
           if (typeof navigator !== 'undefined' && navigator.geolocation) {
             locate.trigger();
@@ -185,7 +277,8 @@ export default function AtlasExplorer() {
     setActiveView(view.id);
     const map = mapRef.current;
     if (!map) return;
-    map.flyTo({ center: view.center, zoom: view.zoom, pitch: 0, bearing: 0, duration: 1450, essential: false });
+    const pitch = sceneRef.current === 'earth' && view.id === 'kaduna-south' ? 55 : 0;
+    map.flyTo({ center: view.center, zoom: view.zoom, pitch, bearing: sceneRef.current === 'earth' ? -12 : 0, duration: 1450, essential: false });
     const markerElement = map.getContainer().querySelector('.atlas-map-marker');
     if (markerElement) markerElement.style.display = view.id === 'kaduna-south' ? 'block' : 'none';
   }
@@ -203,13 +296,21 @@ export default function AtlasExplorer() {
         </a>
       </div>
 
-      <div className={`atlas-map-frame atlas-map-frame--${mapMode}`}>
-        <div ref={mapHost} className="atlas-map" role="region" aria-label="Interactive global map. Browser location is requested once on entry; choose road or satellite imagery." />
+      <div className={`atlas-map-frame atlas-map-frame--${mapMode} atlas-map-frame--${sceneMode}`}>
+        <div ref={mapHost} className="atlas-map" role="region" aria-label="Interactive global map with road, satellite and 3D Earth views. Browser location is requested once on entry." />
+        <div className="atlas-scene-switch" role="group" aria-label="Choose map dimension">
+          <button type="button" onClick={() => changeSceneMode('map')} aria-pressed={sceneMode === 'map'}>2D Map</button>
+          <button type="button" onClick={() => changeSceneMode('earth')} aria-pressed={sceneMode === 'earth'}>3D Earth</button>
+        </div>
         <div className="atlas-map-style-switch" role="group" aria-label="Map presentation">
           <button type="button" onClick={() => changeMapMode('road')} aria-pressed={mapMode === 'road'}>Road</button>
           <button type="button" onClick={() => changeMapMode('satellite')} aria-pressed={mapMode === 'satellite'}>Satellite</button>
         </div>
-        {mapMode === 'satellite' && <div className="atlas-imagery-stamp">NASA MODIS · {satelliteDate} · 250 m</div>}
+        {mapMode === 'satellite' && (
+          <div className="atlas-imagery-stamp">
+            {sceneMode === 'earth' ? 'SENTINEL-2 · 2016 MOSAIC · 10 M' : `NASA MODIS · ${satelliteDate} · 250 M`}
+          </div>
+        )}
         {failed && (
           <div className="atlas-map-fallback" role="status">
             <span>Geographic view unavailable</span>
@@ -219,8 +320,8 @@ export default function AtlasExplorer() {
         )}
         {!failed && status !== 'World map ready' && <div className="atlas-map-loading" role="status">{status}</div>}
         <div className="atlas-map-caption">
-          <span>GLOBAL MAP · {mapMode === 'satellite' ? 'NASA SATELLITE COMPOSITE' : 'OPEN STREET MAP'}</span>
-          <span>© OpenStreetMap · OpenFreeMap {mapMode === 'satellite' ? '· NASA GIBS' : ''}</span>
+          <span>GLOBAL ATLAS · {sceneMode === 'earth' ? '3D TERRAIN + MAPPED BUILDINGS' : mapMode === 'satellite' ? 'NASA SATELLITE COMPOSITE' : 'OPEN STREET MAP'}</span>
+          <span>© OpenStreetMap · OpenFreeMap {mapMode === 'satellite' && sceneMode === 'map' ? '· NASA GIBS' : ''}</span>
         </div>
       </div>
 
@@ -234,7 +335,14 @@ export default function AtlasExplorer() {
         </div>
         <p role="status">{locationMessage}</p>
       </div>
-      <p className="atlas-disclosure">Location is requested once by your browser and used only to centre this map for your visit. This portfolio does not store your coordinates or send them to its own server. Map providers receive tile requests for the area you view. Satellite imagery is a dated NASA daily composite, not a live feed; detail varies by place and zoom.</p>
+      <p className="atlas-disclosure">
+        Location is requested once by your browser and used only to centre this map for your visit. This portfolio does not store your coordinates or send them to its own server; map providers receive tile requests for the area you view. The 2D satellite layer uses a dated NASA daily composite. 3D Earth uses a 2016 Sentinel-2 cloudless mosaic, open elevation data and mapped OpenStreetMap building shapes. Buildings are extruded from mapped footprints, not photogrammetric 3D scans; imagery and building coverage vary by place. These are maps and imagery, not live video.
+      </p>
+      {sceneMode === 'earth' && mapMode === 'satellite' && (
+        <p className="atlas-data-credit">
+          Imagery: <a href="https://cloudless.eox.at/" target="_blank" rel="noreferrer">EOxCloudless</a> by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2016) · Terrain: <a href="https://mapterhorn.com/attribution" target="_blank" rel="noreferrer">Mapterhorn</a> · Buildings and map data: © OpenStreetMap contributors
+        </p>
+      )}
     </section>
   );
 }
