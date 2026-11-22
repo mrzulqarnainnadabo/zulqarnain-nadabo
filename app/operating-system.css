@@ -121,4 +121,4 @@
 
 /* A single warm cartographic palette across the Atlas and institutional surfaces. */
 :root{--atlas-paper:#f1efe7;--atlas-ink:#1d2b24;--atlas-muted:#647067;--atlas-blue:#526c59;--atlas-coral:#a77a4c;--atlas-line:rgba(35,57,43,.18)}
-html,body{background:#f1efe7;color:#1d2b24}
+html.dark{--atlas-paper:#101b16;--atlas-ink:#e9e6dc;--atlas-muted:#a9b5aa;--atlas-blue:#a8b9a9;--atlas-coral:#d4b46d;--atlas-line:rgba(233,230,220,.2)}.atlas-research,.institution-section{background:#f1efe7}
