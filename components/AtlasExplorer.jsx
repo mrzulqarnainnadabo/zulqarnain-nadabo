@@ -97,18 +97,17 @@ export default function AtlasExplorer() {
       if (scene === 'earth') {
         map.setProjection({ type: 'globe' });
         map.setTerrain({ source: TERRAIN_SOURCE, exaggeration: 1.08 });
-        map.setFog({
-          color: '#dce8ed',
-          'high-color': '#16334b',
-          'space-color': '#07111f',
-          'star-intensity': 0.22,
-          range: [0.8, 8],
+        // MapLibre uses the style sky API for globe atmosphere (not Mapbox's setFog API).
+        map.setSky({
+          'sky-color': '#07111f',
+          'horizon-color': '#16334b',
+          'atmosphere-blend': 0.92,
         });
         map.easeTo({ center: [12, 20], zoom: 1.65, pitch: 0, bearing: 0, duration: 1100 });
       } else {
         map.setTerrain(null);
         map.setProjection({ type: 'mercator' });
-        map.setFog(null);
+        map.setSky(undefined);
         map.easeTo({ center: current.center, zoom: current.zoom, pitch: 0, bearing: 0, duration: 900 });
       }
       applyMapLayers(map, modeRef.current, scene);
