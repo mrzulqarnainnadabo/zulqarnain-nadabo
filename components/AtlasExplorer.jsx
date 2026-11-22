@@ -65,7 +65,7 @@ export default function AtlasExplorer() {
   const [sceneMode, setSceneMode] = useState('map');
   const [status, setStatus] = useState('Preparing the world map…');
   const [failed, setFailed] = useState(false);
-  const [locationMessage, setLocationMessage] = useState('Requesting your location permission…');
+  const [locationMessage, setLocationMessage] = useState('Location sharing is off. Use the map control only if you want to share your position.');
   const [satelliteDate] = useState(getSatelliteDate);
   const current = VIEWS.find((view) => view.id === activeView) || VIEWS[0];
 
@@ -274,16 +274,7 @@ export default function AtlasExplorer() {
         }
 
         setStatus('World map ready');
-        setLocationMessage('Checking whether your browser can share your location…');
-        try {
-          if (typeof navigator !== 'undefined' && navigator.geolocation) {
-            locate.trigger();
-          } else {
-            setLocationMessage('This browser does not support location sharing. You can still explore the world map.');
-          }
-        } catch {
-          setLocationMessage('Automatic location is unavailable here. Use the map manually or try the location control.');
-        }
+        setLocationMessage('Location sharing is off. Use the location control only if you want to centre the map on yourself.');
       });
       map.on('error', (event) => {
         if (!disposed && !map.isStyleLoaded() && event?.error) {
@@ -332,7 +323,7 @@ export default function AtlasExplorer() {
       </div>
 
       <div className={`atlas-map-frame atlas-map-frame--${mapMode} atlas-map-frame--${sceneMode}`}>
-        <div ref={mapHost} className="atlas-map" role="region" aria-label="Interactive global map with road, satellite and 3D Earth views. Browser location is requested once on entry." />
+        <div ref={mapHost} className="atlas-map" role="region" aria-label="Interactive global map with road, satellite and 3D Earth views. Location sharing is optional and starts only when you choose the location control." />
         <div className="atlas-scene-switch" role="group" aria-label="Choose map dimension">
           <button type="button" onClick={() => changeSceneMode('map')} aria-pressed={sceneMode === 'map'}>2D Map</button>
           <button type="button" onClick={() => changeSceneMode('earth')} aria-pressed={sceneMode === 'earth'}>3D Earth</button>
@@ -371,7 +362,7 @@ export default function AtlasExplorer() {
         <p role="status">{locationMessage}</p>
       </div>
       <p className="atlas-disclosure">
-        Location is requested once by your browser and used only to centre this map for your visit. This portfolio does not store your coordinates or send them to its own server; map providers receive tile requests for the area you view. The 2D satellite layer uses a dated NASA daily composite. 3D Earth uses a 2016 Sentinel-2 cloudless mosaic, open elevation data and mapped OpenStreetMap building shapes. Buildings are extruded only where OpenStreetMap height attributes exist; other footprints remain flat. This is not photogrammetric 3D scanning, and coverage varies by place. These are maps and imagery, not live video.
+        Location sharing is optional and begins only when you choose the map location control. Your position is used to centre the map for this visit; this portfolio does not store your coordinates or send them to its own server. Map providers receive tile requests for the areas you view. The 2D satellite layer uses a dated NASA daily composite. 3D Earth uses a 2016 Sentinel-2 cloudless mosaic, open elevation data and mapped OpenStreetMap building shapes. Buildings are extruded only where OpenStreetMap height attributes exist; other footprints remain flat. This is not photogrammetric 3D scanning, and coverage varies by place. These are maps and imagery, not live video.
       </p>
       {sceneMode === 'earth' && mapMode === 'satellite' && (
         <p className="atlas-data-credit">

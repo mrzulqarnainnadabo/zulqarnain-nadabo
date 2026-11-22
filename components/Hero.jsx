@@ -7,9 +7,10 @@ export default function Hero() {
         <nav className="atlas-nav" aria-label="Main navigation">
           <a className="atlas-monogram" href="#top" aria-label="Zulqarnain Yusuf Nadabo home">ZN<span>°</span></a>
           <div className="atlas-nav-links">
-            <a href="#work">Selected work</a>
-            <a href="#approach">How I think</a>
-            <a href="#contact">Say hello <span>↗</span></a>
+            <a href="#living-atlas">Atlas</a>
+            <a href="#iseyc">ISEYC</a>
+            <a href="#work">Work</a>
+            <a href="#contact">Connect <span>↗</span></a>
           </div>
         </nav>
         <div className="atlas-hero-grid">
