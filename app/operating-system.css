@@ -154,3 +154,7 @@ html.dark{--atlas-paper:#101b16;--atlas-ink:#e9e6dc;--atlas-muted:#a9b5aa;--atla
 .atlas-map-caption{display:flex;flex-wrap:wrap;gap:.35rem 1rem;align-items:center}
 .atlas-map-caption a{color:inherit;text-decoration:underline;text-decoration-color:rgba(180,154,109,.8);text-underline-offset:2px}
 @media(max-width:640px){.atlas-settlement-toggle{min-height:42px;padding:.65rem .8rem;font-size:.64rem}.atlas-settlement-status{font-size:.62rem}}
+
+.atlas-chapter-links{display:flex;flex-direction:column;align-items:flex-end;gap:.7rem;align-self:start}
+.atlas-chapter-links a{justify-self:auto;white-space:nowrap}
+@media(max-width:680px){.atlas-chapter-links{grid-column:2;justify-self:start;align-items:flex-start;flex-direction:row;flex-wrap:wrap;gap:.8rem}}
