@@ -56,3 +56,7 @@ The local layer is an inspection aid, not a completed research result. The settl
 - EOxCloudless 2016 mosaic attribution is displayed as required by EOX: EOxCloudless by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2016 & 2017). The 2016 vintage is CC BY 4.0; later vintages have different licensing and are not used here.
 - Mapterhorn terrain attribution links to its regional source catalogue. Its source datasets and resolutions vary by region; do not describe all terrain tiles as a single uniform bare-earth DTM.
 - Native MapLibre attribution remains enabled. The custom source credit line is additional, not a replacement.
+
+
+## Kaduna service-access sources
+GRID3's October 2026 Nigeria catalogue lists Health Facilities v3.0 (August 2026) for Kaduna and Roads v1.0 (October 2025). GRID3 describes the v3.0 facility layer as non-exhaustive, non-validated and operational; its coverage is not proof that every facility is present, functional or currently offering a service. Roads v1.0 covers source dates from 2016 through September 2025. The third Atlas chapter now identifies these as candidate inputs, not verified service access. Coordinate verification, facility-status reconciliation, road topology and routing assumptions remain required. Observatory ingestion is separate and has not been asserted.
