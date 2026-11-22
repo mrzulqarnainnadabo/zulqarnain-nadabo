@@ -153,7 +153,7 @@ export default function AtlasExplorer() {
         center: VIEWS[0].center,
         zoom: VIEWS[0].zoom,
         pitch: 0,
-        attributionControl: false,
+        attributionControl: { compact: true },
         cooperativeGestures: true,
         maxPitch: 65,
         maxZoom: 19,
@@ -364,7 +364,7 @@ export default function AtlasExplorer() {
       <p className="atlas-disclosure">
         Location sharing is optional and begins only when you choose the map location control. Your position is used to centre the map for this visit; this portfolio does not store your coordinates or send them to its own server. Map providers receive tile requests for the areas you view. The 2D satellite layer uses a dated NASA daily composite. 3D Earth uses a 2016 Sentinel-2 cloudless mosaic, open elevation data and mapped OpenStreetMap building shapes. Buildings are extruded only where OpenStreetMap height attributes exist; other footprints remain flat. This is not photogrammetric 3D scanning, and coverage varies by place. These are maps and imagery, not live video.
       </p>
-      {sceneMode === 'earth' && mapMode === 'satellite' && (
+      {sceneMode === 'earth' && (
         <p className="atlas-data-credit">
           Imagery: <a href="https://cloudless.eox.at/" target="_blank" rel="noreferrer">EOxCloudless</a> by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2016) · Terrain: <a href="https://mapterhorn.com/attribution" target="_blank" rel="noreferrer">Mapterhorn</a> · Buildings and map data: © OpenStreetMap contributors
         </p>
