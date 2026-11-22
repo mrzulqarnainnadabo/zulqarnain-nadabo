@@ -97,6 +97,7 @@ export default function AtlasExplorer() {
     const map = mapRef.current;
     if (!map) return;
     const applyScene = () => {
+      if (sceneRef.current !== scene) return;
       if (scene === 'earth') {
         map.setProjection({ type: 'globe' });
         map.setTerrain({ source: TERRAIN_SOURCE, exaggeration: 1.08 });
@@ -115,8 +116,26 @@ export default function AtlasExplorer() {
       }
       applyMapLayers(map, modeRef.current, scene);
     };
-    if (map.isStyleLoaded()) applyScene();
-    else map.once('load', applyScene);
+    const applyWhenReady = () => {
+      if (sceneRef.current !== scene) {
+        map.off('styledata', applyWhenReady);
+        map.off('idle', applyWhenReady);
+        return;
+      }
+      if (!map.isStyleLoaded() || !map.getSource(TERRAIN_SOURCE) || !map.getLayer(EOX_LAYER)) return;
+      map.off('styledata', applyWhenReady);
+      map.off('idle', applyWhenReady);
+      applyScene();
+    };
+    if (map.isStyleLoaded() && map.getSource(TERRAIN_SOURCE) && map.getLayer(EOX_LAYER)) {
+      applyScene();
+    } else {
+      // The map's one-time load event may already have fired while tile/style
+      // work is still in progress. Listen for readiness instead of missing it.
+      map.on('styledata', applyWhenReady);
+      map.on('idle', applyWhenReady);
+      applyWhenReady();
+    }
   }
 
   useEffect(() => {
