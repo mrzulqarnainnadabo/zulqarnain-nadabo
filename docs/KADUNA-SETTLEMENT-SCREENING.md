@@ -6,7 +6,7 @@ A reproducible research workflow is available at `scripts/atlas/kaduna_settlemen
 
 - Study extent: GRID3 operational Kaduna state boundary (released 2020). This is a working research extent, not a claim about a gazetted legal boundary.
 - Settlement data: GRID3 NGA Settlement Extents v4.1, August 2026, DOI 10.7916/73v5-mq06, CC BY-SA 4.0.
-- Geometry: query candidate blocks by the state bounding box, then intersect with the boundary polygon.
+- Geometry: query candidate blocks by the state bounding box, retain whole blocks that intersect the boundary, and record each block’s percentage overlap. Edge-block attributes are not apportioned to Kaduna.
 - Measurement: compare source area with projected geometry area in WGS 84 / UTM zone 32N (EPSG:32632).
 - Screening: exclude open-space, airport and `bd_low_ma_high` classes as provisional non-residential proxies; calculate `building_area_percentage × gbuilding_mean_height`; identify the upper quartile of this proxy that also falls in the lower quartile of both NDVI and EVI.
 
@@ -23,4 +23,4 @@ python -m pip install -r scripts/atlas/requirements.txt
 python scripts/atlas/kaduna_settlement_screening.py
 ```
 
-The script writes a QA summary, candidate CSV and candidate GeoJSON under `outputs/atlas/kaduna-settlement-screening/`. It has not yet been run against the live service; no Kaduna findings or candidate counts are claimed.
+The script writes a QA summary, candidate CSV and candidate GeoJSON under `outputs/atlas/kaduna-settlement-screening/`. A manual GitHub Actions workflow is included in this review branch; it becomes triggerable after that workflow is present on the repository’s default branch. The script has not yet been run against the live service; no Kaduna findings or candidate counts are claimed.
