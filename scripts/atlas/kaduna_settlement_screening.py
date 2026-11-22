@@ -161,6 +161,8 @@ def main() -> int:
     if state.empty:
         raise RuntimeError("The returned state boundary did not identify Kaduna.")
     state, state_geometry_qa = repair_geometries(state)
+    if state.empty:
+        raise RuntimeError("No valid Kaduna state boundary geometry remained after repair.")
     boundary = unary_union(state.geometry)
     west, south, east, north = boundary.bounds
 
@@ -186,6 +188,8 @@ def main() -> int:
     bbox_count = len(raw)
     raw, geometry_qa = repair_geometries(raw)
     repaired_count = len(raw)
+    if raw.empty:
+        raise RuntimeError("No valid settlement geometry remained after repair.")
 
     # A bbox query is only a candidate extract. Repair geometries first, then
     # retain whole settlement blocks that intersect the operational boundary.
@@ -203,7 +207,7 @@ def main() -> int:
     boundary_metric = gpd.GeoSeries([boundary], crs="EPSG:4326").to_crs(MEASUREMENT_CRS).iloc[0]
     overlap_area = metric.geometry.intersection(boundary_metric).area
     raw["boundary_overlap_percentage"] = (
-        (overlap_area / measured_area.replace(0, pd.NA)) * 100
+        (overlap_area / measured_area.where(measured_area > 0)) * 100
     ).fillna(0).clip(0, 100).values
     source_area = numeric(raw, "block_area_sqm")
     partial_boundary_blocks = int((raw["boundary_overlap_percentage"] < 99.5).sum())
