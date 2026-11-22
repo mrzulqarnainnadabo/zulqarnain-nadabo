@@ -31,5 +31,13 @@ Integration decision: Agent Desk is the unified control surface; AI Platform run
 ## Workspace boundary
 The new /workspace route is a noindex design preview. Captures exist only in component state for the current session. No IDCC, AI Platform, Notion, Hubil or Autoverse data is connected. Do not represent it as authenticated private operations. Production requires individual sign-in, server-side sessions, resource-scoped authorization and domain-specific adapters. Keep commercial records isolated.
 
+## Opportunity and relationship records: verified Notion structures
+The connected Notion workspace already contains three relevant IDCC data sources:
+- **DCC — Partner Organisations**: canonical organisation directory. Fields include organisation type, department scope, relationship status (Prospect, Under review, Engaged, Active collaborator, Paused, Declined, Former collaborator), verification status/source/date, due-diligence notes, relationship owner and official channels. Its description explicitly says an organisation record does not imply an active partnership.
+- **DCC — External Contacts**: named contacts related to partner organisations. Fields include official role, contact preference, consent/contact basis, contact status (including Do not contact), source URL and verification. Its description explicitly classifies contact data as private operational information requiring access control.
+- **IDCC — Programmes & Work Register**: programme/project/work records with department, status, accountable role, priority, risk, budget requested/approved/actual, dates, acceptance criteria and evidence/deliverable link. It explicitly separates planned activity, delivered outputs and verified outcomes.
+
+The opportunity workflow in the workspace preview now reflects those existing structures: research signal → organisation prospect → due diligence → verified contact → concept note → proposal → delivery. The three data sources are not yet wired into the portfolio; the preview contains no live records. Existing outreach notes are drafts; actual sending requires an authenticated mail connector. The integration must preserve the organisation-versus-contact distinction, contact restrictions, verification state and ISEYC resource-level authority.
+
 ## Release boundary
 Draft PR only. Netlify preview only. No Vercel access, production deployment, merge, external communication or consequential execution. Browser-level visual QA remains required before declaring design acceptance.
