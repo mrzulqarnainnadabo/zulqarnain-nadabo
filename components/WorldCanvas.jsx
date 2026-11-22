@@ -76,7 +76,6 @@ export default function WorldCanvas(){
       renderer.render(scene,camera);
       raf=requestAnimationFrame(renderFrame);
     };
-    const syncActivity=()=>{active=!!intersectionObserver?.takeRecords && active; if(!document.hidden&&active&&!raf)raf=requestAnimationFrame(renderFrame);else if(document.hidden||!active)stopFrames();};
     let visible=false;
     const onVisibility=()=>{active=visible&&!document.hidden;if(active&&!raf)raf=requestAnimationFrame(renderFrame);else stopFrames();};
     const cleanup=()=>{
@@ -144,7 +143,7 @@ export default function WorldCanvas(){
   return <section className="earth-experience" aria-label="Interactive Earth and live solar clock">
     <div className="earth-topline"><span>EARTH / LIVE SOLAR MODEL</span><span>DRAG TO EXPLORE · SCROLL TO ZOOM</span></div>
     <div className="earth-canvas-host" ref={host}/>
-    <div className="earth-loader" role="status">{status}</div>
+    <div className={status==='EARTH ONLINE'?"earth-loader earth-loader-ready":"earth-loader"} role="status">{status}</div>
     <div className="earth-readout" aria-live="polite"><span className="earth-readout-label">NIGERIA / KADUNA REGION</span><strong>{clock.light==='DAYLIGHT'?'IN DAYLIGHT':'AFTER DARK'}</strong><span>{clock.date} · {clock.time} {clock.zone}</span></div>
     <div className="earth-controls" aria-label="Earth controls">
       <button type="button" aria-label="Zoom in" onClick={()=>act('in')}>+</button>
