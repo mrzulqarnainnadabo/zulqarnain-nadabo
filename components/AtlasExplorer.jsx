@@ -382,9 +382,9 @@ export default function AtlasExplorer() {
           id: SETTLEMENT_LINE_LAYER,
           type: 'line',
           source: SETTLEMENT_SOURCE,
-          minzoom: 9,
+          minzoom: 13.5,
           layout: { visibility: settlementEnabledRef.current ? 'visible' : 'none' },
-          paint: { 'line-color': '#9a7547', 'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.45, 14, 1.25], 'line-opacity': 0.78 },
+          paint: { 'line-color': '#9a7547', 'line-width': ['interpolate', ['linear'], ['zoom'], 13.5, 0.45, 16, 1.25], 'line-opacity': 0.78 },
         });
         map.on('click', SETTLEMENT_FILL_LAYER, (event) => {
           const feature = event.features?.[0];
