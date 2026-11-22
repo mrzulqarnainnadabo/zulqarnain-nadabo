@@ -366,7 +366,7 @@ export default function AtlasExplorer() {
       </p>
       {sceneMode === 'earth' && (
         <p className="atlas-data-credit">
-          Imagery: <a href="https://cloudless.eox.at/" target="_blank" rel="noreferrer">EOxCloudless</a> by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2016) · Terrain: <a href="https://mapterhorn.com/attribution" target="_blank" rel="noreferrer">Mapterhorn</a> · Buildings and map data: © OpenStreetMap contributors
+          Terrain: <a href="https://mapterhorn.com/attribution" target="_blank" rel="noreferrer">Mapterhorn source attribution</a> · Buildings and map data: © OpenStreetMap contributors {mapMode === 'satellite' ? <> · Imagery: <a href="https://cloudless.eox.at/" target="_blank" rel="noreferrer">EOxCloudless</a> (modified Copernicus Sentinel data 2016)</> : null}
         </p>
       )}
     </section>
