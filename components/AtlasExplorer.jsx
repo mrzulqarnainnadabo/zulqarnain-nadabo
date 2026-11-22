@@ -151,8 +151,22 @@ export default function AtlasExplorer() {
         fitBoundsOptions: { maxZoom: 13 },
       });
       map.addControl(locate, 'top-right');
+      const labelLocationMarkers = () => {
+        const dot = map.getContainer().querySelector('.maplibregl-user-location-dot');
+        const accuracy = map.getContainer().querySelector('.maplibregl-user-location-accuracy-circle');
+        if (dot) {
+          dot.setAttribute('role', 'img');
+          dot.setAttribute('aria-label', 'Your approximate location');
+        }
+        if (accuracy) {
+          accuracy.setAttribute('role', 'img');
+          accuracy.setAttribute('aria-label', 'Location accuracy area');
+        }
+      };
       locate.on('geolocate', () => {
         if (!disposed) {
+          labelLocationMarkers();
+          window.requestAnimationFrame(labelLocationMarkers);
           setLocationMessage('Your position is shown for this visit only. It is not saved by this portfolio.');
           setActiveView('world');
         }
@@ -168,6 +182,7 @@ export default function AtlasExplorer() {
 
       const markerNode = document.createElement('div');
       markerNode.className = 'atlas-map-marker';
+      markerNode.setAttribute('role', 'img');
       markerNode.setAttribute('aria-label', 'Approximate Kaduna South area focus');
       markerNode.style.display = 'none';
       marker = new maplibregl.Marker({ element: markerNode, anchor: 'center' })
@@ -239,10 +254,6 @@ export default function AtlasExplorer() {
           }, firstSymbolLayer);
         }
 
-        // Keep labels above imagery and building geometry.
-        map.getStyle().layers
-          .filter((layer) => layer.type === 'symbol')
-          .forEach((layer) => map.moveLayer(layer.id));
         setStatus('World map ready');
         setLocationMessage('Checking whether your browser can share your location…');
         try {
