@@ -24,7 +24,7 @@ export default function ISEYCArchitecture() {
         </div>
 
         <svg className="iseyc-connectors" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M500 0V32H125V100 M500 32V100 M500 32H875V100 M500 32H625V100" />
+          <path d="M500 0V32H125 M375 32V100 M625 32V100 M875 32V100 M125 32V100" />
         </svg>
 
         <div className="iseyc-departments">

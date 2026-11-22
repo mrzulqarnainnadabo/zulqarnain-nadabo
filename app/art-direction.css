@@ -372,8 +372,8 @@ body { font-family:var(--font-sans),sans-serif; }
 @media(max-width:640px) {
  .atlas-frame { padding:0 1.1rem; }
  .atlas-nav { min-height:66px; }
- .atlas-nav-links { gap:.95rem; font-size:.62rem; }
- .atlas-nav-links a:nth-child(2) { display:none; }
+ .atlas-nav-links { gap:.65rem; font-size:.58rem; }
+ .atlas-nav-links a:nth-child(2) { display:inline; }
  .atlas-hero-grid { padding-top:2.5rem; }
  .atlas-kicker { font-size:.47rem; gap:.4rem; }
  .atlas-name { margin:2.5rem 0 1rem; font-size:.7rem; }
@@ -697,7 +697,7 @@ html.dark footer > p { color: #b8bdd8; }
  .iseyc-departments { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.55rem; }
  .iseyc-department summary { min-height:112px; padding:.8rem; }
  .iseyc-dept-name { font-size:1.2rem; }
- .iseyc-connectors { height:46px; }
+ .iseyc-connectors { display:none; }
  .iseyc-shared { padding:1rem; }
  .iseyc-shared-heading { align-items:flex-start; flex-direction:column; gap:.5rem; }
 }
