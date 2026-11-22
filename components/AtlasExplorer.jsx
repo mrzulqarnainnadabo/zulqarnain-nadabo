@@ -18,7 +18,7 @@ const GRID3_QUERY_URL = 'https://services3.arcgis.com/BU6Aadhn6tbBEdyk/arcgis/re
 
 const VIEWS = [
   { id: 'world', label: 'World', center: [12, 20], zoom: 1.55, earth: 'Earth', note: 'Global view' },
-  { id: 'kaduna-south', label: 'Kaduna South', center: [7.43, 10.45], zoom: 10.2, earth: 'Kaduna South, Kaduna, Nigeria', note: 'Phase 1 framework geography · approximate area view' },
+  { id: 'kaduna-south', label: 'Kaduna South', center: [7.43, 10.45], zoom: 13.5, earth: 'Kaduna South, Kaduna, Nigeria', note: 'Phase 1 framework geography · approximate area view' },
   { id: 'kaduna', label: 'Kaduna State', center: [7.43, 10.52], zoom: 7.6, earth: 'Kaduna State, Nigeria', note: 'State-level context' },
   { id: 'nigeria', label: 'Nigeria', center: [8.5, 9.1], zoom: 5.1, earth: 'Nigeria', note: 'National project context' },
   { id: 'africa', label: 'Africa', center: [20, 1], zoom: 2.6, earth: 'Africa', note: 'Continental context' },
@@ -114,8 +114,8 @@ export default function AtlasExplorer() {
   async function refreshSettlementBlocks(force = false) {
     const map = mapRef.current;
     if (!map || !map.getSource(SETTLEMENT_SOURCE)) return;
-    if (map.getZoom() < 9) {
-      setSettlementStatus('Zoom in to level 9 to inspect settlement blocks.');
+    if (map.getZoom() < 13.5) {
+      setSettlementStatus('Zoom in to level 13.5 to inspect block geometry at its published scale.');
       return;
     }
     const [[west, south], [east, north]] = map.getBounds().toArray();
@@ -374,7 +374,7 @@ export default function AtlasExplorer() {
           id: SETTLEMENT_FILL_LAYER,
           type: 'fill',
           source: SETTLEMENT_SOURCE,
-          minzoom: 9,
+          minzoom: 13.5,
           layout: { visibility: settlementEnabledRef.current ? 'visible' : 'none' },
           paint: { 'fill-color': '#d5ad72', 'fill-opacity': 0.2 },
         });
@@ -453,7 +453,7 @@ export default function AtlasExplorer() {
     if (!map) return;
     const isEarth = sceneRef.current === 'earth';
     const pitch = isEarth && view.id === 'kaduna-south' ? 55 : 0;
-    const zoom = isEarth && view.id === 'kaduna-south' ? 13.1 : view.zoom;
+    const zoom = isEarth && view.id === 'kaduna-south' ? 14.0 : view.zoom;
     map.flyTo({ center: view.center, zoom, pitch, bearing: isEarth ? -12 : 0, duration: 1450, essential: false });
     const markerElement = map.getContainer().querySelector('.atlas-map-marker');
     if (markerElement) markerElement.style.display = view.id === 'kaduna-south' ? 'block' : 'none';
@@ -500,6 +500,7 @@ export default function AtlasExplorer() {
           <span>© OpenStreetMap · OpenFreeMap {mapMode === 'satellite' && sceneMode === 'map' ? '· NASA GIBS' : ''}</span>
           {sceneMode === 'earth' && <span><a href="https://mapterhorn.com/attribution/" target="_blank" rel="noreferrer">Terrain © Mapterhorn · regional sources ↗</a></span>}
           {sceneMode === 'earth' && mapMode === 'satellite' && <span><a href="https://cloudless.eox.at" target="_blank" rel="noreferrer">EOxCloudless by EOX IT Services GmbH · Contains modified Copernicus Sentinel data 2016 &amp; 2017 ↗</a></span>}
+          {settlementVisible && <span><a href="https://doi.org/10.7916/73v5-mq06" target="_blank" rel="noreferrer">GRID3 NGA Settlement Extents v4.1 · CIESIN / GRID3 · CC BY-SA 4.0 ↗</a></span>}
         </div>
       </div>
 
@@ -510,16 +511,16 @@ export default function AtlasExplorer() {
               {view.label}
             </button>
           ))}
-          <button type="button" className="atlas-settlement-toggle" onClick={toggleSettlementBlocks} aria-pressed={settlementVisible}>GRID3 blocks</button>
+          <button type="button" className="atlas-settlement-toggle" onClick={toggleSettlementBlocks} aria-pressed={settlementVisible}>GRID3 v4.1 blocks</button>
         </div>
         <p role="status">{locationMessage}<span className="atlas-settlement-status">{settlementStatus}</span></p>
       </div>
       <p className="atlas-disclosure">
-        Location sharing is optional and begins only when you choose the map location control. Your position is used to centre the map for this visit; this portfolio does not store your coordinates or send them to its own server. Map providers receive tile requests for the areas you view. The 2D satellite layer uses a dated NASA daily composite. 3D Earth uses a 2016 Sentinel-2 cloudless mosaic, open elevation data and mapped OpenStreetMap building shapes. Buildings are extruded only where OpenStreetMap height attributes exist; other footprints remain flat. This is not photogrammetric 3D scanning, and coverage varies by place. These are maps and imagery, not live video.
+        Location sharing is optional and begins only when you choose the map location control. Your position is used to centre the map for this visit; this portfolio does not store your coordinates or send them to its own server. Map providers receive tile requests for the areas you view. The 2D satellite layer uses a dated NASA daily composite. 3D Earth uses a 2016 EOxCloudless Sentinel-2 mosaic, Mapterhorn terrain tiles with region-dependent source data, and mapped OpenStreetMap building shapes. The optional GRID3 NGA Settlement Extents v4.1 layer loads only when selected, at its published local display scale, and only for the visible map extent; settlement blocks are not official administrative boundaries or population counts. Buildings are extruded only where OpenStreetMap height attributes exist; other footprints remain flat. This is not photogrammetric 3D scanning, and coverage varies by place. These are maps and imagery, not live video.
       </p>
       {sceneMode === 'earth' && (
         <p className="atlas-data-credit">
-          Terrain: <a href="https://mapterhorn.com/attribution" target="_blank" rel="noreferrer">Mapterhorn source attribution</a> · Buildings and map data: © OpenStreetMap contributors {mapMode === 'satellite' ? <> · Imagery: <a href="https://cloudless.eox.at/" target="_blank" rel="noreferrer">EOxCloudless</a> (modified Copernicus Sentinel data 2016)</> : null}
+          Terrain: <a href="https://mapterhorn.com/attribution" target="_blank" rel="noreferrer">Mapterhorn source attribution</a> · Buildings and map data: © OpenStreetMap contributors {mapMode === 'satellite' ? <> · Imagery: <a href="https://cloudless.eox.at/" target="_blank" rel="noreferrer">EOxCloudless</a> (Contains modified Copernicus Sentinel data 2016 &amp; 2017)</> : null}
         </p>
       )}
     </section>
