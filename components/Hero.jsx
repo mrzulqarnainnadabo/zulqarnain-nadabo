@@ -14,10 +14,10 @@ export default function Hero() {
         </nav>
         <div className="atlas-hero-grid">
           <div className="atlas-copy">
-            <p className="atlas-kicker"><span className="atlas-pulse" /> AN OPEN SYSTEMS NOTEBOOK <span>— 2026</span></p>
+            <p className="atlas-kicker"><span className="atlas-pulse" /> SYSTEMS ARCHITECTURE / RESEARCH / SPATIAL INTELLIGENCE <span>— 2026</span></p>
             <p className="atlas-name">Zulqarnain Yusuf Nadabo</p>
-            <h1>The world is<br/>a system of<br/><em>connections.</em></h1>
-            <p className="atlas-subline">I look beneath the surface to understand how places, people and information shape the problems we live with.</p>
+            <h1>Making<br/>complex<br/>systems work<br/><em>better.</em></h1>
+            <p className="atlas-subline">I work across research, institutional architecture and digital technology to turn complex challenges into practical, well-structured systems.</p>
             <a className="atlas-enter" href="#work"><span>Explore the work</span><b>↘</b></a>
           </div>
           <div className="atlas-visual">
@@ -25,7 +25,7 @@ export default function Hero() {
           </div>
         </div>
         <div className="atlas-footerline">
-          <span>RESEARCH / SPATIAL INTELLIGENCE / SYSTEM DESIGN</span>
+          <span>INSTITUTIONAL DESIGN / SPATIAL INTELLIGENCE / DIGITAL SYSTEMS</span>
           <span>BASED IN NIGERIA <i>·</i> WORKING ACROSS DISCIPLINES</span>
         </div>
       </div>
