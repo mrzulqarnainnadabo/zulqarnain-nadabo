@@ -12,7 +12,7 @@ The map's native attribution control was disabled; the review branch restores it
 3. **Service access, not just proximity — Kaduna South.** Requires a dated facility register, verified coordinates, operational status and a routable road network. The Observatory readiness note states that facility-level PHC observations have not yet been ingested. No access result is claimed.
 
 ### Atlas acceptance tests
-Verify source, attribution, licence, reference date and zoom limits; test UTC date edge cases; test basemap and imagery failures independently; measure mobile GPU/low-bandwidth performance; test touch and reduced motion; ensure location is opt-in and not persisted; validate CRS, nodata, topology, positional accuracy and scale before analytical claims.
+Verify GRID3 viewport query, pagination, abort-on-pan, source attribution, CC BY-SA 4.0 terms, reference date and zoom limits; test UTC date edge cases; test basemap and imagery failures independently; measure mobile GPU/low-bandwidth performance; test touch and reduced motion; ensure location is opt-in and not persisted; disclose that enabling GRID3 sends current map viewport bounds to ArcGIS; validate CRS, nodata, topology, positional accuracy and scale before analytical claims.
 
 ## ISEYC: model based on IDCC
 Official department IDs/labels: education — Education & Capacity Building; health — Health & Well-being; digital-systems — Software & Technology; civic-affairs — Civic Department. IDCC defines department mandates, boundaries, functions, strategic priorities, coordination partners, programme records, work-plan records, reports and shared registers. The new visual maps these real record types without inventing programme instances, officer appointments, outcomes or an approved organogram.
