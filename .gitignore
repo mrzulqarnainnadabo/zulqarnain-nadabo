@@ -35,3 +35,7 @@ next-env.d.ts
 
 # generated spatial research outputs
 /outputs/atlas/
+
+# Python research workflow
+__pycache__/
+*.py[cod]
