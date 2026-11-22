@@ -372,8 +372,8 @@ body { font-family:var(--font-sans),sans-serif; }
 @media(max-width:640px) {
  .atlas-frame { padding:0 1.1rem; }
  .atlas-nav { min-height:66px; }
- .atlas-nav-links { gap:.95rem; font-size:.62rem; }
- .atlas-nav-links a:nth-child(2) { display:none; }
+ .atlas-nav-links { gap:.65rem; font-size:.58rem; }
+ .atlas-nav-links a:nth-child(2) { display:inline; }
  .atlas-hero-grid { padding-top:2.5rem; }
  .atlas-kicker { font-size:.47rem; gap:.4rem; }
  .atlas-name { margin:2.5rem 0 1rem; font-size:.7rem; }
@@ -658,3 +658,61 @@ html.dark .atlas-view-switch button:not(.is-active) {
 html.dark .footer-mark,
 html.dark .back-top { color: #e9e6dc; }
 html.dark footer > p { color: #b8bdd8; }
+
+
+/* ISEYC — institutional architecture as a readable system diagram */
+.iseyc-architecture { margin:clamp(5rem,10vw,9rem) 0; padding:clamp(2rem,5vw,4rem); background:#e8e8dd; color:#173126; }
+.iseyc-heading { display:grid; grid-template-columns:1.1fr .7fr; align-items:end; gap:2rem; margin-bottom:3rem; }
+.iseyc-kicker { margin:0 0 1rem; color:#78613b; font-size:.62rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; }
+.iseyc-heading h2 { margin:0; font-family:var(--font-serif),serif; font-size:clamp(3rem,6vw,5.5rem); font-weight:300; line-height:.94; letter-spacing:-.065em; }
+.iseyc-heading h2 em { color:#927342; font-weight:300; }
+.iseyc-intro { max-width:38ch; margin:0 0 .35rem; color:#58665b; font-size:.9rem; line-height:1.65; }
+.iseyc-model { max-width:1040px; margin:0 auto; }
+.iseyc-institution { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:.6rem; max-width:590px; margin:0 auto; padding:1.5rem 2rem; border:1px solid rgba(23,49,38,.35); background:#173126; color:#f1efe5; text-align:center; }
+.iseyc-overline { color:#b89b64; font-size:.53rem; font-weight:600; letter-spacing:.16em; }
+.iseyc-institution strong { max-width:34ch; font-family:var(--font-serif),serif; font-size:clamp(1.25rem,2.5vw,1.8rem); font-weight:400; line-height:1.2; }
+.iseyc-tagline { color:#c6d0c3; font-size:.65rem; letter-spacing:.04em; }
+.iseyc-connectors { display:block; width:100%; height:76px; overflow:visible; }
+.iseyc-connectors path { fill:none; stroke:#a18a5b; stroke-width:1.4; vector-effect:non-scaling-stroke; }
+.iseyc-departments { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.7rem; }
+.iseyc-department { min-width:0; border-top:2px solid #9e8758; border-bottom:1px solid rgba(23,49,38,.2); background:rgba(255,255,255,.35); }
+.iseyc-department summary { display:grid; grid-template-columns:1fr auto; gap:.8rem; min-height:130px; align-content:space-between; padding:1rem; cursor:pointer; list-style:none; }
+.iseyc-department summary::-webkit-details-marker { display:none; }
+.iseyc-dept-number { color:#927342; font-size:.58rem; letter-spacing:.1em; }
+.iseyc-dept-name { max-width:18ch; font-family:var(--font-serif),serif; font-size:clamp(1.15rem,1.7vw,1.55rem); line-height:1.08; }
+.iseyc-dept-toggle { align-self:end; color:#927342; font-size:1.2rem; transition:transform .2s ease; }
+.iseyc-department[open] .iseyc-dept-toggle { transform:rotate(45deg); }
+.iseyc-department > p { margin:0; padding:0 1rem 1.1rem; color:#56645a; font-size:.72rem; line-height:1.55; }
+.iseyc-shared { margin-top:2.2rem; padding:1.4rem 1.5rem; border:1px solid rgba(23,49,38,.2); background:#dfe1d5; }
+.iseyc-shared-heading { display:flex; align-items:baseline; justify-content:space-between; gap:1.5rem; margin-bottom:1.2rem; }
+.iseyc-shared-heading p { margin:0; color:#5d6a60; font-size:.7rem; }
+.iseyc-capabilities { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+.iseyc-capabilities > div { display:flex; flex-direction:column; gap:.35rem; padding-left:1rem; border-left:1px solid #a18a5b; }
+.iseyc-capabilities b { color:#203c2e; font-family:var(--font-serif),serif; font-size:1.15rem; font-weight:400; }
+.iseyc-capabilities span { max-width:27ch; color:#5a685e; font-size:.68rem; line-height:1.5; }
+.iseyc-footnote { max-width:78ch; margin:1rem 0 0; color:#69756a; font-size:.62rem; line-height:1.55; }
+@media(max-width:760px) {
+ .iseyc-architecture { margin-left:-1rem; margin-right:-1rem; padding:2rem 1rem; }
+ .iseyc-heading { grid-template-columns:1fr; gap:1rem; margin-bottom:2rem; }
+ .iseyc-departments { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.55rem; }
+ .iseyc-department summary { min-height:112px; padding:.8rem; }
+ .iseyc-dept-name { font-size:1.2rem; }
+ .iseyc-connectors { display:none; }
+ .iseyc-shared { padding:1rem; }
+ .iseyc-shared-heading { align-items:flex-start; flex-direction:column; gap:.5rem; }
+}
+@media(max-width:420px) {
+ .iseyc-departments { gap:.4rem; }
+ .iseyc-department summary { min-height:120px; padding:.7rem; }
+ .iseyc-dept-name { font-size:1.08rem; }
+ .iseyc-capabilities { grid-template-columns:1fr; gap:.9rem; }
+ .iseyc-capabilities > div { padding-left:.8rem; }
+}
+html.dark .iseyc-architecture { background:#182a21; color:#e9e6dc; }
+html.dark .iseyc-heading h2 { color:#f0eee7; }
+html.dark .iseyc-intro,html.dark .iseyc-department > p,html.dark .iseyc-shared-heading p,html.dark .iseyc-capabilities span,html.dark .iseyc-footnote { color:#b8c4b8; }
+html.dark .iseyc-department { background:rgba(255,255,255,.035); border-color:rgba(233,230,220,.2); border-top-color:#b89b64; }
+html.dark .iseyc-dept-name,html.dark .iseyc-capabilities b { color:#f0eee7; }
+html.dark .iseyc-shared { background:#20362a; border-color:rgba(233,230,220,.2); }
+html.dark .iseyc-capabilities > div { border-color:#b89b64; }
+@media(prefers-reduced-motion:reduce) { .iseyc-dept-toggle { transition:none; } }
