@@ -176,6 +176,7 @@ export default function AtlasExplorer() {
 
       map.once('load', () => {
         if (disposed) return;
+        const firstSymbolLayer = map.getStyle().layers.find((layer) => layer.type === 'symbol')?.id;
         map.addSource(SATELLITE_SOURCE, {
           type: 'raster',
           tiles: [`https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/${satelliteDate}/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg`],
@@ -189,7 +190,7 @@ export default function AtlasExplorer() {
           source: SATELLITE_SOURCE,
           layout: { visibility: modeRef.current === 'satellite' && sceneRef.current === 'map' ? 'visible' : 'none' },
           paint: { 'raster-opacity': 1, 'raster-fade-duration': 250 },
-        });
+        }, firstSymbolLayer);
 
         // Higher-detail, globally available Sentinel-2 mosaic (2016 vintage, CC BY 4.0).
         map.addSource(EOX_SOURCE, {
@@ -199,7 +200,6 @@ export default function AtlasExplorer() {
           maxzoom: 14,
           attribution: 'EOxCloudless by EOX IT Services GmbH · modified Copernicus Sentinel data 2016',
         });
-        const firstSymbolLayer = map.getStyle().layers.find((layer) => layer.type === 'symbol')?.id;
         map.addLayer({
           id: EOX_LAYER,
           type: 'raster',
