@@ -581,3 +581,22 @@ html.dark .atlas-process-dot { background:#20233b; }
   .atlas-map-footer p { text-align:left; }
   .atlas-view-switch button { padding:.5rem .62rem; font-size:.62rem; }
 }
+
+
+/* Hero refinement — make the positioning direct, legible and responsive */
+.atlas-name { margin-top:3.2rem; }
+.atlas-copy h1 {
+  max-width:10ch;
+  font-size:clamp(3.9rem,6.9vw,6.8rem);
+  line-height:.88;
+  letter-spacing:-.075em;
+}
+.atlas-subline { max-width:35ch; }
+@media(max-width:900px) {
+  .atlas-name { margin-top:2.6rem; }
+  .atlas-copy h1 { max-width:10ch; font-size:clamp(4.2rem,10.5vw,6.6rem); }
+}
+@media(max-width:640px) {
+  .atlas-copy h1 { max-width:10ch; font-size:clamp(3.65rem,14.5vw,5.2rem); line-height:.9; }
+  .atlas-subline { max-width:34ch; }
+}
