@@ -186,7 +186,9 @@ def main() -> int:
     # A bbox query is only a candidate extract. Intersect against the actual
     # operational boundary polygon before calculating any Kaduna statistics.
     raw = raw.loc[raw.geometry.intersects(boundary)].copy()
+    intersecting_count = len(raw)
     raw, geometry_qa = repair_geometries(raw)
+    repaired_count = len(raw)
     duplicate_ids = int(raw["block_id"].duplicated(keep="first").sum())
     raw = raw.drop_duplicates(subset=["block_id"], keep="first").copy()
 
@@ -309,7 +311,8 @@ def main() -> int:
         },
         "quality": {
             "bbox_features_downloaded": len(block_features),
-            "intersecting_blocks_before_geometry_repair": len(raw) + duplicate_ids,
+            "intersecting_blocks_before_geometry_repair": intersecting_count,
+            "blocks_after_geometry_repair_before_deduplication": repaired_count,
             "unique_blocks_after_repair": len(raw),
             "duplicate_block_ids_removed": duplicate_ids,
             **geometry_qa,
