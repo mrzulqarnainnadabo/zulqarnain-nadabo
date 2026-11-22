@@ -1,23 +1,6 @@
 import './globals.css';
 import './art-direction.css';
 import './operating-system.css';
-import { Newsreader, Hanken_Grotesk } from 'next/font/google';
-
-const serif = Newsreader({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
-  display: 'swap',
-  adjustFontFallback: false,
-});
-const sans = Hanken_Grotesk({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-sans',
-  display: 'swap',
-});
-
 const url = 'https://zulqarnain-nadabo.vercel.app';
 const title = 'Zulqarnain Nadabo | Systems Architect';
 const description = 'An independent systems thinker exploring spatial intelligence, research and digital systems through visual experiments and selected projects.';
@@ -120,7 +103,7 @@ const themeScript = `
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable}`} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
