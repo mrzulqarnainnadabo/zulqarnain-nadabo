@@ -1,59 +1,10 @@
-export default function ISEYCArchitecture() {
-  const departments = [
-    { id: 'education', number: '01', name: 'Education & Capacity Building', note: 'Learning, skills and capacity-building programmes.' },
-    { id: 'health', number: '02', name: 'Health & Well-being', note: 'Health and well-being programmes and community support.' },
-    { id: 'technology', number: '03', name: 'Software & Technology', note: 'Digital systems, technology and practical tools.' },
-    { id: 'civic', number: '04', name: 'Civic Department', note: 'Civic participation and the Civic Mandate review and publish workflow.' },
-  ];
-
-  return (
-    <section id="iseyc" className="iseyc-architecture" aria-labelledby="iseyc-title">
-      <div className="iseyc-heading">
-        <div>
-          <p className="iseyc-kicker">Institutional architecture · 02</p>
-          <h2 id="iseyc-title">ISEYC, <em>in structure.</em></h2>
-        </div>
-        <p className="iseyc-intro">A youth-led public intelligence institution. Four departments work through shared evidence, programmes and accountable operations.</p>
-      </div>
-
-      <div className="iseyc-model">
-        <div className="iseyc-institution">
-          <span className="iseyc-overline">THE INSTITUTION</span>
-          <strong>Initiative for Sustainable Evolution for Youth & Community</strong>
-          <span className="iseyc-tagline">Empowering Youth, Shaping Communities</span>
-        </div>
-
-        <svg className="iseyc-connectors" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M500 0V32H125 M375 32V100 M625 32V100 M875 32V100 M125 32V100" />
-        </svg>
-
-        <div className="iseyc-departments">
-          {departments.map((department) => (
-            <details className="iseyc-department" key={department.id}>
-              <summary>
-                <span className="iseyc-dept-number">{department.number}</span>
-                <span className="iseyc-dept-name">{department.name}</span>
-                <span className="iseyc-dept-toggle" aria-hidden="true">+</span>
-              </summary>
-              <p>{department.note}</p>
-            </details>
-          ))}
-        </div>
-
-        <div className="iseyc-shared">
-          <div className="iseyc-shared-heading">
-            <span className="iseyc-overline">SHARED INTELLIGENCE & OPERATIONS</span>
-            <p>Enabling systems that support the departments — not additional departments.</p>
-          </div>
-          <div className="iseyc-capabilities">
-            <div><b>Observatory</b><span>Source-led evidence for all departments</span></div>
-            <div><b>Civic Brain</b><span>Evidence-grounded interpretation and advisory support</span></div>
-            <div><b>Digital operations</b><span>Coordination, records and accountable workflows</span></div>
-          </div>
-        </div>
-      </div>
-
-      <p className="iseyc-footnote">Structural overview, not a live staff directory or an approved organogram. Public information only; restricted institutional records remain private.</p>
-    </section>
-  );
-}
+'use client';
+import {useState} from 'react';
+const departments=[
+{id:'education',n:'01',name:'Education & Capacity Building',focus:'Learning access, usable learning environments, teacher capacity, literacy and lifelong skills.',questions:['Who can access learning opportunities?','Which facilities and learning conditions are documented?','What skills and capacity gaps remain?'],records:'Programme drafts · Work plans · Activity reports'},
+{id:'health',n:'02',name:'Health & Well-being',focus:'Primary healthcare access, essential services, maternal and child health, and community well-being.',questions:['What service is actually documented?','What date and geography does the source cover?','What remains unobserved or unverified?'],records:'Programme drafts · Work plans · Activity reports'},
+{id:'digital-systems',n:'03',name:'Software & Technology',focus:'Digital literacy, inclusion and connectivity, digital public infrastructure, software and responsible AI.',questions:['Does the source measure access, skills, use or outcomes?','Who is excluded from the available evidence?','Are privacy and accountability designed in?'],records:'Programme drafts · Work plans · Activity reports'},
+{id:'civic-affairs',n:'04',name:'Civic Department',focus:'Civic education, institutional responsibilities, public-service conditions and accountable participation.',questions:['Which institution may hold the responsibility?','What evidence supports the public claim?','What is needed before a conclusion can be drawn?'],records:'Mandate review · Civic learning · Accountability briefs'}
+];
+const shared=[{id:'observatory',name:'Observatory',kind:'EVIDENCE',detail:'Published source records and documented observations inform all four departments. A listed source is not automatically an ingested observation.'},{id:'brain',name:'Civic Brain',kind:'INTERPRETATION',detail:'Finds related evidence, explains limitations and drafts analysis. Its output remains advisory and requires human review.'},{id:'idcc',name:'Digital Operations',kind:'OPERATIONS',detail:'Coordinates programmes, work plans, reports, meetings, actions and external engagement within the authority actually granted.'}];
+export default function ISEYCArchitecture(){const [active,setActive]=useState('education');const [layer,setLayer]=useState('observatory');const d=departments.find(x=>x.id===active)||departments[0];const s=shared.find(x=>x.id===layer)||shared[0];return <section id="iseyc" className="institution-section" aria-labelledby="iseyc-title"><div className="institution-heading"><div><p className="institution-kicker">ISEYC / Institutional model</p><h2 id="iseyc-title">An institution is a <em>system of work.</em></h2></div><p>Explore how the four departments use shared evidence, organise programmes and remain accountable for what they do.</p></div><div className="institution-map"><div className="institution-root"><span>THE INSTITUTION</span><strong>Initiative for Sustainable Evolution for Youth & Community</strong><small>Governance · Secretariat · Departmental coordination</small></div><div className="institution-spine" aria-hidden="true"><i/></div><div className="institution-departments" role="tablist" aria-label="ISEYC departments">{departments.map(x=><button key={x.id} type="button" role="tab" aria-selected={active===x.id} aria-controls="institution-detail" onClick={()=>setActive(x.id)} className={active===x.id?'is-active':''}><span>{x.n}</span><strong>{x.name}</strong><i aria-hidden="true">↗</i></button>)}</div><div className="institution-detail" id="institution-detail" role="tabpanel"><div className="institution-detail-head"><span>{d.n} / DEPARTMENT PROFILE</span><h3>{d.name}</h3><p>{d.focus}</p></div><div className="institution-detail-body"><div><span className="institution-label">Questions that guide the work</span><ul>{d.questions.map(q=><li key={q}>{q}</li>)}</ul></div><div><span className="institution-label">Operational record types</span><p>{d.records}</p><small>Records are not proof of completion. Status, evidence and review remain attached to each item.</small></div></div></div><div className="institution-shared"><div className="institution-shared-title"><span>SHARED CAPABILITIES / USED ACROSS DEPARTMENTS</span><p>One evidence foundation. Distinct institutional responsibilities.</p></div><div className="institution-shared-grid" role="tablist" aria-label="Shared capabilities">{shared.map(x=><button key={x.id} type="button" role="tab" aria-selected={layer===x.id} className={layer===x.id?'is-active':''} onClick={()=>setLayer(x.id)}><span>{x.kind}</span><strong>{x.name}</strong><i aria-hidden="true">↗</i></button>)}</div><div className="institution-layer-detail" role="tabpanel"><b>{s.name}</b><p>{s.detail}</p></div></div><div className="institution-civic-flow"><div><span>01 / COMMUNITY INPUT</span><strong>Civic Mandate</strong><small>Community submissions enter a review workflow.</small></div><i aria-hidden="true">→</i><div><span>02 / CIVIC DEPARTMENT</span><strong>Review & publish</strong><small>Human review remains the publication gate.</small></div><i aria-hidden="true">→</i><div><span>03 / SHARED EVIDENCE</span><strong>Observatory</strong><small>Published records become available for evidence-led work across departments.</small></div></div><div className="institution-accountability"><span>THE ACCOUNTABILITY LOOP</span><p>Programme → responsible department → accountable role → evidence and limitations → human review → approved reporting.</p></div></div><p className="institution-disclosure">This model reflects department and operating-record structures found in IDCC. It is not a live organogram or live register feed. No officer appointments, programme counts or outcomes are inferred. Restricted records and individual authority remain inside IDCC.</p></section>}
