@@ -1,6 +1,6 @@
 # Kaduna settlement-block screening
 
-This workflow applies a transparent, provisional screening method to GRID3 NGA Settlement Extents v4.1 for Kaduna State. It downloads the GRID3 operational state boundary and settlement-block features, validates geometry and source fields, and produces a candidate layer for human review.
+This workflow applies a transparent, provisional screening method to GRID3 NGA Settlement Extents v4.1 for Kaduna State. It downloads the GRID3 operational state boundary and settlement-block features, validates geometry and source fields, measures partial boundary overlap, and produces a candidate layer for human review.
 
 It does **not** publish results, estimate population, measure access to public green space, or establish a legal administrative boundary.
 
@@ -36,9 +36,9 @@ Outputs are written to `outputs/atlas/kaduna-settlement-screening/` (ignored by 
 ## Method
 
 1. Query GRID3's operational Kaduna state boundary (released 2020). It is a working study extent, not a claim about a gazetted legal boundary.
-2. Query GRID3 NGA Settlement Extents v4.1 by the boundary bounding box, then intersect features with the state geometry.
+2. Query GRID3 NGA Settlement Extents v4.1 by the boundary bounding box, then retain whole blocks that intersect the state geometry. Record the share of each block inside the boundary; do not clip the block or pretend its attributes are apportioned.
 3. Repair invalid geometries while recording how many were repaired; remove empty geometries and duplicate block IDs.
-4. Reproject to WGS 84 / UTM zone 32N (EPSG:32632) for metric area checks. Compare geometry area with the source `block_area_sqm` field.
+4. Reproject to WGS 84 / UTM zone 32N (EPSG:32632) for metric area checks. Compare full block geometry area with the source `block_area_sqm` field and record boundary overlap for edge blocks.
 5. Exclude the `open_space`, `airport` and `bd_low_ma_high` screening classes, following the CIESIN settlement-block analysis guide. These are analytical exclusions, not verified land-use classifications.
 6. Calculate a relative built-form screening score as `building_area_percentage × gbuilding_mean_height`. Select the top quartile, then intersect with the bottom quartile of both NDVI and EVI.
 
@@ -57,7 +57,7 @@ The resulting candidate set is a **screening heuristic** for blocks combining re
 - Building footprints and their centroid assignment are incomplete and may vary by place.
 - A high built-form score is not a population or occupancy measure.
 - NDVI/EVI are vegetation signals, not direct measures of public green-space access, ownership, quality or safety.
-- The 2024 vegetation composite and 2021–2023 height summaries refer to different observation periods.
+- The 2024 vegetation composite and 2021–2023 height summaries refer to different observation periods. Blocks crossing the operational boundary are retained whole and flagged by overlap percentage; their metrics are not apportioned to Kaduna.
 - Class exclusions, quantile thresholds and the operational boundary require sensitivity analysis.
 - Inspect outliers, missingness, boundary-edge blocks and candidate geometry before interpreting or publishing.
 - Derived or redistributed GRID3 data must comply with CC BY-SA 4.0 attribution and share-alike terms.
