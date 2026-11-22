@@ -163,3 +163,27 @@ html.dark{--atlas-paper:#101b16;--atlas-ink:#e9e6dc;--atlas-muted:#a9b5aa;--atla
 
 .atlas-chapter-links{display:flex;flex-direction:column;align-items:flex-end;gap:.7rem}.atlas-chapter-links a{justify-self:auto}
 @media(max-width:680px){.atlas-chapter-links{grid-column:2;align-items:flex-start}}
+
+/* Agent Desk and opportunity capture — deliberately local-only in this preview */
+.workspace-agent-builder,.workspace-opportunity-builder{margin:1.5rem 0;border-top:1px solid #cbd0c7;border-bottom:1px solid #cbd0c7}
+.workspace-builder-heading{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.85rem 0}
+.workspace-builder-heading>span{font-size:.55rem;letter-spacing:.15em;color:#98784b}
+.workspace-builder-heading>small{font-size:.6rem;color:#858d82}
+.workspace-agent-composer,.workspace-opportunity-composer{display:grid;gap:.85rem;padding:1rem;background:#e6e6dc}
+.workspace-agent-composer label,.workspace-opportunity-composer label{display:grid;gap:.4rem;color:#647066;font-size:.62rem}
+.workspace-agent-composer textarea,.workspace-opportunity-composer textarea,.workspace-opportunity-composer input,.workspace-composer-row select{width:100%;min-width:0;padding:.75rem .8rem;border:1px solid #c9cec3;background:#f7f6f0;color:#28382e;font:400 .75rem/1.5 var(--font-sans),sans-serif;resize:vertical}
+.workspace-agent-composer textarea:focus,.workspace-opportunity-composer textarea:focus,.workspace-opportunity-composer input:focus,.workspace-composer-row select:focus{outline:2px solid #b6945f;outline-offset:1px}
+.workspace-composer-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.workspace-agent-composer>button,.workspace-opportunity-composer>button{justify-self:start;min-height:40px;padding:.65rem 1rem;background:#1d382b;color:#f1f0e8;font-size:.66rem;font-weight:600}
+.workspace-agent-composer>button:disabled,.workspace-opportunity-composer>button:disabled{opacity:.4;cursor:not-allowed}
+.workspace-agent-queue,.workspace-opportunity-queue{padding:.25rem 0 .8rem}
+.workspace-agent-queue article,.workspace-opportunity-queue article{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.7rem;align-items:center;padding:.9rem 0;border-top:1px solid #d4d8ce}
+.workspace-agent-queue article>div:first-child,.workspace-opportunity-queue article>div:first-child{display:grid;gap:.25rem;min-width:0}
+.workspace-agent-queue article b,.workspace-opportunity-queue article b{font:400 1rem var(--font-serif);overflow-wrap:anywhere}
+.workspace-agent-queue article small,.workspace-opportunity-queue article small{color:#798278;font-size:.62rem;line-height:1.5}
+.workspace-agent-queue article>span,.workspace-opportunity-queue article>span{color:#98784b;font-size:.58rem;text-align:right}
+.workspace-task-actions{display:flex;gap:.4rem;grid-column:1/-1}
+.workspace-task-actions button,.workspace-opportunity-queue article>button{padding:.45rem .65rem;border:1px solid #c7cdc1;color:#566459;font-size:.6rem}
+.workspace-task-actions button:disabled{opacity:.4}
+.workspace-opportunity-queue article p{color:#5e6b60;font-size:.68rem;line-height:1.6;overflow-wrap:anywhere}
+@media(max-width:580px){.workspace-builder-heading{align-items:flex-start;flex-direction:column;gap:.25rem}.workspace-composer-row{grid-template-columns:1fr}.workspace-agent-queue article,.workspace-opportunity-queue article{grid-template-columns:1fr}.workspace-agent-queue article>span,.workspace-opportunity-queue article>span{text-align:left}.workspace-opportunity-queue article>button{justify-self:start}}
