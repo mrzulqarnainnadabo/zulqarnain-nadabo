@@ -6,6 +6,7 @@ const MAP_SCRIPT = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js';
 const MAP_STYLE = 'https://tiles.openfreemap.org/styles/positron';
 
 const VIEWS = [
+  { id: 'world', label: 'World', center: [12, 20], zoom: 1.55, earth: 'Earth', note: 'Global view' },
   { id: 'kaduna-south', label: 'Kaduna South', center: [7.43, 10.45], zoom: 10.2, earth: 'Kaduna South, Kaduna, Nigeria', note: 'Phase 1 framework geography · approximate area view' },
   { id: 'kaduna', label: 'Kaduna State', center: [7.43, 10.52], zoom: 7.6, earth: 'Kaduna State, Nigeria', note: 'State-level context' },
   { id: 'nigeria', label: 'Nigeria', center: [8.5, 9.1], zoom: 5.1, earth: 'Nigeria', note: 'National project context' },
@@ -44,9 +45,10 @@ function loadMapLibre() {
 export default function AtlasExplorer() {
   const mapHost = useRef(null);
   const mapRef = useRef(null);
-  const [activeView, setActiveView] = useState('kaduna-south');
-  const [status, setStatus] = useState('Preparing geographic view…');
+  const [activeView, setActiveView] = useState('world');
+  const [status, setStatus] = useState('Preparing the world map…');
   const [failed, setFailed] = useState(false);
+  const [locationMessage, setLocationMessage] = useState('Select the location control on the map to find your position.');
   const current = VIEWS.find((view) => view.id === activeView) || VIEWS[0];
 
   useEffect(() => {
@@ -67,18 +69,40 @@ export default function AtlasExplorer() {
         attributionControl: false,
         cooperativeGestures: true,
         maxPitch: 55,
+        maxZoom: 19,
       });
       mapRef.current = map;
       map.addControl(new maplibregl.NavigationControl({ showCompass: true, showZoom: true }), 'bottom-right');
       map.addControl(new maplibregl.ScaleControl({ maxWidth: 110, unit: 'metric' }), 'bottom-left');
+      const locate = new maplibregl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
+        trackUserLocation: false,
+        showUserLocation: true,
+        showAccuracyCircle: true,
+        fitBoundsOptions: { maxZoom: 14 },
+      });
+      map.addControl(locate, 'top-right');
+      locate.on('geolocate', () => {
+        if (!disposed) {
+          setLocationMessage('Your location is shown on this map only. It is not published or saved by this portfolio.');
+          setActiveView('world');
+        }
+      });
+      locate.on('error', (event) => {
+        if (!disposed) {
+          const message = event?.message || 'Location could not be determined.';
+          setLocationMessage(message.includes('denied') ? 'Location permission was declined. You can enable it in your browser settings and try again.' : 'Could not find your location. Check your device location settings and try again.');
+        }
+      });
       const markerNode = document.createElement('div');
       markerNode.className = 'atlas-map-marker';
       markerNode.setAttribute('aria-label', 'Approximate Kaduna South area focus');
+      markerNode.style.display = 'none';
       marker = new maplibregl.Marker({ element: markerNode, anchor: 'center' })
-        .setLngLat(VIEWS[0].center)
+        .setLngLat([7.43, 10.45])
         .addTo(map);
       map.once('load', () => {
-        if (!disposed) setStatus('Geographic view ready');
+        if (!disposed) setStatus('World map ready');
       });
       map.on('error', (event) => {
         if (!disposed && !map.isStyleLoaded() && event?.error) {
@@ -107,8 +131,7 @@ export default function AtlasExplorer() {
     if (!map) return;
     map.flyTo({ center: view.center, zoom: view.zoom, pitch: 0, bearing: 0, duration: 1450, essential: false });
     const markerElement = map.getContainer().querySelector('.atlas-map-marker');
-    if (markerElement && view.id === 'kaduna-south') markerElement.style.display = 'block';
-    else if (markerElement) markerElement.style.display = 'none';
+    if (markerElement) markerElement.style.display = view.id === 'kaduna-south' ? 'block' : 'none';
   }
 
   return (
@@ -117,15 +140,15 @@ export default function AtlasExplorer() {
         <div>
           <p className="atlas-kicker">A geographic lens · 01</p>
           <h2 id="atlas-title">The <em>Living Atlas.</em></h2>
-          <p className="atlas-intro">A way into the places behind the work — from a local pilot to the wider world.</p>
+          <p className="atlas-intro">Start anywhere on Earth. Explore the places behind the work, or find your own position on the map.</p>
         </div>
         <a className="atlas-earth-link" href={`https://earth.google.com/web/search/${encodeURIComponent(current.earth)}`} target="_blank" rel="noreferrer">
-          Open in Google Earth <span aria-hidden="true">↗</span>
+          Explore in Google Earth <span aria-hidden="true">↗</span>
         </a>
       </div>
 
       <div className="atlas-map-frame">
-        <div ref={mapHost} className="atlas-map" role="region" aria-label="Interactive geographic map. Use the location controls to explore Kaduna South, Kaduna State, Nigeria and Africa." />
+        <div ref={mapHost} className="atlas-map" role="region" aria-label="Interactive world map with optional visitor geolocation. Use the location control to find your position, or choose a region below." />
         {failed && (
           <div className="atlas-map-fallback" role="status">
             <span>Geographic view unavailable</span>
@@ -133,9 +156,9 @@ export default function AtlasExplorer() {
             <a href={`https://earth.google.com/web/search/${encodeURIComponent(current.earth)}`} target="_blank" rel="noreferrer">Continue in Google Earth ↗</a>
           </div>
         )}
-        {!failed && status !== 'Geographic view ready' && <div className="atlas-map-loading" role="status">{status}</div>}
+        {!failed && status !== 'World map ready' && <div className="atlas-map-loading" role="status">{status}</div>}
         <div className="atlas-map-caption">
-          <span>OPEN GEOGRAPHIC DATA</span>
+          <span>GLOBAL MAP · LOCATION BY PERMISSION</span>
           <span>© OpenStreetMap contributors · OpenFreeMap</span>
         </div>
       </div>
@@ -148,9 +171,9 @@ export default function AtlasExplorer() {
             </button>
           ))}
         </div>
-        <p>{current.note}. Map focus is approximate and is not an administrative boundary.</p>
+        <p>{locationMessage}</p>
       </div>
-      <p className="atlas-disclosure">The map uses OpenStreetMap-derived vector data. It is not Google satellite imagery or a live satellite feed. Google Earth opens separately for additional geographic exploration.</p>
+      <p className="atlas-disclosure">This is an interactive global street and place map. Your browser asks before sharing your location; your coordinates are not published or saved by this portfolio. Map data © OpenStreetMap contributors, rendered by OpenFreeMap.</p>
     </section>
   );
 }
