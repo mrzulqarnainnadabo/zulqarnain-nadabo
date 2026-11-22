@@ -608,8 +608,9 @@ html.dark .theme-toggle { color: #e9e6dc; }
 }
 @media (max-width: 640px) {
   .atlas-scene-switch { top: .55rem; left: .55rem; }
-  .atlas-scene-switch button { min-height: 34px; padding: .5rem .7rem; font-size: .64rem; }
-  .atlas-map-style-switch { top: 3.15rem; left: .55rem; }
+  .atlas-scene-switch button { min-height: 44px; padding: .65rem .8rem; font-size: .66rem; }
+  .atlas-map-style-switch { top: 3.85rem; left: .55rem; }
+  .atlas-map-style-switch button { min-height: 44px; padding: .65rem .8rem; font-size: .66rem; }
   .atlas-data-credit { font-size: .62rem; }
 }
 @media (prefers-reduced-motion: reduce) {
