@@ -90,6 +90,9 @@ export default function AtlasExplorer() {
 
   function changeSceneMode(scene) {
     sceneRef.current = scene;
+    const nextMapMode = scene === 'earth' ? 'satellite' : 'road';
+    modeRef.current = nextMapMode;
+    setMapMode(nextMapMode);
     setSceneMode(scene);
     const map = mapRef.current;
     if (!map) return;
@@ -103,7 +106,7 @@ export default function AtlasExplorer() {
           'horizon-color': '#16334b',
           'atmosphere-blend': 0.92,
         });
-        map.easeTo({ center: [12, 20], zoom: 1.65, pitch: 0, bearing: 0, duration: 1100 });
+        map.easeTo({ center: [12, 20], zoom: 2.25, pitch: 0, bearing: 0, duration: 1100 });
       } else {
         map.setTerrain(null);
         map.setProjection({ type: 'mercator' });
@@ -276,8 +279,10 @@ export default function AtlasExplorer() {
     setActiveView(view.id);
     const map = mapRef.current;
     if (!map) return;
-    const pitch = sceneRef.current === 'earth' && view.id === 'kaduna-south' ? 55 : 0;
-    map.flyTo({ center: view.center, zoom: view.zoom, pitch, bearing: sceneRef.current === 'earth' ? -12 : 0, duration: 1450, essential: false });
+    const isEarth = sceneRef.current === 'earth';
+    const pitch = isEarth && view.id === 'kaduna-south' ? 55 : 0;
+    const zoom = isEarth && view.id === 'kaduna-south' ? 13.1 : view.zoom;
+    map.flyTo({ center: view.center, zoom, pitch, bearing: isEarth ? -12 : 0, duration: 1450, essential: false });
     const markerElement = map.getContainer().querySelector('.atlas-map-marker');
     if (markerElement) markerElement.style.display = view.id === 'kaduna-south' ? 'block' : 'none';
   }
