@@ -77,8 +77,8 @@ export default function WorldCanvas(){
       renderer.render(scene,camera);
       raf=requestAnimationFrame(renderFrame);
     };
-    let visible=false;
-    const onVisibility=()=>{active=visible&&!document.hidden;if(active&&!raf)raf=requestAnimationFrame(renderFrame);else stopFrames();};
+    let visible=false,started=false;
+    const onVisibility=()=>{active=visible&&!document.hidden;if(!renderer||!scene){stopFrames();return;}if(active&&!raf)raf=requestAnimationFrame(renderFrame);else stopFrames();};
     const cleanup=()=>{
       disposed=true;stopFrames();document.removeEventListener('visibilitychange',onVisibility);
       intersectionObserver?.disconnect();resizeObserver?.disconnect();
@@ -132,12 +132,11 @@ export default function WorldCanvas(){
           reset:()=>{rx=0;ry=0;zoom=0;auto=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;setMotion(auto?'AUTO':'PAUSED');},
           africa:()=>{rx=-.12;ry=-.16;zoom=.32;}
         };
-        intersectionObserver=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;onVisibility();},{threshold:.02});
-        intersectionObserver.observe(node);document.addEventListener('visibilitychange',onVisibility);
         setStatus('EARTH ONLINE');onVisibility();
       }catch(error){if(!disposed)setStatus('EARTH UNAVAILABLE · CHECK CONNECTION');}
     };
-    start();
+    intersectionObserver=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible&&!started){started=true;start();}onVisibility();},{threshold:.02});
+    intersectionObserver.observe(node);document.addEventListener('visibilitychange',onVisibility);
     return cleanup;
   },[]);
   const act=key=>api.current?.[key]?.();
