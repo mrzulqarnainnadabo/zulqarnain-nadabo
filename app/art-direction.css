@@ -600,3 +600,32 @@ html.dark .atlas-process-dot { background:#20233b; }
   .atlas-copy h1 { max-width:10ch; font-size:clamp(3.65rem,14.5vw,5.2rem); line-height:.9; }
   .atlas-subline { max-width:34ch; }
 }
+
+
+/* Global map and visitor-controlled geolocation */
+.atlas-map .maplibregl-ctrl-top-right { top: .65rem; right: .65rem; }
+.atlas-map .maplibregl-ctrl-geolocate { position:relative; }
+.atlas-map .maplibregl-ctrl-geolocate::after {
+  content:"Find my location";
+  position:absolute;
+  right:calc(100% + .5rem);
+  top:50%;
+  width:max-content;
+  padding:.45rem .6rem;
+  transform:translateY(-50%);
+  border:1px solid rgba(20,39,30,.12);
+  background:rgba(247,246,240,.94);
+  color:#34473b;
+  font:600 .62rem var(--font-sans),sans-serif;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s ease;
+}
+.atlas-map .maplibregl-ctrl-geolocate:hover::after,
+.atlas-map .maplibregl-ctrl-geolocate:focus-visible::after { opacity:1; }
+.atlas-map-footer p { max-width:48ch; }
+.atlas-disclosure { max-width:82ch; }
+@media(max-width:680px) {
+  .atlas-map .maplibregl-ctrl-top-right { top:.45rem; right:.45rem; }
+  .atlas-map .maplibregl-ctrl-geolocate::after { display:none; }
+}
