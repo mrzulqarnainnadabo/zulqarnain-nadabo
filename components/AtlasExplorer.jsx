@@ -227,13 +227,14 @@ export default function AtlasExplorer() {
             type: 'fill-extrusion',
             source: vectorSourceId,
             'source-layer': 'building',
+            filter: ['any', ['has', 'render_height'], ['has', 'height']],
             minzoom: 13,
             layout: { visibility: sceneRef.current === 'earth' ? 'visible' : 'none' },
             paint: {
               'fill-extrusion-color': '#b7c3c3',
-              'fill-extrusion-height': ['max', 3, ['to-number', ['coalesce', ['get', 'render_height'], ['get', 'height'], 6]]],
-              'fill-extrusion-base': ['max', 0, ['to-number', ['coalesce', ['get', 'render_min_height'], ['get', 'min_height'], 0]]],
-              'fill-extrusion-opacity': 0.86,
+              'fill-extrusion-height': ['to-number', ['coalesce', ['get', 'render_height'], ['get', 'height'], 0]],
+              'fill-extrusion-base': ['to-number', ['coalesce', ['get', 'render_min_height'], ['get', 'min_height'], 0]],
+              'fill-extrusion-opacity': 0.9,
             },
           }, firstSymbolLayer);
         }
@@ -340,7 +341,7 @@ export default function AtlasExplorer() {
         <p role="status">{locationMessage}</p>
       </div>
       <p className="atlas-disclosure">
-        Location is requested once by your browser and used only to centre this map for your visit. This portfolio does not store your coordinates or send them to its own server; map providers receive tile requests for the area you view. The 2D satellite layer uses a dated NASA daily composite. 3D Earth uses a 2016 Sentinel-2 cloudless mosaic, open elevation data and mapped OpenStreetMap building shapes. Buildings are extruded from mapped footprints, not photogrammetric 3D scans; imagery and building coverage vary by place. These are maps and imagery, not live video.
+        Location is requested once by your browser and used only to centre this map for your visit. This portfolio does not store your coordinates or send them to its own server; map providers receive tile requests for the area you view. The 2D satellite layer uses a dated NASA daily composite. 3D Earth uses a 2016 Sentinel-2 cloudless mosaic, open elevation data and mapped OpenStreetMap building shapes. Buildings are extruded only where OpenStreetMap height attributes exist; other footprints remain flat. This is not photogrammetric 3D scanning, and coverage varies by place. These are maps and imagery, not live video.
       </p>
       {sceneMode === 'earth' && mapMode === 'satellite' && (
         <p className="atlas-data-credit">
