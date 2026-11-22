@@ -542,3 +542,42 @@ html.dark .atlas-process-dot { background:#20233b; }
 
 .earth-experience:has(.earth-webgl) .earth-loader:not(.earth-loader-ready){display:block;}
 .earth-experience .earth-loader-ready{display:none;}
+
+
+/* Living Atlas — no-key geographic explorer */
+.atlas-section { margin: clamp(5rem,10vw,9rem) 0; color: var(--ink-deep); }
+.atlas-heading { display:flex; align-items:end; justify-content:space-between; gap:2rem; margin-bottom:2rem; }
+.atlas-kicker { margin:0 0 1rem; color:#8a7449; font-size:.64rem; font-weight:600; letter-spacing:.17em; text-transform:uppercase; }
+.atlas-heading h2 { margin:0; font-family:var(--font-serif),serif; font-size:clamp(3rem,6vw,5.7rem); font-weight:300; letter-spacing:-.065em; line-height:.95; }
+.atlas-heading h2 em { color:#a77c3f; font-weight:300; }
+.atlas-intro { max-width:38ch; margin:1rem 0 0; color:#667168; font-size:1rem; line-height:1.65; }
+.atlas-earth-link { display:inline-flex; flex:none; align-items:center; gap:.8rem; border-bottom:1px solid #b9964d; padding:.7rem 0; color:#243b31; font-size:.76rem; font-weight:600; }
+.atlas-earth-link span { color:#a77c3f; font-size:1.1rem; }
+.atlas-map-frame { position:relative; overflow:hidden; border:1px solid rgba(20,39,30,.18); background:#e6e7e3; }
+.atlas-map { width:100%; height:clamp(340px,54vw,570px); }
+.atlas-map-marker { width:17px; height:17px; border:3px solid #fff; border-radius:50%; background:#b77c3d; box-shadow:0 0 0 7px rgba(183,124,61,.2),0 2px 10px rgba(0,0,0,.25); }
+.atlas-map-caption { position:absolute; right:0; bottom:0; left:0; z-index:2; display:flex; justify-content:space-between; gap:1rem; padding:.8rem 1rem; background:rgba(247,246,240,.91); color:#4c5b51; font-size:.58rem; letter-spacing:.06em; backdrop-filter:blur(10px); }
+.atlas-map-caption span:first-child { font-weight:700; letter-spacing:.14em; }
+.atlas-map-loading,.atlas-map-fallback { position:absolute; z-index:3; top:1rem; left:1rem; max-width:min(340px,calc(100% - 2rem)); padding:.75rem 1rem; border:1px solid rgba(20,39,30,.13); background:rgba(247,246,240,.95); color:#526157; font-size:.75rem; }
+.atlas-map-fallback { top:50%; left:50%; width:min(390px,calc(100% - 2rem)); transform:translate(-50%,-50%); padding:1.5rem; text-align:center; }
+.atlas-map-fallback span { color:#18271f; font-family:var(--font-serif),serif; font-size:1.5rem; }
+.atlas-map-fallback p { margin:.5rem 0 1rem; line-height:1.5; }
+.atlas-map-fallback a { color:#8a642d; font-weight:600; text-decoration:underline; text-underline-offset:4px; }
+.atlas-map .maplibregl-ctrl-group { overflow:hidden; border:1px solid rgba(20,39,30,.16); border-radius:2px; box-shadow:0 2px 12px rgba(20,39,30,.1); }
+.atlas-map .maplibregl-ctrl button { width:34px; height:34px; }
+.atlas-map .maplibregl-ctrl-scale { border-color:#65736a; background:rgba(247,246,240,.88); color:#34473b; }
+.atlas-map-footer { display:flex; align-items:center; justify-content:space-between; gap:1.5rem; padding:1rem 0; border-bottom:1px solid rgba(20,39,30,.18); }
+.atlas-view-switch { display:flex; flex-wrap:wrap; gap:.35rem; }
+.atlas-view-switch button { border:1px solid rgba(20,39,30,.2); padding:.55rem .8rem; color:#5b695f; font-size:.68rem; transition:background .2s,border-color .2s,color .2s; }
+.atlas-view-switch button:hover,.atlas-view-switch button.is-active { border-color:#243b31; background:#243b31; color:#f1eee5; }
+.atlas-map-footer p { max-width:39ch; margin:0; color:#6d786f; font-size:.65rem; line-height:1.5; text-align:right; }
+.atlas-disclosure { max-width:70ch; margin:.8rem 0 0; color:#7b837c; font-size:.62rem; line-height:1.6; }
+@media (max-width:680px) {
+  .atlas-heading { align-items:flex-start; flex-direction:column; gap:1rem; }
+  .atlas-earth-link { margin-top:.25rem; }
+  .atlas-map { height:390px; }
+  .atlas-map-caption { flex-direction:column; gap:.25rem; font-size:.53rem; }
+  .atlas-map-footer { align-items:flex-start; flex-direction:column; }
+  .atlas-map-footer p { text-align:left; }
+  .atlas-view-switch button { padding:.5rem .62rem; font-size:.62rem; }
+}
