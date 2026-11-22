@@ -273,7 +273,7 @@ def main() -> int:
     candidate_geo_path = args.out_dir / "kaduna_screening_candidates.geojson"
     if candidate_geo.empty:
         candidate_geo_path.write_text(
-            json.dumps({"type": "FeatureCollection", "features": []}) + "\\n",
+            json.dumps({"type": "FeatureCollection", "features": []}) + "\n",
             encoding="utf-8",
         )
     else:
