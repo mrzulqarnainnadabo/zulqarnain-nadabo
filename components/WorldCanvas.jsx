@@ -73,6 +73,7 @@ export default function WorldCanvas(){
       if(auto)ry+=.00028;
       globe.rotation.set(rx,ry,0);
       atmosphere.rotation.copy(globe.rotation);
+      camera.position.z=4.05-zoom;
       renderer.render(scene,camera);
       raf=requestAnimationFrame(renderFrame);
     };
