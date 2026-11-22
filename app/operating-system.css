@@ -141,3 +141,16 @@ html.dark{--atlas-paper:#101b16;--atlas-ink:#e9e6dc;--atlas-muted:#a9b5aa;--atla
 .atlas-nav-workspace{padding:.45rem .7rem;border:1px solid rgba(232,231,222,.35);color:#e5d9b9!important;font-size:.68rem!important;letter-spacing:.03em}
 .atlas-nav-workspace:hover{background:rgba(255,255,255,.08)}
 @media(max-width:600px){.atlas-nav-workspace{padding:.35rem .45rem;font-size:.58rem!important}}
+
+/* Atlas local evidence layer and source disclosure */
+.atlas-settlement-toggle{min-height:36px;padding:.55rem .8rem;border:1px solid rgba(20,39,30,.2);background:#f1eee5;color:#526157;font:600 .66rem/1 var(--sans),sans-serif;cursor:pointer}
+.atlas-settlement-toggle[aria-pressed="true"]{background:#173528;color:#f1eee5;border-color:#173528}
+.atlas-settlement-toggle:focus-visible{outline:2px solid #b9964d;outline-offset:3px}
+.atlas-settlement-status{display:block;margin-top:.35rem;color:#967648;font-size:.66rem;line-height:1.5}
+.atlas-settlement-popup{min-width:170px;color:#26382d;font:500 .72rem/1.5 var(--sans),sans-serif}
+.atlas-settlement-popup strong{display:block;margin-bottom:.45rem;font:600 .88rem var(--sans),sans-serif}
+.atlas-settlement-popup p{margin:.22rem 0;color:#59665d}
+.atlas-settlement-popup p b{color:#24392c}
+.atlas-map-caption{display:flex;flex-wrap:wrap;gap:.35rem 1rem;align-items:center}
+.atlas-map-caption a{color:inherit;text-decoration:underline;text-decoration-color:rgba(180,154,109,.8);text-underline-offset:2px}
+@media(max-width:640px){.atlas-settlement-toggle{min-height:42px;padding:.65rem .8rem;font-size:.64rem}.atlas-settlement-status{font-size:.62rem}}
