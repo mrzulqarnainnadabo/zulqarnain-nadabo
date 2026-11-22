@@ -127,3 +127,5 @@ html.dark{--atlas-paper:#101b16;--atlas-ink:#e9e6dc;--atlas-muted:#a9b5aa;--atla
 
 .institution-workflow{margin-top:1rem;padding:1rem;border:1px solid rgba(35,57,43,.18);background:#f3f1e9}.institution-workflow>span{font-size:.52rem;letter-spacing:.14em;color:#98784a}.institution-workflow-steps{display:grid;grid-template-columns:1fr 20px 1fr 20px 1.2fr 20px 1fr;gap:.4rem;align-items:center;margin-top:.7rem}.institution-workflow-steps b{font:400 .95rem var(--font-serif);color:#304336}.institution-workflow-steps i{text-align:center;color:#9a8057;font-style:normal}
 @media(max-width:760px){.institution-workflow-steps{grid-template-columns:1fr;gap:.45rem}.institution-workflow-steps i{transform:rotate(90deg);text-align:left}}
+
+.atlas-section .earth-experience{margin:2rem 0 3.25rem;border-radius:2px}
