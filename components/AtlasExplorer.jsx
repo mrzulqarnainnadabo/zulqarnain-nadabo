@@ -398,7 +398,7 @@ export default function AtlasExplorer() {
           heading.textContent = properties.block_id || 'GRID3 settlement block';
           popup.appendChild(heading);
           const fields = [
-            ['Buildings', properties.building_count],
+            ['Buildings (centroid in block)', properties.building_count],
             ['Block area', properties.block_area_sqm == null ? null : Number(properties.block_area_sqm).toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' m²'],
             ['Building-count density', properties.building_count_density == null ? null : Number(properties.building_count_density).toFixed(1) + ' per hectare'],
             ['Building area share', properties.building_area_percentage == null ? null : Number(properties.building_area_percentage).toFixed(1) + '%'],
@@ -503,7 +503,7 @@ export default function AtlasExplorer() {
         {!failed && status !== 'World map ready' && <div className="atlas-map-loading" role="status">{status}</div>}
         <div className="atlas-map-caption">
           <span>GLOBAL ATLAS · {sceneMode === 'earth' ? '3D TERRAIN + MAPPED BUILDINGS' : mapMode === 'satellite' ? 'NASA SATELLITE COMPOSITE' : 'OPEN STREET MAP'}</span>
-          <span>© OpenStreetMap · OpenFreeMap {mapMode === 'satellite' && sceneMode === 'map' ? '· NASA GIBS' : ''}</span>
+          <span>© OpenStreetMap · OpenFreeMap {mapMode === 'satellite' && sceneMode === 'map' ? '· NASA GIBS' : ''} {settlementVisible ? '· GRID3 / CIESIN' : ''}</span>
           {sceneMode === 'earth' && <span><a href="https://mapterhorn.com/attribution/" target="_blank" rel="noreferrer">Terrain © Mapterhorn · regional sources ↗</a></span>}
           {sceneMode === 'earth' && mapMode === 'satellite' && <span><a href="https://cloudless.eox.at" target="_blank" rel="noreferrer">EOxCloudless by EOX IT Services GmbH · Contains modified Copernicus Sentinel data 2016 &amp; 2017 ↗</a></span>}
           {settlementVisible && <span><a href="https://doi.org/10.7916/73v5-mq06" target="_blank" rel="noreferrer">GRID3 NGA Settlement Extents v4.1 · CIESIN / GRID3 · CC BY-SA 4.0 ↗</a></span>}
