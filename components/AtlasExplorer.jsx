@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import WorldCanvas from './WorldCanvas';
 
 const MAP_SCRIPT = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js';
 const MAP_STYLE = 'https://tiles.openfreemap.org/styles/positron';
@@ -315,12 +316,14 @@ export default function AtlasExplorer() {
         <div>
           <p className="atlas-kicker">A geographic lens · 01</p>
           <h2 id="atlas-title">The <em>Living Atlas.</em></h2>
-          <p className="atlas-intro">A global view of place, evidence and the work in progress. Begin anywhere on Earth.</p>
+          <p className="atlas-intro">A planetary view for time and orientation. Use the map below for local geography, evidence and spatial research.</p>
         </div>
         <a className="atlas-earth-link" href={`https://earth.google.com/web/search/${encodeURIComponent(current.earth)}`} target="_blank" rel="noreferrer">
           Explore in Google Earth <span aria-hidden="true">↗</span>
         </a>
       </div>
+
+      <WorldCanvas />
 
       <div className={`atlas-map-frame atlas-map-frame--${mapMode} atlas-map-frame--${sceneMode}`}>
         <div ref={mapHost} className="atlas-map" role="region" aria-label="Interactive global map with road, satellite and 3D Earth views. Location sharing is optional and starts only when you choose the location control." />
