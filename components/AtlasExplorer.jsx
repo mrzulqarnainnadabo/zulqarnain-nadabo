@@ -232,6 +232,7 @@ export default function AtlasExplorer() {
     let disposed = false;
     let map;
     let marker;
+    let refreshOnMove;
     const host = mapHost.current;
     if (!host) return undefined;
 
@@ -322,7 +323,7 @@ export default function AtlasExplorer() {
           tiles: ['https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/{z}/{y}/{x}.jpg'],
           tileSize: 256,
           maxzoom: 14,
-          attribution: 'EOxCloudless by EOX IT Services GmbH · modified Copernicus Sentinel data 2016',
+          attribution: '<a href="https://cloudless.eox.at" target="_blank" rel="noopener noreferrer">EOxCloudless</a> by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2016 &amp; 2017)',
         });
         map.addLayer({
           id: EOX_LAYER,
@@ -339,6 +340,7 @@ export default function AtlasExplorer() {
           url: 'https://tiles.mapterhorn.com/tilejson.json',
           tileSize: 512,
           encoding: 'terrarium',
+          attribution: '<a href="https://mapterhorn.com/attribution/" target="_blank" rel="noopener noreferrer">Terrain © Mapterhorn · regional source catalogue</a>',
         });
 
         // Extrude mapped OSM building footprints where the vector source has
@@ -363,6 +365,62 @@ export default function AtlasExplorer() {
           }, firstSymbolLayer);
         }
 
+        map.addSource(SETTLEMENT_SOURCE, {
+          type: 'geojson',
+          data: { type: 'FeatureCollection', features: [] },
+          promoteId: 'block_id',
+        });
+        map.addLayer({
+          id: SETTLEMENT_FILL_LAYER,
+          type: 'fill',
+          source: SETTLEMENT_SOURCE,
+          minzoom: 9,
+          layout: { visibility: settlementEnabledRef.current ? 'visible' : 'none' },
+          paint: { 'fill-color': '#d5ad72', 'fill-opacity': 0.2 },
+        });
+        map.addLayer({
+          id: SETTLEMENT_LINE_LAYER,
+          type: 'line',
+          source: SETTLEMENT_SOURCE,
+          minzoom: 9,
+          layout: { visibility: settlementEnabledRef.current ? 'visible' : 'none' },
+          paint: { 'line-color': '#9a7547', 'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.45, 14, 1.25], 'line-opacity': 0.78 },
+        });
+        map.on('click', SETTLEMENT_FILL_LAYER, (event) => {
+          const feature = event.features?.[0];
+          if (!feature) return;
+          const properties = feature.properties || {};
+          const popup = document.createElement('div');
+          popup.className = 'atlas-settlement-popup';
+          const heading = document.createElement('strong');
+          heading.textContent = properties.block_id || 'GRID3 settlement block';
+          popup.appendChild(heading);
+          const fields = [
+            ['Buildings', properties.building_count],
+            ['Block area', properties.block_area_sqm == null ? null : Number(properties.block_area_sqm).toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' m²'],
+            ['Building-count density', properties.building_count_density],
+            ['Mean NDVI (source field)', properties.ndvi_mean],
+            ['Extent type', properties.extent_type],
+          ];
+          fields.forEach(([label, value]) => {
+            if (value == null || value === '') return;
+            const line = document.createElement('p');
+            const name = document.createElement('span');
+            name.textContent = label + ': ';
+            const data = document.createElement('b');
+            data.textContent = String(value);
+            line.append(name, data);
+            popup.appendChild(line);
+          });
+          new maplibregl.Popup({ closeButton: true, maxWidth: '260px' }).setLngLat(event.lngLat).setDOMContent(popup).addTo(map);
+        });
+        map.on('mouseenter', SETTLEMENT_FILL_LAYER, () => { map.getCanvas().style.cursor = 'pointer'; });
+        map.on('mouseleave', SETTLEMENT_FILL_LAYER, () => { map.getCanvas().style.cursor = ''; });
+        refreshOnMove = () => {
+          if (settlementEnabledRef.current) refreshSettlementBlocks();
+        };
+        map.on('moveend', refreshOnMove);
+        if (settlementEnabledRef.current) refreshSettlementBlocks(true);
         setStatus('World map ready');
         setLocationMessage('Location sharing is off. Use the location control only if you want to centre the map on yourself.');
       });
@@ -382,6 +440,8 @@ export default function AtlasExplorer() {
     return () => {
       disposed = true;
       marker?.remove();
+      settlementAbortRef.current?.abort();
+      if (map && refreshOnMove) map.off('moveend', refreshOnMove);
       map?.remove();
       mapRef.current = null;
     };
