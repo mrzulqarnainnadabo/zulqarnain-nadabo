@@ -140,7 +140,7 @@ def main() -> int:
     session = requests.Session()
     session.headers.update({"User-Agent": "ZulqarnainAtlasResearch/0.1 (GRID3 source audit)"})
 
-    # GRID3 state boundaries are operational reference geography (2020), not a
+    # GRID3 state boundaries are operational reference geography, not a
     # claim that the geometry is a gazetted legal boundary.
     state_features = fetch_features(
         session,
@@ -160,6 +160,7 @@ def main() -> int:
     state = state.loc[state_name == "kaduna"].copy()
     if state.empty:
         raise RuntimeError("The returned state boundary did not identify Kaduna.")
+    state, state_geometry_qa = repair_geometries(state)
     boundary = unary_union(state.geometry)
     west, south, east, north = boundary.bounds
 
@@ -182,13 +183,14 @@ def main() -> int:
     raw = as_geodataframe(block_features)
     if raw.empty:
         raise RuntimeError("The GRID3 settlement query returned no blocks in the Kaduna extent.")
-
-    # A bbox query is only a candidate extract. Intersect against the actual
-    # operational boundary polygon before calculating any Kaduna statistics.
-    raw = raw.loc[raw.geometry.intersects(boundary)].copy()
-    intersecting_count = len(raw)
+    bbox_count = len(raw)
     raw, geometry_qa = repair_geometries(raw)
     repaired_count = len(raw)
+
+    # A bbox query is only a candidate extract. Repair geometries first, then
+    # retain whole settlement blocks that intersect the operational boundary.
+    raw = raw.loc[raw.geometry.intersects(boundary)].copy()
+    intersecting_count = len(raw)
     duplicate_ids = int(raw["block_id"].duplicated(keep="first").sum())
     raw = raw.drop_duplicates(subset=["block_id"], keep="first").copy()
 
@@ -198,7 +200,13 @@ def main() -> int:
     # Compare the source area attribute with a projected geometry measurement.
     metric = raw.to_crs(MEASUREMENT_CRS)
     measured_area = metric.geometry.area
+    boundary_metric = gpd.GeoSeries([boundary], crs="EPSG:4326").to_crs(MEASUREMENT_CRS).iloc[0]
+    overlap_area = metric.geometry.intersection(boundary_metric).area
+    raw["boundary_overlap_percentage"] = (
+        (overlap_area / measured_area.replace(0, pd.NA)) * 100
+    ).fillna(0).clip(0, 100).values
     source_area = numeric(raw, "block_area_sqm")
+    partial_boundary_blocks = int((raw["boundary_overlap_percentage"] < 99.5).sum())
     valid_area = source_area.gt(0) & measured_area.gt(0)
     area_difference = ((measured_area[valid_area] - source_area[valid_area]).abs()
                        / source_area[valid_area]) * 100
@@ -236,6 +244,14 @@ def main() -> int:
     built_threshold = float(scored["built_form_screening_score"].quantile(0.75))
     ndvi_threshold = float(scored["ndvi_mean"].quantile(0.25))
     evi_threshold = float(scored["evi_mean"].quantile(0.25))
+    ndvi_only_candidates = scored.loc[
+        (scored["built_form_screening_score"] >= built_threshold)
+        & (scored["ndvi_mean"] <= ndvi_threshold)
+    ]
+    evi_only_candidates = scored.loc[
+        (scored["built_form_screening_score"] >= built_threshold)
+        & (scored["evi_mean"] <= evi_threshold)
+    ]
     candidates = scored.loc[
         (scored["built_form_screening_score"] >= built_threshold)
         & (scored["ndvi_mean"] <= ndvi_threshold)
@@ -261,6 +277,7 @@ def main() -> int:
         "evi_mean",
         "extent_type",
         "composite_class",
+        "boundary_overlap_percentage",
         "built_form_screening_score",
         "longitude",
         "latitude",
@@ -291,7 +308,7 @@ def main() -> int:
             "source": STATE_BOUNDARY_LAYER,
             "field": "statename",
             "name": "Kaduna",
-            "reference_type": "GRID3 operational state boundary (released 2020)",
+            "reference_type": "GRID3 operational state boundary reference layer; working study extent only",
             "legal_boundary_claim": False,
         },
         "settlement_source": {
@@ -314,10 +331,12 @@ def main() -> int:
             },
         },
         "quality": {
-            "bbox_features_downloaded": len(block_features),
-            "intersecting_blocks_before_geometry_repair": intersecting_count,
-            "blocks_after_geometry_repair_before_deduplication": repaired_count,
+            "bbox_features_downloaded": bbox_count,
+            "blocks_after_geometry_repair": repaired_count,
+            "intersecting_blocks_after_boundary_filter": intersecting_count,
             "unique_blocks_after_repair": len(raw),
+            "partial_boundary_blocks_below_99_5_percent_overlap": partial_boundary_blocks,
+            "state_boundary_geometry_qa": state_geometry_qa,
             "duplicate_block_ids_removed": duplicate_ids,
             **geometry_qa,
             "null_block_ids": int(raw["block_id"].isna().sum()),
@@ -334,6 +353,9 @@ def main() -> int:
             "built_form_screening_score_q75": built_threshold,
             "ndvi_q25": ndvi_threshold,
             "evi_q25": evi_threshold,
+            "built_form_plus_ndvi_candidate_count": len(ndvi_only_candidates),
+            "built_form_plus_evi_candidate_count": len(evi_only_candidates),
+            "combined_candidate_count": len(candidates),
             "rule": "top quartile built-form score AND bottom quartile NDVI AND bottom quartile EVI",
             "built_form_score": "building_area_percentage multiplied by mean building height; screening proxy only",
         },
@@ -344,6 +366,7 @@ def main() -> int:
             "Mean building heights summarize Google Open Buildings 2.5D data for 2021–2023.",
             "NDVI and EVI are 2024 cloud-free median Sentinel-2 composites.",
             "Operational boundary is a working reference extent, not a gazetted legal boundary.",
+            "Whole settlement blocks intersecting the state boundary are retained; boundary_overlap_percentage flags partial edge blocks.",
             "Results require sensitivity review, visual inspection and local validation before publication.",
         ],
     }
