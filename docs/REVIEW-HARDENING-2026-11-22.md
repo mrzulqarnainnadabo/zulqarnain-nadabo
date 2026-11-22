@@ -43,3 +43,16 @@ The opportunity workflow in the workspace preview reflects those structures: res
 
 ## Release boundary
 Draft PR only. Netlify preview only. No Vercel access, production deployment, merge, external communication or consequential execution. Browser-level visual QA remains required before declaring design acceptance.
+
+
+## Local Atlas layer — GRID3 settlement blocks
+The map now includes an opt-in **GRID3 v4.1 blocks** layer. It queries the public CIESIN/GRID3 ArcGIS FeatureServer only after the visitor selects the layer, and only for the current map extent. Requests return GeoJSON in EPSG:4326 and request block ID, block area, building count, building-count density, mean NDVI and extent type. Results are paged at 1,000 records with a 4,000-feature client cap; the UI states when that cap is reached. Clicking a feature reveals only those source attributes. No density class, population estimate, service-access score or administrative boundary is inferred.
+
+The source layer metadata reports polygon geometry, Web Mercator source extent, 2,000 maximum records per request, and a published scale range. The map limits display to zoom 13.5 and above. The data is not a gazetted boundary, occupancy count or population surface. Known limitations include sensitivity to roads/railways/rivers completeness, possible industrial-block misclassification, dependence on building-footprint availability for descriptive metrics, and NDVI/EVI compositing windows. The source is licensed CC BY-SA 4.0; any redistributed derived layer must preserve the share-alike terms.
+
+The local layer is an inspection aid, not a completed research result. The settlement-morphology chapter still requires a reproducible Kaduna-wide extract, geometry/topology and CRS validation, completeness audit, projected measurement method, sensitivity tests and a dated research note before any conclusions are published.
+
+### Map imagery and terrain attribution
+- EOxCloudless 2016 mosaic attribution is displayed as required by EOX: EOxCloudless by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2016 & 2017). The 2016 vintage is CC BY 4.0; later vintages have different licensing and are not used here.
+- Mapterhorn terrain attribution links to its regional source catalogue. Its source datasets and resolutions vary by region; do not describe all terrain tiles as a single uniform bare-earth DTM.
+- Native MapLibre attribution remains enabled. The custom source credit line is additional, not a replacement.
