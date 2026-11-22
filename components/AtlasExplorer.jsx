@@ -11,6 +11,10 @@ const EOX_LAYER = 'atlas-eox-imagery-layer';
 const EOX_SOURCE = 'atlas-eox-imagery-source';
 const TERRAIN_SOURCE = 'atlas-terrain-source';
 const BUILDINGS_LAYER = 'atlas-osm-3d-buildings';
+const SETTLEMENT_SOURCE = 'atlas-grid3-settlement-source';
+const SETTLEMENT_FILL_LAYER = 'atlas-grid3-settlement-fill';
+const SETTLEMENT_LINE_LAYER = 'atlas-grid3-settlement-line';
+const GRID3_QUERY_URL = 'https://services3.arcgis.com/BU6Aadhn6tbBEdyk/arcgis/rest/services/GRID3_NGA_settlement_extents_v4_1/FeatureServer/0/query';
 
 const VIEWS = [
   { id: 'world', label: 'World', center: [12, 20], zoom: 1.55, earth: 'Earth', note: 'Global view' },
@@ -24,6 +28,39 @@ function getSatelliteDate() {
   const date = new Date();
   date.setUTCDate(date.getUTCDate() - 2);
   return date.toISOString().slice(0, 10);
+}
+
+async function fetchGrid3SettlementBlocks(bounds, signal) {
+  const [[west, south], [east, north]] = bounds.toArray();
+  const url = new URL(GRID3_QUERY_URL);
+  const params = {
+    where: '1=1',
+    geometry: [west, south, east, north].join(','),
+    geometryType: 'esriGeometryEnvelope',
+    inSR: '4326',
+    outSR: '4326',
+    spatialRel: 'esriSpatialRelIntersects',
+    outFields: 'block_id,block_area_sqm,building_count,building_count_density,ndvi_mean,extent_type',
+    returnGeometry: 'true',
+    resultRecordCount: '1000',
+    orderByFields: 'fid ASC',
+    f: 'geojson',
+  };
+  Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
+  const features = [];
+  let truncated = false;
+  for (let offset = 0; offset < 4000; offset += 1000) {
+    url.searchParams.set('resultOffset', String(offset));
+    const response = await fetch(url.toString(), { signal, headers: { Accept: 'application/geo+json, application/json' } });
+    if (!response.ok) throw new Error('GRID3 request failed (' + response.status + ').');
+    const page = await response.json();
+    if (page.error) throw new Error(page.error.message || 'GRID3 returned a query error.');
+    const rows = Array.isArray(page.features) ? page.features : [];
+    features.push(...rows);
+    if (!page.exceededTransferLimit || rows.length === 0) break;
+    if (offset === 3000) truncated = true;
+  }
+  return { type: 'FeatureCollection', features, truncated };
 }
 
 function loadMapLibre() {
@@ -67,7 +104,60 @@ export default function AtlasExplorer() {
   const [failed, setFailed] = useState(false);
   const [locationMessage, setLocationMessage] = useState('Location sharing is off. Use the map control only if you want to share your position.');
   const [satelliteDate] = useState(getSatelliteDate);
+  const [settlementVisible, setSettlementVisible] = useState(false);
+  const [settlementStatus, setSettlementStatus] = useState('Layer off');
+  const settlementEnabledRef = useRef(false);
+  const settlementAbortRef = useRef(null);
+  const settlementBoundsRef = useRef('');
   const current = VIEWS.find((view) => view.id === activeView) || VIEWS[0];
+
+  async function refreshSettlementBlocks(force = false) {
+    const map = mapRef.current;
+    if (!map || !map.getSource(SETTLEMENT_SOURCE)) return;
+    if (map.getZoom() < 9) {
+      setSettlementStatus('Zoom in to level 9 to inspect settlement blocks.');
+      return;
+    }
+    const [[west, south], [east, north]] = map.getBounds().toArray();
+    const boundsKey = [west, south, east, north].map(value => value.toFixed(3)).join(',');
+    if (!force && boundsKey === settlementBoundsRef.current) return;
+    settlementBoundsRef.current = boundsKey;
+    settlementAbortRef.current?.abort();
+    const controller = new AbortController();
+    settlementAbortRef.current = controller;
+    setSettlementStatus('Loading GRID3 settlement blocks…');
+    try {
+      const collection = await fetchGrid3SettlementBlocks(map.getBounds(), controller.signal);
+      if (controller.signal.aborted) return;
+      const source = map.getSource(SETTLEMENT_SOURCE);
+      if (source) source.setData(collection);
+      const count = collection.features.length.toLocaleString();
+      setSettlementStatus(count + ' blocks in view' + (collection.truncated ? ' · first 4,000 shown' : ''));
+    } catch (error) {
+      if (error?.name !== 'AbortError') setSettlementStatus('GRID3 data could not be loaded. The base map remains available.');
+    }
+  }
+
+  function toggleSettlementBlocks() {
+    const next = !settlementEnabledRef.current;
+    settlementEnabledRef.current = next;
+    setSettlementVisible(next);
+    const map = mapRef.current;
+    if (!next) {
+      settlementAbortRef.current?.abort();
+      settlementBoundsRef.current = '';
+      const source = map?.getSource(SETTLEMENT_SOURCE);
+      if (source) source.setData({ type: 'FeatureCollection', features: [] });
+      if (map?.getLayer(SETTLEMENT_FILL_LAYER)) map.setLayoutProperty(SETTLEMENT_FILL_LAYER, 'visibility', 'none');
+      if (map?.getLayer(SETTLEMENT_LINE_LAYER)) map.setLayoutProperty(SETTLEMENT_LINE_LAYER, 'visibility', 'none');
+      setSettlementStatus('Layer off');
+      return;
+    }
+    if (map?.getLayer(SETTLEMENT_FILL_LAYER)) map.setLayoutProperty(SETTLEMENT_FILL_LAYER, 'visibility', 'visible');
+    if (map?.getLayer(SETTLEMENT_LINE_LAYER)) map.setLayoutProperty(SETTLEMENT_LINE_LAYER, 'visibility', 'visible');
+    refreshSettlementBlocks(true);
+    setSettlementStatus(map ? 'Preparing GRID3 data…' : 'Waiting for the map to load…');
+  }
 
   function applyMapLayers(map, mode, scene) {
     if (map.getLayer(SATELLITE_LAYER)) {
