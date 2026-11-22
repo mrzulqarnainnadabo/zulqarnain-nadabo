@@ -270,10 +270,14 @@ def main() -> int:
     ).to_csv(args.out_dir / "kaduna_screening_candidates.csv", index=False)
 
     candidate_geo = candidates.to_crs("EPSG:4326")
-    candidate_geo[output_fields].to_file(
-        args.out_dir / "kaduna_screening_candidates.geojson",
-        driver="GeoJSON",
-    )
+    candidate_geo_path = args.out_dir / "kaduna_screening_candidates.geojson"
+    if candidate_geo.empty:
+        candidate_geo_path.write_text(
+            json.dumps({"type": "FeatureCollection", "features": []}) + "\\n",
+            encoding="utf-8",
+        )
+    else:
+        candidate_geo[output_fields].to_file(candidate_geo_path, driver="GeoJSON")
     if args.include_source_extract:
         raw.to_crs("EPSG:4326").to_file(
             args.out_dir / "kaduna_source_blocks.geojson",
