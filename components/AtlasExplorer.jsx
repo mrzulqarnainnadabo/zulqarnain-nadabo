@@ -115,6 +115,9 @@ export default function AtlasExplorer() {
     const map = mapRef.current;
     if (!map || !map.getSource(SETTLEMENT_SOURCE)) return;
     if (map.getZoom() < 13.5) {
+      settlementAbortRef.current?.abort();
+      settlementBoundsRef.current = '';
+      map.getSource(SETTLEMENT_SOURCE)?.setData({ type: 'FeatureCollection', features: [] });
       setSettlementStatus('Zoom in to level 13.5 to inspect block geometry at its published scale.');
       return;
     }
