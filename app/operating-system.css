@@ -420,3 +420,10 @@ html.dark .case-study-proofline>div{border-color:rgba(236,233,223,.18)}
 .campus-rotate-controls button:hover{background:rgba(177,139,82,.12);color:#344b3b}
 html.dark .campus-rotate-controls button{border-color:#405746;color:#dce4d8}
 @media(max-width:650px){.campus-toolbar{align-items:flex-start;flex-direction:column}.campus-rotate-controls{align-self:flex-end}}
+
+.campus-register-rail{padding:1rem 0;border-bottom:1px solid rgba(34,54,43,.15)}
+.campus-register-rail>span{color:#8b6d42;font-size:.55rem;letter-spacing:.13em}
+.campus-register-rail>div{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.8rem}
+.campus-register-rail>div>span{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .65rem;border:1px solid rgba(34,54,43,.12);background:#e8ebe2;color:#405347;font-size:.62rem}
+.campus-register-rail i{font-style:normal;color:#a17d48;font-size:.52rem}
+html.dark .campus-register-rail>div>span{background:#20362a;border-color:#405746;color:#e6eadf}
