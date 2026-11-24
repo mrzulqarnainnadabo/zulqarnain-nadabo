@@ -472,9 +472,9 @@ export default function AtlasExplorer() {
     <section id="living-atlas" className="atlas-section" aria-labelledby="atlas-title">
       <div className="atlas-heading">
         <div>
-          <p className="atlas-kicker">A geographic lens · 01</p>
-          <h2 id="atlas-title">The <em>Living Atlas.</em></h2>
-          <p className="atlas-intro">The Earth above sets the planetary context. This map is for local geography, evidence and spatial research.</p>
+          <p className="atlas-kicker">SPATIAL INTELLIGENCE / 01</p>
+          <h2 id="atlas-title">Geography is how I <em>read the world.</em></h2>
+          <p className="atlas-intro">Move from global context to local evidence. Explore the world, then examine the places where geography helps explain real problems.</p>
         </div>
         <a className="atlas-earth-link" href={`https://earth.google.com/web/search/${encodeURIComponent(current.earth)}`} target="_blank" rel="noreferrer">
           Explore in Google Earth <span aria-hidden="true">↗</span>
@@ -523,6 +523,7 @@ export default function AtlasExplorer() {
           <button type="button" className="atlas-settlement-toggle" onClick={toggleSettlementBlocks} aria-pressed={settlementVisible}>GRID3 v4.1 blocks</button>
         </div>
         <p role="status">{locationMessage}<span className="atlas-settlement-status">{settlementStatus}</span></p>
+        {settlementVisible && <div className="atlas-active-study"><span>ACTIVE SPATIAL LENS</span><strong>Kaduna · Settlement form & vegetation</strong><small>GRID3 v4.1 source layer · research QA pending</small><a href="https://guides.ciesin.columbia.edu/pages/analysis/Nigeria_Settlement_Block_GreenSpace_Analysis" target="_blank" rel="noreferrer">Method reference ↗</a></div>}
       </div>
       <p className="atlas-disclosure">
         Location sharing is optional and begins only when you choose the map location control. Your position is used to centre the map for this visit; this portfolio does not store your coordinates or send them to its own server. Map providers receive tile requests for the areas you view. The 2D satellite layer uses a dated NASA daily composite. 3D Earth uses a 2016 EOxCloudless Sentinel-2 mosaic, Mapterhorn terrain tiles with region-dependent source data, and mapped OpenStreetMap building shapes. The optional GRID3 NGA Settlement Extents v4.1 layer loads only when selected, at its published local display scale, and only for the visible map extent; settlement blocks are not official administrative boundaries or population counts. Buildings are extruded only where OpenStreetMap height attributes exist; other footprints remain flat. This is not photogrammetric 3D scanning, and coverage varies by place. These are maps and imagery, not live video.
