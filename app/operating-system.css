@@ -409,3 +409,6 @@ html.dark .case-study-system-node strong{color:#e1e6dc}
 html.dark .case-study-proofline{border-color:rgba(236,233,223,.18)}
 html.dark .case-study-proofline>div{border-color:rgba(236,233,223,.18)}
 @media(max-width:700px){.case-study-system-flow{grid-template-columns:repeat(2,minmax(0,1fr))}.case-study-system-node{min-height:75px}.case-study-system-node>i{display:none}.case-study-proofline{grid-template-columns:1fr}.case-study-proofline>div{border-right:0;border-bottom:1px solid rgba(29,48,38,.14)}.case-study-proofline>div:last-child{border-bottom:0}.case-study-system-heading{align-items:flex-start;flex-direction:column}}
+
+.campus-viewport[data-view=operations] .campus-volume-office{opacity:.3;filter:grayscale(.65)}
+.campus-viewport[data-view=operations] .campus-volume-department,.campus-viewport[data-view=operations] .campus-volume-shared{filter:drop-shadow(0 12px 10px rgba(177,139,82,.24))}
