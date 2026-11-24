@@ -1,11 +1,12 @@
 import { projects } from '@/lib/content';
 const notes={
-iseyc:{number:'01',type:'INSTITUTION DESIGN',question:'How can youth-led action become a durable institution?',sequence:['Departments','Programmes','Accountability'],mark:'institution'},
-mandate:{number:'02',type:'CIVIC PARTICIPATION',question:'How can a community voice become a reviewed public record?',sequence:['Listen','Review','Respond'],mark:'civic'},
-brain:{number:'03',type:'INTELLIGENCE SYSTEMS',question:'How should a system answer when evidence is incomplete?',sequence:['Retrieve','Reason','Qualify'],mark:'brain'},
-observatory:{number:'04',type:'SPATIAL RESEARCH',question:'How do observations connect to sources, places and limits?',sequence:['Sources','Geography','Insight'],mark:'observatory'},
-'kaduna-south':{number:'05',type:'GRASSROOTS GOVERNANCE',question:'What does responsible representation look like at street level?',sequence:['Street','Line','Ward'],mark:'community'},
-'sigma-geo':{number:'06',type:'MODEL EVALUATION',question:'Can a model recognise when geographical evidence fails?',sequence:['Provenance','Spatial fit','Confidence'],mark:'sigma'}
+hubil:{number:'01',type:'COMMERCIAL SYSTEMS',question:'How can small-business work move from diagnosis to reliable delivery?',sequence:['Diagnose','Scope','Deliver'],mark:'institution'},
+iseyc:{number:'02',type:'INSTITUTION DESIGN',question:'How can youth-led action become a durable institution?',sequence:['Departments','Programmes','Accountability'],mark:'institution'},
+mandate:{number:'03',type:'CIVIC PARTICIPATION',question:'How can a community voice become a reviewed public record?',sequence:['Listen','Review','Respond'],mark:'civic'},
+brain:{number:'04',type:'INTELLIGENCE SYSTEMS',question:'How should a system answer when evidence is incomplete?',sequence:['Retrieve','Reason','Qualify'],mark:'brain'},
+observatory:{number:'05',type:'SPATIAL RESEARCH',question:'How do observations connect to sources, places and limits?',sequence:['Sources','Geography','Insight'],mark:'observatory'},
+'kaduna-south':{number:'06',type:'GRASSROOTS GOVERNANCE',question:'What does responsible representation look like at street level?',sequence:['Street','Line','Ward'],mark:'community'},
+'sigma-geo':{number:'07',type:'MODEL EVALUATION',question:'Can a model recognise when geographical evidence fails?',sequence:['Provenance','Spatial fit','Confidence'],mark:'sigma'}
 };
 function ProjectGlyph({mark}){
 const common={fill:'none',stroke:'currentColor',strokeOpacity:'.42',strokeWidth:'1.2'};
