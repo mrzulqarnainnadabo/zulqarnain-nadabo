@@ -9,6 +9,7 @@ export default function Hero() {
           <div className="atlas-nav-links">
             <a href="#living-atlas">Atlas</a>
             <a href="#iseyc">ISEYC</a>
+            <a href="#hubil">Hubil</a>
             <a href="#work">Work</a>
             <a href="#contact">Connect <span>↗</span></a>
             <a className="atlas-nav-workspace" href="/workspace">Workspace</a>
