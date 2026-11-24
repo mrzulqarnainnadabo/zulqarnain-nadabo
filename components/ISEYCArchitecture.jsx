@@ -28,6 +28,7 @@ const capabilities = [
   {id:'development',label:'Developmental Profiles & Community Intelligence',type:'PEOPLE & CAPABILITY',detail:'Role induction, learning pathways, competency evidence and development records.'},
 ];
 const councilRoles = ['National President','Chief of Staff to the President','Secretary General','Chief Operations Officer','Chief Financial Officer','Head, Education & Capacity Building','Head, Health & Well-being','Head, Software & Technology','Head, Civic Department','Youth Leadership Coordinator','Director of Public Engagement & Awareness','Director of Member Welfare & Social Development','Chair, Disciplinary Committee','Special Adviser to the President'];
+const registers = ['Appointment & Role Register','Programmes & Work Register','Council Decisions & Action Register','Department Reports & Scorecards','Learning & Competency Register','Partner Organisations & External Engagement'];
 const officeById = Object.fromEntries(offices.map(x=>[x.id,x]));
 const departmentById = Object.fromEntries(departments.map(x=>[x.id,x]));
 const capabilityById = Object.fromEntries(capabilities.map(x=>[x.id,x]));
@@ -66,7 +67,7 @@ export default function ISEYCArchitecture() {
       <div className="campus-viewport" data-view={view}>
         <div className="campus-world" style={{"--campus-rotation": rotation + "deg"}}>
           <div className="campus-ground"/>
-          <div className="campus-plinth campus-plinth-top"><span>GOVERNANCE / PRESIDENTIAL OFFICE</span></div>
+          <div className="campus-plinth campus-plinth-top"><span>PRESIDENTIAL COUNCIL / PRESIDENTIAL OFFICE</span></div>
           <div className="campus-plinth campus-plinth-mid"><span>DEPARTMENTAL WORKSPACES</span></div>
           <div className="campus-plinth campus-plinth-base"><span>SHARED INSTITUTIONAL INFRASTRUCTURE</span></div>
           <Volume id="president" label="President" kind="office" position="translate3d(-80px,-225px,82px)" selected={active==='president'} onSelect={setActive} sub="NP"/>
@@ -95,7 +96,7 @@ export default function ISEYCArchitecture() {
       {departments.map(d=><button type="button" key={d.id} onClick={()=>setActive(d.id)} aria-pressed={active===d.id}><span>{d.n}</span><b>{d.label}</b><i>↗</i></button>)}
     </div>
     <div className="campus-shared-rail"><div><span>SHARED SYSTEMS</span><p>One evidence foundation. Distinct institutional responsibilities.</p></div>{capabilities.map(c=><button key={c.id} type="button" onClick={()=>{setActive(c.id);setLayer(c.id);}} aria-pressed={active===c.id}><span>{c.type}</span><b>{c.label}</b></button>)}</div>
-    <div className="campus-governance-line"><span>GOVERNANCE RHYTHM</span><p>Weekly operational review <i>→</i> Monthly departmental reporting <i>→</i> Quarterly Council review</p></div><div className="campus-council-roles"><span>PRESIDENTIAL COUNCIL / ROLE TEMPLATES</span><div>{councilRoles.map((role,i)=><span key={role}><i>0{i+1}</i>{role}</span>)}</div></div>
+    <div className="campus-register-rail"><span>INSTITUTIONAL REGISTERS / NOTION</span><div>{registers.map((name,i)=><span key={name}><i>0{i+1}</i>{name}</span>)}</div></div><div className="campus-governance-line"><span>GOVERNANCE RHYTHM</span><p>Weekly operational review <i>→</i> Monthly departmental reporting <i>→</i> Quarterly Council review</p></div><div className="campus-council-roles"><span>PRESIDENTIAL COUNCIL / ROLE TEMPLATES</span><div>{councilRoles.map((role,i)=><span key={role}><i>0{i+1}</i>{role}</span>)}</div></div>
     <p className="institution-disclosure">This is an architectural model of the documented institutional structure, not a physical building plan or live staff directory. The office positions are role templates; no individual appointments, occupancy, programme counts or performance outcomes are implied. The model is a public-facing interpretation of IDCC; restricted records and personal information remain private.</p>
   </section>;
 }
