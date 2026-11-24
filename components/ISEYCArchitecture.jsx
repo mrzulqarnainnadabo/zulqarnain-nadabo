@@ -24,6 +24,7 @@ const capabilities = [
   {id:'media',label:'Content Command',type:'PUBLIC COMMUNICATION',detail:'Draft, review, approval and publication lifecycle. AI output is draft-only; a human approval is required before publication.'},
   {id:'development',label:'Member Development',type:'PEOPLE & CAPABILITY',detail:'Role induction, learning pathways, competency evidence and development records.'},
 ];
+const councilRoles = ['National President','Chief of Staff to the President','Secretary General','Chief Operations Officer','Chief Financial Officer','Head, Education & Capacity Building','Head, Health & Well-being','Head, Software & Technology','Head, Civic Department','Youth Leadership Coordinator','Director of Public Engagement & Awareness','Director of Member Welfare & Social Development','Chair, Disciplinary Committee','Special Adviser to the President'];
 const officeById = Object.fromEntries(offices.map(x=>[x.id,x]));
 const departmentById = Object.fromEntries(departments.map(x=>[x.id,x]));
 const capabilityById = Object.fromEntries(capabilities.map(x=>[x.id,x]));
@@ -79,7 +80,7 @@ export default function ISEYCArchitecture() {
         <p className="campus-inspector-kicker">{selectedOffice?.group||selectedDepartment?.n||selectedCapability?.type}</p>
         <h3>{activeTitle}</h3>
         <p className="campus-inspector-description">{selectedOffice?.detail||selectedDepartment?.mandate||selectedCapability?.detail}</p>
-        {selectedDepartment&&<><div className="campus-inspector-label">WORKSPACES / FUNCTIONAL AREAS</div><ul className="campus-room-list">{selectedDepartment.rooms.map((r,i)=><li key={r}><span>0{i+1}</span>{r}</li>)}</ul><div className="campus-inspector-label">PROGRAMME LIFECYCLE</div><p className="campus-lifecycle">{selectedDepartment.lifecycle}</p></>}
+        {selectedDepartment&&<><div className="campus-inspector-label">CORE WORKSTREAMS</div><ul className="campus-room-list">{selectedDepartment.rooms.map((r,i)=><li key={r}><span>0{i+1}</span>{r}</li>)}</ul><div className="campus-inspector-label">DEPARTMENT WORKSPACE / IDCC</div><ul className="campus-room-list">{selectedDepartment.screens.map((r,i)=><li key={r}><span>↗</span>{r}</li>)}</ul><div className="campus-inspector-label">PROGRAMME LIFECYCLE</div><p className="campus-lifecycle">{selectedDepartment.lifecycle}</p></>}
         {selectedOffice&&<div className="campus-authority-note"><b>Authority boundary</b><span>Role template only. Appointment, delegated authority and access are confirmed separately in IDCC.</span></div>}
         {selectedCapability&&!selectedOffice&&!selectedDepartment&&<div className="campus-authority-note"><b>Shared capability</b><span>Select another model layer to inspect its relationship with departmental work.</span></div>}
         <div className="campus-inspector-footer"><span>MODEL BASIS</span><span>IDCC operating blueprint · Nov 2026</span></div>
@@ -89,7 +90,7 @@ export default function ISEYCArchitecture() {
       {departments.map(d=><button type="button" key={d.id} onClick={()=>setActive(d.id)} aria-pressed={active===d.id}><span>{d.n}</span><b>{d.label}</b><i>↗</i></button>)}
     </div>
     <div className="campus-shared-rail"><div><span>SHARED SYSTEMS</span><p>One evidence foundation. Distinct institutional responsibilities.</p></div>{capabilities.map(c=><button key={c.id} type="button" onClick={()=>{setActive(c.id);setLayer(c.id);}} aria-pressed={active===c.id}><span>{c.type}</span><b>{c.label}</b></button>)}</div>
-    <div className="campus-governance-line"><span>GOVERNANCE RHYTHM</span><p>Weekly operational review <i>→</i> Monthly departmental reporting <i>→</i> Quarterly Council review</p></div>
+    <div className="campus-governance-line"><span>GOVERNANCE RHYTHM</span><p>Weekly operational review <i>→</i> Monthly departmental reporting <i>→</i> Quarterly Council review</p></div><div className="campus-council-roles"><span>PRESIDENTIAL COUNCIL / ROLE TEMPLATES</span><div>{councilRoles.map((role,i)=><span key={role}><i>0{i+1}</i>{role}</span>)}</div></div>
     <p className="institution-disclosure">This is an architectural model of the documented institutional structure, not a physical building plan or live staff directory. The office positions are role templates; no individual appointments, occupancy, programme counts or performance outcomes are implied. The model is a public-facing interpretation of IDCC; restricted records and personal information remain private.</p>
   </section>;
 }
