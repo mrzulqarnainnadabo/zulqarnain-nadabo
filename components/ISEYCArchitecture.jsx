@@ -24,8 +24,8 @@ const capabilities = [
   {id:'meetings',label:'Meeting & Decision Tracker',type:'MEETINGS & ACTIONS',detail:'Controlled intake, AI-assisted draft preparation, human review, confirmed decisions and action follow-through.'},
   {id:'profiles',label:'Developmental Profiles',type:'MEMBER DEVELOPMENT',detail:'Consent-based member profiles, capability pathways and community intelligence with defined access tiers and privacy boundaries.'},
   {id:'chamber',label:'Digital Chamber',type:'FORMAL SESSIONS',detail:'Session scheduling, chair controls, draft document intelligence and controlled hand-off to the action tracker.'},
-  {id:'media',label:'Content Command',type:'PUBLIC COMMUNICATION',detail:'Draft, review, approval and publication lifecycle. AI output is draft-only; a human approval is required before publication.'},
-  {id:'development',label:'Member Development',type:'PEOPLE & CAPABILITY',detail:'Role induction, learning pathways, competency evidence and development records.'},
+  {id:'media',label:'Social Media & Content Command',type:'PUBLIC COMMUNICATION',detail:'Draft, review, approval and publication lifecycle. AI output is draft-only; a human approval is required before publication.'},
+  {id:'development',label:'Developmental Profiles & Community Intelligence',type:'PEOPLE & CAPABILITY',detail:'Role induction, learning pathways, competency evidence and development records.'},
 ];
 const councilRoles = ['National President','Chief of Staff to the President','Secretary General','Chief Operations Officer','Chief Financial Officer','Head, Education & Capacity Building','Head, Health & Well-being','Head, Software & Technology','Head, Civic Department','Youth Leadership Coordinator','Director of Public Engagement & Awareness','Director of Member Welfare & Social Development','Chair, Disciplinary Committee','Special Adviser to the President'];
 const officeById = Object.fromEntries(offices.map(x=>[x.id,x]));
