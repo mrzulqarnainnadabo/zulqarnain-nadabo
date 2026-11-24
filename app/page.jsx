@@ -2,7 +2,7 @@ import Hero from '@/components/Hero';
 import CaseStudies from '@/components/CaseStudies';
 import ISEYCArchitecture from '@/components/ISEYCArchitecture';
 import AtlasExplorer from '@/components/AtlasExplorer';
-import AtlasResearch from '@/components/AtlasResearch';
+import HubilArchitecture from '@/components/HubilArchitecture';
 import ImpactProfile from '@/components/ImpactProfile';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
@@ -15,7 +15,7 @@ export default function Page() {
       <Hero />
       <main id="main" className="mx-auto max-w-6xl px-6 md:px-10">
         <AtlasExplorer />
-        <AtlasResearch />
+        <HubilArchitecture />
         <ISEYCArchitecture />
         <CaseStudies />
         <ImpactProfile />
