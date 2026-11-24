@@ -42,8 +42,8 @@ export default function ISEYCArchitecture() {
   const [view,setView]=useState('institution');
   const selectedOffice=officeById[active];
   const selectedDepartment=departmentById[active];
-  const selectedCapability=capabilityById[layer];
-  const activeTitle=selectedOffice?.label||selectedDepartment?.label||'Institutional architecture';
+  const selectedCapability=capabilityById[active];
+  const activeTitle=selectedOffice?.label||selectedDepartment?.label||selectedCapability?.label||'Institutional architecture';
   return <section id="iseyc" className="institution-section institution-architecture" aria-labelledby="iseyc-title">
     <div className="institution-heading">
       <div><p className="institution-kicker">ISEYC / Institutional architecture</p><h2 id="iseyc-title">Designed to <em>work as one.</em></h2></div>
@@ -69,7 +69,7 @@ export default function ISEYCArchitecture() {
           <Volume id="coo" label="Operations" kind="office" position="translate3d(-230px,-225px,82px)" selected={active==='coo'} onSelect={setActive} sub="COO"/>
           <Volume id="cfo" label="Finance" kind="office" position="translate3d(-380px,-225px,82px)" selected={active==='cfo'} onSelect={setActive} sub="CFO"/>
           {departments.map(d=><Volume key={d.id} id={d.id} label={d.short} kind="department" position={d.position} selected={active===d.id} onSelect={setActive} sub={d.n}/>)}
-          {capabilities.slice(0,3).map((c,i)=><Volume key={c.id} id={c.id} label={c.label} kind="shared" position={`translate3d(${-230+i*230}px,225px,0)`} selected={layer===c.id} onSelect={()=>setLayer(c.id)} sub={c.type}/>)}
+          {capabilities.slice(0,3).map((c,i)=><Volume key={c.id} id={c.id} label={c.label} kind="shared" position={`translate3d(${-230+i*230}px,225px,0)`} selected={active===c.id} onSelect={(id)=>{setActive(id);setLayer(id);}} sub={c.type}/>)}
           <div className="campus-connector campus-connector-one"/><div className="campus-connector campus-connector-two"/>
         </div>
         <div className="campus-orientation"><span>AXONOMETRIC / EXPLODED VIEW</span><span>SELECT A VOLUME TO INSPECT</span></div>
@@ -81,14 +81,14 @@ export default function ISEYCArchitecture() {
         <p className="campus-inspector-description">{selectedOffice?.detail||selectedDepartment?.mandate||selectedCapability?.detail}</p>
         {selectedDepartment&&<><div className="campus-inspector-label">WORKSPACES / FUNCTIONAL AREAS</div><ul className="campus-room-list">{selectedDepartment.rooms.map((r,i)=><li key={r}><span>0{i+1}</span>{r}</li>)}</ul><div className="campus-inspector-label">PROGRAMME LIFECYCLE</div><p className="campus-lifecycle">{selectedDepartment.lifecycle}</p></>}
         {selectedOffice&&<div className="campus-authority-note"><b>Authority boundary</b><span>Role template only. Appointment, delegated authority and access are confirmed separately in IDCC.</span></div>}
-        {!selectedOffice&&!selectedDepartment&&<div className="campus-authority-note"><b>Shared capability</b><span>Select another model layer to inspect its relationship with departmental work.</span></div>}
+        {selectedCapability&&!selectedOffice&&!selectedDepartment&&<div className="campus-authority-note"><b>Shared capability</b><span>Select another model layer to inspect its relationship with departmental work.</span></div>}
         <div className="campus-inspector-footer"><span>MODEL BASIS</span><span>IDCC operating blueprint · Nov 2026</span></div>
       </aside>
     </div>
     <div className="campus-department-rail">
       {departments.map(d=><button type="button" key={d.id} onClick={()=>setActive(d.id)} aria-pressed={active===d.id}><span>{d.n}</span><b>{d.label}</b><i>↗</i></button>)}
     </div>
-    <div className="campus-shared-rail"><div><span>SHARED SYSTEMS</span><p>One evidence foundation. Distinct institutional responsibilities.</p></div>{capabilities.map(c=><button key={c.id} type="button" onClick={()=>setLayer(c.id)} aria-pressed={layer===c.id}><span>{c.type}</span><b>{c.label}</b></button>)}</div>
+    <div className="campus-shared-rail"><div><span>SHARED SYSTEMS</span><p>One evidence foundation. Distinct institutional responsibilities.</p></div>{capabilities.map(c=><button key={c.id} type="button" onClick={()=>{setActive(c.id);setLayer(c.id);}} aria-pressed={active===c.id}><span>{c.type}</span><b>{c.label}</b></button>)}</div>
     <div className="campus-governance-line"><span>GOVERNANCE RHYTHM</span><p>Weekly operational review <i>→</i> Monthly departmental reporting <i>→</i> Quarterly Council review</p></div>
     <p className="institution-disclosure">This is an architectural model of the documented institutional structure, not a physical building plan or live staff directory. The office positions are role templates; no individual appointments, occupancy, programme counts or performance outcomes are implied. The model is a public-facing interpretation of IDCC; restricted records and personal information remain private.</p>
   </section>;
