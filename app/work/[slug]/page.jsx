@@ -67,7 +67,7 @@ export default async function CaseStudyPage({ params }) {
 
         {map && <section className="case-study-system" aria-label={map.label}>
           <div className="case-study-system-heading"><span>THE SYSTEM / 01</span><b>{map.label}</b></div>
-          <div className="case-study-system-flow">
+          <div className="case-study-system-flow" style={{gridTemplateColumns: `repeat(${map.nodes.length}, minmax(0, 1fr))`}}>
             {map.nodes.map((node,index)=><div className="case-study-system-node" key={node}><span>0{index+1}</span><strong>{node}</strong>{index<map.nodes.length-1&&<i aria-hidden="true">→</i>}</div>)}
           </div>
           <p>{map.caption}</p>
