@@ -15,8 +15,8 @@ export default function Page() {
       <Hero />
       <main id="main" className="mx-auto max-w-6xl px-6 md:px-10">
         <AtlasExplorer />
-        <HubilArchitecture />
         <ISEYCArchitecture />
+        <HubilArchitecture />
         <CaseStudies />
         <ImpactProfile />
         <Contact />
