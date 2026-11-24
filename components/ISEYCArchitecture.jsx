@@ -22,7 +22,7 @@ const capabilities = [
   {id:'council',label:'Council & Decisions',type:'GOVERNANCE RECORDS',detail:'Council meetings, formal decisions, action owners, rationale, approvals and follow-through.'},
   {id:'command',label:'Presidential Command Brief',type:'PRESIDENTIAL OFFICE',detail:'A private, draft-only executive workspace for the National President. Briefings and recommendations remain subject to presidential review.'},
   {id:'meetings',label:'Meeting & Decision Tracker',type:'MEETINGS & ACTIONS',detail:'Controlled intake, AI-assisted draft preparation, human review, confirmed decisions and action follow-through.'},
-  {id:'profiles',label:'Developmental Profiles',type:'MEMBER DEVELOPMENT',detail:'Consent-based member profiles, capability pathways and community intelligence with defined access tiers and privacy boundaries.'},
+  {id:'profiles',label:'Developmental Profiles',type:'MEMBER DEVELOPMENT',detail:'Consent-based member profiles, capability pathways, the documented four-tier hierarchy and seven Responsibility Pillars, with defined access tiers and privacy boundaries.'},
   {id:'chamber',label:'Digital Chamber',type:'FORMAL SESSIONS',detail:'Session scheduling, chair controls, draft document intelligence and controlled hand-off to the action tracker.'},
   {id:'media',label:'Social Media & Content Command',type:'PUBLIC COMMUNICATION',detail:'Draft, review, approval and publication lifecycle. AI output is draft-only; a human approval is required before publication.'},
   {id:'development',label:'Developmental Profiles & Community Intelligence',type:'PEOPLE & CAPABILITY',detail:'Role induction, learning pathways, competency evidence and development records.'},
