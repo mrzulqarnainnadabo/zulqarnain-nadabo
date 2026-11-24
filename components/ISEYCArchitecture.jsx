@@ -44,6 +44,7 @@ export default function ISEYCArchitecture() {
   const [active,setActive]=useState('president');
   const [layer,setLayer]=useState('observatory');
   const [view,setView]=useState('institution');
+  const [rotation,setRotation]=useState(-45);
   const selectedOffice=officeById[active];
   const selectedDepartment=departmentById[active];
   const selectedCapability=capabilityById[active];
@@ -59,10 +60,11 @@ export default function ISEYCArchitecture() {
         <button type="button" onClick={()=>setView('institution')} aria-pressed={view==='institution'}>Structure</button>
         <button type="button" onClick={()=>setView('operations')} aria-pressed={view==='operations'}>Operations</button>
       </div>
+      <div className="campus-rotate-controls"><button type="button" onClick={()=>setRotation(value=>value+90)}>Rotate ↻</button><button type="button" onClick={()=>setRotation(-45)}>Reset view</button></div>
     </div>
     <div className="campus-layout">
       <div className="campus-viewport" data-view={view}>
-        <div className="campus-world">
+        <div className="campus-world" style={{"--campus-rotation": rotation + "deg"}}>
           <div className="campus-ground"/>
           <div className="campus-plinth campus-plinth-top"><span>GOVERNANCE / PRESIDENTIAL OFFICE</span></div>
           <div className="campus-plinth campus-plinth-mid"><span>DEPARTMENTAL WORKSPACES</span></div>
