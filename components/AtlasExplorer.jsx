@@ -207,6 +207,7 @@ export default function AtlasExplorer() {
     if (!map) return;
     const applyScene = () => {
       if (sceneRef.current !== scene) return;
+      // Changing projection should not change the place or scale the user is examining.
       if (scene === 'earth') {
         map.setProjection({ type: 'globe' });
         map.setTerrain({ source: TERRAIN_SOURCE, exaggeration: 1.08 });
@@ -216,12 +217,10 @@ export default function AtlasExplorer() {
           'horizon-color': '#16334b',
           'atmosphere-blend': 0.92,
         });
-        map.easeTo({ center: [12, 20], zoom: 2.25, pitch: 0, bearing: 0, duration: 1100 });
       } else {
         map.setTerrain(null);
         map.setProjection({ type: 'mercator' });
         map.setSky(undefined);
-        map.easeTo({ center: current.center, zoom: current.zoom, pitch: 0, bearing: 0, duration: 900 });
       }
       applyMapLayers(map, modeRef.current, scene);
     };
