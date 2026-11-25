@@ -1,20 +1,4 @@
 /* Unified operating system — institutional, Atlas and workspace visual language */
-.atlas-research{padding:clamp(4rem,8vw,7rem) 0;border-top:1px solid var(--atlas-line)}
-.atlas-research-heading{display:grid;grid-template-columns:1fr .48fr;gap:2.5rem;align-items:end;margin-bottom:2rem}
-.atlas-research-heading span,.atlas-chapter-meta,.atlas-chapter-source>span,.atlas-chapter-next>span{font-size:.58rem;letter-spacing:.15em;color:#767b89}
-.atlas-research-heading h2{margin-top:1rem;font:300 clamp(3rem,6.2vw,6.3rem)/.9 var(--font-serif),serif;letter-spacing:-.065em;color:#1d2830}
-.atlas-research-heading h2 em{color:#a77a4c;font-weight:300}
-.atlas-research-heading>p{max-width:32ch;color:#5d6670;font-size:.88rem;line-height:1.7}
-.atlas-chapters{border-top:1px solid var(--atlas-line)}
-.atlas-chapter{display:grid;grid-template-columns:72px minmax(0,1fr) 150px;gap:1.5rem;padding:2rem 0;border-bottom:1px solid var(--atlas-line)}
-.atlas-chapter-number{font:300 2.5rem/1 var(--font-serif);color:#a77a4c}
-.atlas-chapter-meta{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center}
-.atlas-chapter-status{padding:.3rem .55rem;border:1px solid rgba(167,122,76,.35);color:#805e3b!important;letter-spacing:.04em!important}
-.atlas-chapter h3{margin:.7rem 0;font:400 clamp(1.6rem,3vw,2.4rem)/1.05 var(--font-serif);letter-spacing:-.035em;color:#1d2830}
-.atlas-chapter-main>p{max-width:72ch;color:#59636b;font-size:.84rem;line-height:1.7}
-.atlas-chapter-source,.atlas-chapter-next{display:grid;grid-template-columns:120px minmax(0,1fr);gap:.8rem;margin-top:1rem;color:#34434a;font-size:.73rem;line-height:1.6}
-.atlas-chapter a{align-self:start;justify-self:end;color:#35434a;font-size:.72rem;border-bottom:1px solid #a77a4c;padding-bottom:.3rem}
-.atlas-research-note{margin-top:1.2rem;color:#6b737a;font-size:.68rem;line-height:1.65}
 .institution-section{padding:clamp(5rem,9vw,8rem) 0;border-top:1px solid #c7c7bd;color:#1d2b24}
 .institution-heading{display:grid;grid-template-columns:1fr .5fr;gap:3rem;align-items:end;margin-bottom:2.6rem}
 .institution-kicker{font-size:.58rem;letter-spacing:.18em;color:#967648}
