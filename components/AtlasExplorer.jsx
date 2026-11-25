@@ -96,10 +96,10 @@ export default function AtlasExplorer() {
   const mapHost = useRef(null);
   const mapRef = useRef(null);
   const modeRef = useRef('road');
-  const sceneRef = useRef('map');
+  const sceneRef = useRef('earth');
   const [activeView, setActiveView] = useState('world');
   const [mapMode, setMapMode] = useState('road');
-  const [sceneMode, setSceneMode] = useState('map');
+  const [sceneMode, setSceneMode] = useState('earth');
   const [status, setStatus] = useState('Preparing the world map…');
   const [failed, setFailed] = useState(false);
   const [locationMessage, setLocationMessage] = useState('Location sharing is off. Use the map control only if you want to share your position.');
@@ -184,7 +184,7 @@ export default function AtlasExplorer() {
 
   function changeSceneMode(scene) {
     sceneRef.current = scene;
-    const nextMapMode = scene === 'earth' ? 'satellite' : 'road';
+    const nextMapMode = modeRef.current;
     modeRef.current = nextMapMode;
     setMapMode(nextMapMode);
     setSceneMode(scene);
@@ -346,6 +346,17 @@ export default function AtlasExplorer() {
           encoding: 'terrarium',
           attribution: '<a href="https://mapterhorn.com/attribution/" target="_blank" rel="noopener noreferrer">Terrain © Mapterhorn · regional source catalogue</a>',
         });
+        // The atlas opens as a 3D geographic workspace. The road/vector layer
+        // remains the default so the first view does not imply current imagery.
+        if (sceneRef.current === 'earth') {
+          map.setProjection({ type: 'globe' });
+          map.setTerrain({ source: TERRAIN_SOURCE, exaggeration: 1.08 });
+          map.setSky({
+            'sky-color': '#07111f',
+            'horizon-color': '#16334b',
+            'atmosphere-blend': 0.92,
+          });
+        }
 
         // Extrude mapped OSM building footprints where the vector source has
         // height attributes. This is mapped geometry, not photogrammetry.
@@ -504,6 +515,11 @@ export default function AtlasExplorer() {
           </div>
         )}
         {!failed && status !== 'World map ready' && <div className="atlas-map-loading" role="status">{status}</div>}
+        <div className="atlas-map-purpose" aria-live="polite">
+          <span>GEOGRAPHIC LENS / {activeView.toUpperCase().replace('-', ' ')}</span>
+          <strong>{activeView==='world'?'Scale changes what a map can explain.':activeView==='africa'?'Regional patterns need local context.':activeView==='nigeria'?'National evidence can hide state-level differences.':activeView==='kaduna'?'How do settlement form and vegetation vary across Kaduna?':'What can a street-to-ward view reveal—and what evidence is still missing?'}</strong>
+          <small>{activeView==='kaduna'?'GRID3 settlement layer available · analysis and validation pending':activeView==='kaduna-south'?'Phase 1 framework geography · service-access evidence not yet verified':'Explore the relationship between place, scale and the evidence available.'}</small>
+        </div>
         <div className="atlas-map-caption">
           <span>GLOBAL ATLAS · {sceneMode === 'earth' ? '3D TERRAIN + MAPPED BUILDINGS' : mapMode === 'satellite' ? 'NASA SATELLITE COMPOSITE' : 'OPEN STREET MAP'}</span>
           <span>© OpenStreetMap · OpenFreeMap {mapMode === 'satellite' && sceneMode === 'map' ? '· NASA GIBS' : ''} {settlementVisible ? '· GRID3 / CIESIN' : ''}</span>
