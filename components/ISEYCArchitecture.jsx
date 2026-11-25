@@ -25,11 +25,11 @@ const shared = [
 ];
 
 const governance = [
-  {id:'cfo',label:'Finance',short:'CFO',x:1.7,y:.55,w:1.65,d:1.1,h:1.05,accent:'#b79c70'},
-  {id:'coo',label:'Operations',short:'COO',x:3.55,y:.55,w:1.65,d:1.1,h:1.05,accent:'#b79c70'},
-  {id:'president',label:'Presidential Office',short:'PRESIDENT',x:5.4,y:.55,w:2.0,d:1.1,h:1.65,accent:'#b79c70'},
-  {id:'chief-of-staff',label:'Chief of Staff',short:'COS',x:7.6,y:.55,w:1.65,d:1.1,h:1.05,accent:'#b79c70'},
-  {id:'secretary-general',label:'Secretariat',short:'SG',x:9.45,y:.55,w:1.65,d:1.1,h:1.05,accent:'#b79c70'},
+  {...offices.find(x=>x.id==='cfo'),short:'CFO',x:1.7,y:.55,w:1.65,d:1.1,h:1.05},
+  {...offices.find(x=>x.id==='coo'),short:'COO',x:3.55,y:.55,w:1.65,d:1.1,h:1.05},
+  {...offices.find(x=>x.id==='president'),short:'PRESIDENT',x:5.4,y:.55,w:2.0,d:1.1,h:1.65},
+  {...offices.find(x=>x.id==='chief-of-staff'),short:'COS',x:7.6,y:.55,w:1.65,d:1.1,h:1.05},
+  {...offices.find(x=>x.id==='secretary-general'),short:'SG',x:9.45,y:.55,w:1.65,d:1.1,h:1.05},
 ];
 
 const sharedServices = [
