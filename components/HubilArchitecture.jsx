@@ -25,6 +25,7 @@ export default function HubilArchitecture(){
  const [pack,setPack]=useState('growth');
  const current=stages.find(x=>x.id===stage)||stages[0];
  const selected=packages.find(x=>x.id===pack)||packages[1];
+ const activeStateIndex=stage==='intake'||stage==='brief'||stage==='review'?0:stage==='discover'?1:stage==='scope'?2:stage==='deliver'?3:4;
  return <section id="hubil" className="hubil-architecture" aria-labelledby="hubil-title">
   <div className="hubil-heading"><div><p className="hubil-kicker">HUBIL GROUP / COMMERCIAL SYSTEMS</p><h2 id="hubil-title">A business problem.<br/>A <em>structured response.</em></h2></div><p>One connected operating model: understand the business, prepare a useful response, earn the conversation, scope the work and deliver with traceable records.</p></div>
   <div className="hubil-system-bar"><span><i/> HUBIL CLIENT OPERATING ARCHITECTURE</span><span>FIRSTLINE → CLIENT → PROJECT → TASKS</span></div>
@@ -33,7 +34,7 @@ export default function HubilArchitecture(){
    <div className="hubil-flow" role="tablist" aria-label="Hubil operating architecture stages">
     {stages.map((s,i)=><button type="button" role="tab" aria-selected={stage===s.id} aria-controls="hubil-stage-detail" key={s.id} onClick={()=>setStage(s.id)}><span>{s.n}</span><b>{s.name}</b><small>{s.system}</small>{i!==stages.length-1&&<i aria-hidden="true">→</i>}</button>)}
    </div>
-   <div className="hubil-state-track"><span>CLIENT STATUS</span><div>{states.map((s,i)=><b key={s} className={i===0?'is-first':''}>{s}</b>)}</div></div>
+   <div className="hubil-state-track"><span>CLIENT STATUS</span><div>{states.map((s,i)=><b key={s} className={i===activeStateIndex?'is-active':''}>{s}</b>)}</div></div>
    <div className="hubil-stage-detail" id="hubil-stage-detail" role="tabpanel">
     <div><span className="hubil-detail-index">{current.n} / {current.type}</span><h3>{current.detail}</h3><p className="hubil-control-gate"><b>CONTROL</b>{current.gate}</p></div>
     <div className="hubil-records"><span>RECORDS CREATED OR UPDATED</span>{current.records.map((r,i)=><div key={r}><i>0{i+1}</i>{r}</div>)}</div>
