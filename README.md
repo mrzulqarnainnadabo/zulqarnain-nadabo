@@ -15,7 +15,11 @@ npm run build
 ## Structure
 
 - `lib/content.js` — public-facing copy, project records, links and stages.
-- `components/CaseStudies.jsx` — selected work with explicit project stages and evidence limits.
+- `components/CaseStudies.jsx` — seven selected systems, each linked to a dedicated evidence-led case study.
+- `lib/case-studies.js` — canonical case-study narratives, architecture decisions, validation limits and verification links.
+- `components/AtlasExplorer.jsx` and `components/WorldCanvas.jsx` — global-to-local mapping and the interactive Earth experience.
+- `components/ISEYCArchitecture.jsx` and `components/ISEYCThreeModel.jsx` — department-led institutional architecture and interactive 3D model.
+- `components/HubilArchitecture.jsx` — client-to-delivery operating model.
 - `components/ImpactProfile.jsx` — working approach and areas of practice.
 - `components/EvidenceField.jsx` — original spatial visual in the opening section.
 - `components/MotionSystem.jsx` — restrained scroll reveals and progress indicator with reduced-motion support.
@@ -36,4 +40,4 @@ npm run build
 
 ## Review and deployment
 
-Work is prepared on `feat/systems-architect-positioning`. A GitHub Actions workflow builds and uploads a short-lived review artifact only; it does not publish a website or deploy to Vercel. Production deployment requires separate explicit approval after review.
+Work is prepared on `feat/unified-personal-operating-system` in draft PR #6. Netlify creates review-only previews; the GitHub Actions workflow builds an artifact and does not publish production. Production deployment and merge require separate explicit approval.
