@@ -165,6 +165,10 @@ export default async function CaseStudyPage({ params }) {
             <p>{study.validation.body}</p>
             <div className="case-study-validation-grid"><div><h3>Checks and evidence</h3><BulletList items={study.validation.checks} /></div><div><h3>Limitations</h3><BulletList items={study.validation.limitations} /></div></div>
           </Section>
+          {study.proof?.length>0&&<section className="case-study-proof" aria-label="Verification references">
+            <div><span>VERIFICATION TRAIL</span><h2>Inspect the evidence.</h2></div>
+            <div className="case-study-proof-links">{study.proof.map(item=><a href={item.url} key={item.url} target="_blank" rel="noreferrer"><b>{item.label}</b><small>{item.detail}</small><i aria-hidden="true">↗</i></a>)}</div>
+          </section>}
           <Section number="07" label="IMPACT" heading={study.impact.heading}>
             <p>{study.impact.body}</p>
             <div className="case-study-measures"><h3>What should be measured next</h3><BulletList items={study.impact.measures} /></div>
