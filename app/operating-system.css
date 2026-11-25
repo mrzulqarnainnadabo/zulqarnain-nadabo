@@ -551,3 +551,44 @@ html.dark .ise-architecture-public-rail button[aria-pressed=true]{background:#29
 .case-study-architecture>p{margin:.7rem 0 0;padding-top:.8rem;border-top:1px solid rgba(238,234,222,.18);color:#c4cdbf;font-size:.66rem;line-height:1.6}
 html.dark .case-study-architecture{background:#20362a}
 @media(max-width:700px){.case-study-architecture{padding:1rem .8rem}.case-study-architecture-heading{align-items:flex-start;flex-direction:column;gap:.4rem}.case-study-architecture-layer{grid-template-columns:1fr;gap:.5rem;padding:.65rem 0}.case-study-layer-connector{grid-column:1;padding-left:.3rem}.case-study-layer-nodes{grid-template-columns:repeat(2,minmax(0,1fr))}.case-study-architecture-node{min-height:50px;padding:.5rem}.case-study-architecture-node b{font-size:.72rem}}
+
+/* Hubil — client-to-delivery operating architecture */
+.hubil-architecture-board,.hubil-delivery-architecture{border:1px solid var(--atlas-line);background:var(--atlas-paper)}
+.hubil-lane-label{display:grid;grid-template-columns:38px 1fr;column-gap:.7rem;align-items:baseline;padding:1rem 1.1rem;border-bottom:1px solid var(--atlas-line)}
+.hubil-lane-label>span{grid-row:span 2;color:#a47c4c;font:300 1.55rem var(--font-serif)}
+.hubil-lane-label>b{font-size:.58rem;letter-spacing:.13em;font-weight:650}
+.hubil-lane-label>small{grid-column:2;color:var(--atlas-muted);font-size:.65rem}
+.hubil-architecture .hubil-flow{grid-template-columns:repeat(7,minmax(0,1fr));border-bottom:1px solid var(--atlas-line)}
+.hubil-architecture .hubil-flow button{min-height:116px;padding:1rem .8rem;gap:.45rem;border-right:1px solid var(--atlas-line)}
+.hubil-architecture .hubil-flow button>span{font:300 1.3rem var(--font-serif)}
+.hubil-architecture .hubil-flow button b{font:400 1.05rem var(--font-serif)}
+.hubil-architecture .hubil-flow button small{font-size:.57rem;line-height:1.35}
+.hubil-architecture .hubil-flow button>i{right:-.45rem;font-size:.7rem}
+.hubil-state-track{display:grid;grid-template-columns:130px 1fr;gap:1rem;align-items:center;padding:1rem 1.1rem;border-bottom:1px solid var(--atlas-line)}
+.hubil-state-track>span{color:#a47c4c;font-size:.54rem;letter-spacing:.13em}
+.hubil-state-track>div{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.hubil-state-track b{position:relative;padding:.45rem .65rem;border:1px solid var(--atlas-line);color:var(--atlas-muted);font-size:.62rem;font-weight:500}
+.hubil-state-track b+b:before{content:"→";position:absolute;left:-.48rem;top:50%;transform:translateY(-50%);color:#a47c4c;background:var(--atlas-paper);font-size:.6rem}
+.hubil-state-track b.is-first{background:#e6e1d3;color:#46594a;border-color:#bca77f}
+.hubil-architecture .hubil-stage-detail{grid-template-columns:1.1fr .7fr;padding:1.6rem 1.2rem;background:transparent}
+.hubil-control-gate{display:flex;gap:.65rem;align-items:flex-start;padding:.65rem .75rem;border-left:2px solid #a47c4c;background:rgba(164,124,76,.08)}
+.hubil-control-gate b{flex:0 0 auto;color:#a47c4c;font-size:.52rem;letter-spacing:.1em}
+.hubil-control-gate{color:var(--atlas-muted);font-size:.68rem;line-height:1.6}
+.hubil-delivery-architecture{margin-top:1.2rem}
+.hubil-data-model-visual{display:grid;grid-template-columns:minmax(0,1fr) 70px minmax(0,1fr) 70px minmax(0,1fr);align-items:center;gap:.6rem;padding:1.5rem 1.1rem}
+.hubil-entity{min-height:150px;display:flex;flex-direction:column;justify-content:center;gap:.5rem;padding:1rem;border:1px solid var(--atlas-line);background:rgba(255,255,255,.22)}
+.hubil-entity>span{color:#a47c4c;font-size:.52rem;letter-spacing:.13em}
+.hubil-entity>b{font:400 1.45rem var(--font-serif);color:var(--atlas-ink)}
+.hubil-entity>small{color:var(--atlas-muted);font-size:.64rem;line-height:1.5}
+.hubil-entity>em{font-style:normal;color:#8b6c43;font-size:.58rem;line-height:1.45}
+.hubil-relation{display:flex;flex-direction:column;align-items:center;gap:.55rem}
+.hubil-relation>b{color:#9a7848;font-size:.55rem}
+.hubil-relation>i{position:relative;width:100%;height:1px;background:#a47c4c}
+.hubil-relation>i:after{content:"";position:absolute;right:0;top:-3px;width:6px;height:6px;border-top:1px solid #a47c4c;border-right:1px solid #a47c4c;transform:rotate(45deg)}
+.hubil-data-note{margin:0;padding:0 1.1rem 1.1rem;color:var(--atlas-muted);font-size:.65rem;line-height:1.6}
+.hubil-live-reference{display:grid;grid-template-columns:130px auto 1fr;gap:1rem;align-items:center;margin-top:1.4rem;padding:1rem 0;border-top:1px solid var(--atlas-line);border-bottom:1px solid var(--atlas-line)}
+.hubil-live-reference>span{color:#a47c4c;font-size:.54rem;letter-spacing:.13em}
+.hubil-live-reference>a{color:var(--atlas-ink);font-size:.75rem;text-decoration:underline;text-decoration-color:#a47c4c;text-underline-offset:4px}
+.hubil-live-reference>small{color:var(--atlas-muted);font-size:.62rem;line-height:1.55}
+@media(max-width:900px){.hubil-architecture .hubil-flow{grid-template-columns:repeat(4,minmax(0,1fr))}.hubil-architecture .hubil-flow button:nth-child(4){border-right:0}.hubil-architecture .hubil-flow button:nth-child(n+5){border-top:1px solid var(--atlas-line)}.hubil-data-model-visual{grid-template-columns:1fr 48px 1fr;row-gap:.8rem}.hubil-entity:last-child{grid-column:1/-1}.hubil-relation:nth-of-type(4){display:none}}
+@media(max-width:620px){.hubil-architecture .hubil-flow{grid-template-columns:repeat(2,minmax(0,1fr))}.hubil-architecture .hubil-flow button{min-height:98px;border-top:1px solid var(--atlas-line)}.hubil-architecture .hubil-flow button:nth-child(2n){border-right:0}.hubil-architecture .hubil-flow button>i{display:none}.hubil-state-track{grid-template-columns:1fr;gap:.6rem}.hubil-state-track>div{gap:.35rem}.hubil-state-track b{font-size:.56rem;padding:.4rem .5rem}.hubil-architecture .hubil-stage-detail{grid-template-columns:1fr;gap:1.2rem}.hubil-data-model-visual{grid-template-columns:1fr;gap:.55rem;padding:1rem}.hubil-relation{height:32px}.hubil-relation>i{width:1px;height:20px}.hubil-relation>i:after{right:-3px;top:auto;bottom:0;transform:rotate(135deg)}.hubil-entity:last-child{grid-column:auto}.hubil-relation:nth-of-type(4){display:flex}.hubil-live-reference{grid-template-columns:1fr;gap:.5rem}}
