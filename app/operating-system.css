@@ -606,3 +606,19 @@ html.dark .case-study-proof{border-color:rgba(236,233,223,.18)}
 html.dark .case-study-proof-links a{border-color:rgba(236,233,223,.16);background:rgba(255,255,255,.025);color:#e1e6dc}
 html.dark .case-study-proof-links small{color:#bac5ba}
 @media(max-width:700px){.case-study-proof{grid-template-columns:1fr;gap:.9rem}}
+
+/* A visible method: evidence → architecture → validation → measurement */
+.atlas-method{padding:clamp(4.5rem,8vw,7rem) 0;border-top:1px solid var(--atlas-line)}
+.atlas-method-heading{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:2.5rem}
+.atlas-method-heading h2{margin:.8rem 0 0;font:300 clamp(2.8rem,5.6vw,5.5rem)/.94 var(--font-serif);letter-spacing:-.06em;color:var(--atlas-ink)}
+.atlas-method-heading h2 em{color:#9a7848;font-weight:300}
+.atlas-process{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.6rem;padding:1.2rem 0 0}
+.atlas-process-line{position:absolute;left:0;right:0;top:2.5rem;width:100%;height:72px;color:var(--atlas-line);pointer-events:none}
+.atlas-process-step{position:relative;z-index:1;min-width:0;padding:.4rem .65rem .8rem;background:var(--atlas-paper)}
+.atlas-process-number{display:block;color:#9a7848;font:300 1.3rem var(--font-serif)}
+.atlas-process-dot{display:grid;place-items:center;width:34px;height:34px;margin:1.15rem 0 .9rem;border:1px solid #a88a5b;border-radius:50%;background:var(--atlas-paper);color:#9a7848;font-size:1rem}
+.atlas-process-step h3{margin:0;font:400 1.2rem var(--font-serif);color:var(--atlas-ink)}
+.atlas-process-step p{max-width:20ch;margin:.5rem 0 0;color:var(--atlas-muted);font-size:.68rem;line-height:1.6}
+.atlas-method-note{margin:1.5rem 0 0;padding-top:1rem;border-top:1px solid var(--atlas-line);color:var(--atlas-muted);font-size:.68rem;letter-spacing:.02em}
+@media(max-width:900px){.atlas-process{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:1.2rem}.atlas-process-line{display:none}.atlas-process-step{border-top:1px solid var(--atlas-line)}.atlas-process-dot{margin:.7rem 0}}
+@media(max-width:560px){.atlas-method-heading{align-items:flex-start;flex-direction:column}.atlas-process{grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.atlas-process-step{padding:.6rem .45rem}.atlas-process-step h3{font-size:1.05rem}.atlas-process-step p{font-size:.63rem}}
