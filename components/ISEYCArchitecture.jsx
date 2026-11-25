@@ -160,7 +160,7 @@ export default function ISEYCArchitecture(){
       <p>A spatial model of how ISEYC is designed to work: governance, four departments, shared institutional infrastructure and the public-facing layer.</p>
     </header>
     <div className="ise-architecture-toolbar">
-      <div><span className="ise-model-status"/> <b>ARCHITECTURAL MODEL</b><small>ORBITABLE 3D / INSTITUTIONAL MODEL</small></div>
+      <div><span className="ise-model-status"/> <b>ARCHITECTURAL MODEL</b><small>INTERACTIVE 3D / INSTITUTIONAL MODEL</small></div>
       <div className="ise-model-mode" role="group" aria-label="Institutional model view">
         <button type="button" onClick={()=>setMode('structure')} aria-pressed={mode==='structure'}>Structure</button>
         <button type="button" onClick={()=>setMode('operations')} aria-pressed={mode==='operations'}>How it works</button>
