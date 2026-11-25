@@ -642,3 +642,4 @@ html.dark .ise-architecture-shared-rail button[aria-pressed=true]{background:#29
 @media(max-width:760px){.ise-architecture-shared-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.ise-architecture-shared-rail>div{grid-column:1/-1}.ise-record-register>div{grid-template-columns:1fr}}
 
 .ise-architecture-canvas:focus-visible{outline:2px solid #a17d48;outline-offset:3px}
+.hubil-state-track b.is-active{background:#e6e1d3;color:#46594a;border-color:#bca77f;box-shadow:inset 0 -2px 0 #a47c4c}
