@@ -3,14 +3,85 @@ import { notFound } from 'next/navigation';
 import { caseStudies, getCaseStudy } from '@/lib/case-studies';
 
 const systemMaps = {
-  hubil: {label:'Client delivery architecture',nodes:['FirstLine diagnostic','Client relationship','Scoped project','Delivery tasks','Handover & support'],caption:'One engagement, connected from first signal to completed delivery.'},
-  iseyc: {label:'Institutional architecture',nodes:['Presidential Council','Four departments','Programmes & workplans','Shared evidence','Accountability & reporting'],caption:'Department ownership, shared institutional capabilities and human-governed decisions.'},
-  mandate: {label:'Public record lifecycle',nodes:['Community report','Human review','Published record','Evidence reuse','Institutional response'],caption:'A report becomes public only after review; a published record is not proof of a completed response.'},
-  brain: {label:'Evidence-to-answer architecture',nodes:['Question','Source retrieval','Evidence assessment','Qualified answer'],caption:'The answer layer interprets source records; it does not become the authority for them.'},
-  observatory: {label:'Evidence infrastructure',nodes:['Source registry','Observation records','Geographic coverage','Accountability brief'],caption:'Every observation retains its source, period, geography and limitations.'},
-  'kaduna-south': {label:'Grassroots coordination model',nodes:['Street representative','Line coordinator','Ward coordinator','Escalation & follow-up'],caption:'A proposed chain of responsibility, pending a field pilot.'},
-  'sigma-geo': {label:'Spatial evaluation framework',nodes:['Source provenance','Geographic fit','Confidence calibration','Answer or abstain'],caption:'A spatially competent model must recognise when the evidence does not match the question.'}
+  iseyc: {
+    label:'ISEYC institutional architecture',
+    caption:'Departments own programmes and responsibilities. Shared evidence and operations support the institution without replacing human authority.',
+    layers:[
+      {label:'01 / GOVERNANCE',nodes:['National President','Presidential Council','Presidential Office & Secretariat']},
+      {label:'02 / DEPARTMENT OWNERSHIP',nodes:['Education & Capacity Building','Health & Well-being','Software & Technology','Civic Department']},
+      {label:'03 / SHARED INFRASTRUCTURE',nodes:['Observatory · evidence','Civic Brain · interpretation','IDCC · operations']},
+      {label:'04 / PUBLIC INTERFACE',nodes:['Programmes & services','Published evidence','Dialogue & response']}
+    ]
+  },
+  mandate: {
+    label:'Community record lifecycle',
+    caption:'A community report is not a verified finding. Publication follows human review; institutional response is tracked as a separate event.',
+    layers:[
+      {label:'01 / INTAKE',nodes:['Community report']},
+      {label:'02 / HUMAN REVIEW',nodes:['Civic Department review','Source & context checks','Publish · flag · reject']},
+      {label:'03 / PUBLIC RECORD',nodes:['Published CommunityRecord']},
+      {label:'04 / EVIDENCE REUSE',nodes:['Observatory','Civic Brain']},
+      {label:'05 / RESPONSE',nodes:['Institutional response · tracked separately']}
+    ]
+  },
+  brain: {
+    label:'Evidence-to-answer architecture',
+    caption:'The interpretation layer retrieves and qualifies evidence; source systems remain authoritative and human decisions remain outside the model.',
+    layers:[
+      {label:'01 / QUESTION',nodes:['Citizen or institutional question']},
+      {label:'02 / SOURCE RETRIEVAL',nodes:['CommunityRecord','Observatory','Official sources']},
+      {label:'03 / EVIDENCE ASSESSMENT',nodes:['Provenance','Geographic & time fit','Coverage & limitations']},
+      {label:'04 / RESPONSE',nodes:['Qualified answer','Explain evidence gap','Abstain when unsupported']}
+    ]
+  },
+  observatory: {
+    label:'Provenance-first evidence infrastructure',
+    caption:'A source becomes an observation only with its period, geography, method and limitations. Unresolved conflicts stay visible.',
+    layers:[
+      {label:'01 / SOURCE SYSTEMS',nodes:['Official statistics','Budgets & finance','Community records','Research & datasets']},
+      {label:'02 / EVIDENCE MODEL',nodes:['Source registry','Observation record','Geography & period']},
+      {label:'03 / QUALITY CONTROL',nodes:['Provenance','Coverage','Reconciliation & limits']},
+      {label:'04 / PUBLIC OUTPUT',nodes:['Evidence briefs','Accountability questions']}
+    ]
+  },
+  'kaduna-south': {
+    label:'Street-to-ward coordination model',
+    caption:'A proposed responsibility chain for a Phase 1 pilot. It is a framework, not a claim that a representative network is already operating.',
+    layers:[
+      {label:'01 / COMMUNITY ENTRY',nodes:['Street Representative']},
+      {label:'02 / LOCAL COORDINATION',nodes:['Line Coordinator','Issue consolidation']},
+      {label:'03 / WARD COORDINATION',nodes:['Ward Coordinator','Prioritisation & escalation']},
+      {label:'04 / FOLLOW-THROUGH',nodes:['Assigned responsibility','Documented action','Feedback to community']}
+    ]
+  },
+  'sigma-geo': {
+    label:'Spatial intelligence evaluation',
+    caption:'A capable model must recognise when the evidence does not match the requested place, scale or confidence threshold.',
+    layers:[
+      {label:'01 / EVIDENCE INPUT',nodes:['Source record','Geographic reference','Time period']},
+      {label:'02 / EVALUATION DIMENSIONS',nodes:['Source provenance','Spatial fit','Confidence calibration']},
+      {label:'03 / MODEL BEHAVIOUR',nodes:['Grounded answer','Qualified answer','Abstain & explain']}
+    ]
+  }
 };
+
+function ArchitectureDiagram({map}) {
+  return (
+    <section className="case-study-architecture" aria-label={map.label}>
+      <div className="case-study-architecture-heading"><span>ARCHITECTURE / SYSTEM MAP</span><b>{map.label}</b></div>
+      <div className="case-study-architecture-layers">
+        {map.layers.map((layer,index)=>(
+          <div className="case-study-architecture-layer" key={layer.label}>
+            <span className="case-study-layer-label">{layer.label}</span>
+            <div className="case-study-layer-nodes">{layer.nodes.map((node,nodeIndex)=><div className="case-study-architecture-node" key={node}><i>{String(nodeIndex+1).padStart(2,'0')}</i><b>{node}</b></div>)}</div>
+            {index!==map.layers.length-1&&<div className="case-study-layer-connector" aria-hidden="true"><i/></div>}
+          </div>
+        ))}
+      </div>
+      <p>{map.caption}</p>
+    </section>
+  );
+}
 
 export function generateStaticParams() {
   return caseStudies.map((study) => ({ slug: study.slug }));
@@ -65,13 +136,7 @@ export default async function CaseStudyPage({ params }) {
           <p className="case-study-thesis">{study.thesis}</p>
         </header>
 
-        {map && <section className="case-study-system" aria-label={map.label}>
-          <div className="case-study-system-heading"><span>THE SYSTEM / 01</span><b>{map.label}</b></div>
-          <div className="case-study-system-flow" style={{gridTemplateColumns: `repeat(${map.nodes.length}, minmax(0, 1fr))`}}>
-            {map.nodes.map((node,index)=><div className="case-study-system-node" key={node}><span>0{index+1}</span><strong>{node}</strong>{index<map.nodes.length-1&&<i aria-hidden="true">→</i>}</div>)}
-          </div>
-          <p>{map.caption}</p>
-        </section>}
+        {map && <ArchitectureDiagram map={map}/>}
 
         <section className="case-study-proofline" aria-label="Project evidence summary">
           <div><span>PROJECT STATE</span><strong>{study.stage}</strong></div>
