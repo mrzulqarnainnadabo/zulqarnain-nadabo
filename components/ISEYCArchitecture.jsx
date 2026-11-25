@@ -155,7 +155,7 @@ export default function ISEYCArchitecture(){
   const [threeFailed,setThreeFailed]=useState(false);
   const selected=useMemo(()=>allModules.find(x=>x.id===active)||publicLayer.find(x=>x.id===active)||offices[0],[active]);
   const kind=governance.some(x=>x.id===active)?'office':departments.some(x=>x.id===active)?'department':shared.some(x=>x.id===active)||sharedServices.some(x=>x.id===active)?'shared':'public';
-  const visualActive=sharedServices.some(x=>x.id===active)?'idcc':active==='mandate'||active==='institution'?'idcc':active==='briefs'?'observatory':active;
+  const visualActive=sharedServices.some(x=>x.id===active)?'idcc':active==='mandate'?'civic':active==='institution'?'president':active==='briefs'?'observatory':active;
   return <section id="iseyc" className="institution-section ise-architecture-section" aria-labelledby="iseyc-title">
     <header className="ise-architecture-heading">
       <div><p className="institution-kicker">ISEYC / INSTITUTIONAL ARCHITECTURE</p><h2 id="iseyc-title">An institution,<br/><em>made visible.</em></h2></div>
