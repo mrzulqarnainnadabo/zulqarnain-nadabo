@@ -640,3 +640,5 @@ html.dark .case-study-proof-links small{color:#bac5ba}
 .ise-record-register>div i{color:#9a7848;font-style:normal;font-size:.57rem}
 html.dark .ise-architecture-shared-rail button[aria-pressed=true]{background:#293e30}
 @media(max-width:760px){.ise-architecture-shared-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.ise-architecture-shared-rail>div{grid-column:1/-1}.ise-record-register>div{grid-template-columns:1fr}}
+
+.ise-architecture-canvas:focus-visible{outline:2px solid #a17d48;outline-offset:3px}
