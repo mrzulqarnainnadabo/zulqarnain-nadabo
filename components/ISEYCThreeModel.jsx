@@ -283,6 +283,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
         const distance = camera.position.length();
         const next = Math.max(18,Math.min(42,distance*(1+Math.max(-0.08,Math.min(0.08,event.deltaY*0.0007)))));
         camera.position.normalize().multiplyScalar(next);
+        requestRender();
       };
       canvas.addEventListener('pointerdown',down);
       canvas.addEventListener('pointermove',move);
@@ -374,6 +375,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
         material.emissiveIntensity = id === selectedId ? 0.25 : 0;
       }
     }
+    renderRef.current?.();
   }, [selectedId, ready]);
 
   useEffect(() => {
