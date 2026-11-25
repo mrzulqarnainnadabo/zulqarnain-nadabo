@@ -280,7 +280,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
       const wheel = (event) => {
         event.preventDefault();
         const distance = camera.position.length();
-        const next = Math.max(18,Math.min(42,distance*(1+Math.max(-0.08,Math.min(0.08,event.deltaY*0.0007))));
+        const next = Math.max(18,Math.min(42,distance*(1+Math.max(-0.08,Math.min(0.08,event.deltaY*0.0007)))));
         camera.position.normalize().multiplyScalar(next);
       };
       canvas.addEventListener('pointerdown',down);
