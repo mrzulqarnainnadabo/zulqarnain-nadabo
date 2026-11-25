@@ -643,3 +643,16 @@ html.dark .ise-architecture-shared-rail button[aria-pressed=true]{background:#29
 
 .ise-architecture-canvas:focus-visible{outline:2px solid #a17d48;outline-offset:3px}
 .hubil-state-track b.is-active{background:#e6e1d3;color:#46594a;border-color:#bca77f;box-shadow:inset 0 -2px 0 #a47c4c}
+
+/* On-demand WebGL scene with an axonometric SVG fallback */
+.ise-architecture-canvas{position:relative}
+.ise-three-model{position:absolute;inset:0;z-index:2;opacity:0;pointer-events:none;transition:opacity .35s ease}
+.ise-three-model.is-ready{opacity:1;pointer-events:auto}
+.ise-three-canvas{display:block;width:100%;height:100%;cursor:grab;outline:none}
+.ise-three-canvas:active{cursor:grabbing}
+.ise-three-loading{position:absolute;right:1rem;top:1rem;padding:.55rem .7rem;background:rgba(20,42,30,.88);color:#f1eee5;font-size:.6rem;letter-spacing:.06em}
+.ise-three-hint{position:absolute;right:1rem;bottom:1rem;padding:.55rem .7rem;background:rgba(20,42,30,.88);color:#d9dfd3;font-size:.5rem;letter-spacing:.12em;pointer-events:none}
+.ise-three-fallback-note{position:absolute;z-index:4;right:1rem;top:3.7rem;max-width:220px;padding:.5rem .65rem;background:rgba(20,42,30,.9);color:#f1eee5;font-size:.58rem;line-height:1.45}
+.ise-architecture-legend,.ise-architecture-compass{z-index:3}
+@media(max-width:760px){.ise-architecture-canvas{height:520px;min-height:520px}.ise-three-hint{left:.55rem;right:.55rem;bottom:.55rem;text-align:center;font-size:.46rem}}
+@media(prefers-reduced-motion:reduce){.ise-three-model{transition:none}}
