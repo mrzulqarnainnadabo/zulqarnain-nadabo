@@ -147,7 +147,7 @@ export default function ISEYCArchitecture(){
       <p>A spatial model of how ISEYC is designed to work: governance, four departments, shared institutional infrastructure and the public-facing layer.</p>
     </header>
     <div className="ise-architecture-toolbar">
-      <div><span className="ise-model-status"/> <b>ARCHITECTURAL MODEL</b><small>AXONOMETRIC / EXPLODED SYSTEM</small></div>
+      <div><span className="ise-model-status"/> <b>ARCHITECTURAL MODEL</b><small>ORBITABLE 3D / INSTITUTIONAL MODEL</small></div>
       <div className="ise-model-mode" role="group" aria-label="Institutional model view">
         <button type="button" onClick={()=>setMode('structure')} aria-pressed={mode==='structure'}>Structure</button>
         <button type="button" onClick={()=>setMode('operations')} aria-pressed={mode==='operations'}>How it works</button>
@@ -155,7 +155,7 @@ export default function ISEYCArchitecture(){
     </div>
     <div className={`ise-architecture-stage mode-${mode}`}>
       <div className="ise-architecture-canvas" role="region" tabIndex={0} aria-label="Scrollable axonometric institutional model">
-        <ISEYCThreeModel modules={sceneModules} selectedId={active} onSelect={setActive} onReady={()=>setThreeReady(true)} onError={()=>setThreeFailed(true)}/>
+        <ISEYCThreeModel modules={sceneModules} selectedId={active} mode={mode} onSelect={setActive} onReady={()=>setThreeReady(true)} onError={()=>setThreeFailed(true)}/>
         {!threeReady&&<svg viewBox="0 0 1080 660" role="group" aria-label="Fallback axonometric model of ISEYC institutional architecture">
           <defs><filter id="ise-shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur stdDeviation="7"/></filter></defs>
           <ellipse cx="560" cy="548" rx="440" ry="55" fill="#334a3b" opacity=".12" filter="url(#ise-shadow)"/>
@@ -200,6 +200,6 @@ export default function ISEYCArchitecture(){
       <div>{sharedRegisters.map((name,i)=><span key={name}><i>{String(i+1).padStart(2,'0')}</i>{name}</span>)}</div>
     </details>
     <details className="ise-role-register"><summary><span>GOVERNANCE ROLE TEMPLATES</span><b>14 roles · no assumed appointments</b></summary><div>{roleTemplates.map((role,i)=><span key={role}><i>{String(i+1).padStart(2,'0')}</i>{role}</span>)}</div></details>
-    <p className="ise-architecture-disclosure">This is a conceptual axonometric model of the documented institutional architecture, not a physical building plan or live staff directory. Office positions are role templates; no individual appointments, occupancy, programme counts or performance outcomes are implied. IDCC records and personal information remain private. Department workspace names are drawn from the current Notion blueprints; database filters are not access controls.</p>
+    <p className="ise-architecture-disclosure">This is an interactive 3D spatial model of the documented institutional architecture, not a physical building plan or live staff directory. Office positions are role templates; no individual appointments, occupancy, programme counts or performance outcomes are implied. IDCC records and personal information remain private. Department workspace names are drawn from the current Notion blueprints; database filters are not access controls.</p>
   </section>;
 }
