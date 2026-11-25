@@ -97,11 +97,11 @@ function getGeographicLens(center, zoom) {
   const inKaduna = longitude >= 6.5 && longitude <= 8.5 && latitude >= 9.5 && latitude <= 11.8;
   const nearKadunaSouth = Math.abs(longitude - 7.43) <= 0.28 && Math.abs(latitude - 10.45) <= 0.28;
   if (inKaduna && nearKadunaSouth && zoom >= 12) return 'kaduna-south';
-  if (inKaduna && zoom >= 6) return 'kaduna';
+  if (inKaduna && zoom >= 6 && zoom < 12) return 'kaduna';
   const inNigeria = longitude >= 2.5 && longitude <= 15 && latitude >= 4 && latitude <= 14;
-  if (inNigeria && zoom >= 4.2) return 'nigeria';
+  if (inNigeria && zoom >= 4.2 && zoom < 6) return 'nigeria';
   const inAfrica = longitude >= -20 && longitude <= 55 && latitude >= -36 && latitude <= 38;
-  if (inAfrica && zoom >= 2.1) return 'africa';
+  if (inAfrica && zoom >= 2.1 && zoom < 4.2) return 'africa';
   if (zoom >= 10) return 'local';
   if (zoom >= 4) return 'regional';
   return 'world';
