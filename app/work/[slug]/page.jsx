@@ -3,6 +3,17 @@ import { notFound } from 'next/navigation';
 import { caseStudies, getCaseStudy } from '@/lib/case-studies';
 
 const systemMaps = {
+  hubil: {
+    label:'Client-to-delivery operating architecture',
+    caption:'FirstLine creates a structured client signal; a human approves outreach; active engagements connect to projects and task-level delivery records.',
+    layers:[
+      {label:'01 / DIAGNOSIS',nodes:['FirstLine diagnostic','Client record','AI brief · draft only']},
+      {label:'02 / HUMAN CONTROL',nodes:['Review & edit','Approve first message','Record next action']},
+      {label:'03 / RELATIONSHIP',nodes:['Briefed','Discovery','Proposal','Active']},
+      {label:'04 / DELIVERY DATA',nodes:['Client','Project · 1:many','Delivery tasks · 1:many']},
+      {label:'05 / COMPLETION',nodes:['Review','Client handover','Delivered / Support']}
+    ]
+  },
   iseyc: {
     label:'ISEYC institutional architecture',
     caption:'Departments own programmes and responsibilities. Shared evidence and operations support the institution without replacing human authority.',
