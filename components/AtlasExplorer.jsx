@@ -124,7 +124,7 @@ export default function AtlasExplorer() {
   const settlementEnabledRef = useRef(false);
   const settlementAbortRef = useRef(null);
   const settlementBoundsRef = useRef('');
-  const current = VIEWS.find((view) => view.id === activeView) || VIEWS[0];
+  const [earthSearch, setEarthSearch] = useState('Earth');
 
   async function refreshSettlementBlocks(force = false) {
     const map = mapRef.current;
@@ -269,7 +269,11 @@ export default function AtlasExplorer() {
         maxZoom: 19,
       });
       mapRef.current = map;
-      syncLensOnMove = () => setActiveView(getGeographicLens(map.getCenter(), map.getZoom()));
+      syncLensOnMove = () => {
+        const center = map.getCenter();
+        setActiveView(getGeographicLens(center, map.getZoom()));
+        setEarthSearch(center.lat.toFixed(4) + ', ' + center.lng.toFixed(4));
+      };
       map.on('moveend', syncLensOnMove);
       map.addControl(new maplibregl.NavigationControl({ showCompass: true, showZoom: true }), 'bottom-right');
       map.addControl(new maplibregl.ScaleControl({ maxWidth: 110, unit: 'metric' }), 'bottom-left');
@@ -487,6 +491,7 @@ export default function AtlasExplorer() {
 
   function selectView(view) {
     setActiveView(view.id);
+    setEarthSearch(view.earth);
     const map = mapRef.current;
     if (!map) return;
     const isEarth = sceneRef.current === 'earth';
@@ -505,7 +510,7 @@ export default function AtlasExplorer() {
           <h2 id="atlas-title">Geography is how I <em>read the world.</em></h2>
           <p className="atlas-intro">Move from global context to local evidence. Explore the world, then examine the places where geography helps explain real problems.</p>
         </div>
-        <a className="atlas-earth-link" href={`https://earth.google.com/web/search/${encodeURIComponent(current.earth)}`} target="_blank" rel="noreferrer">
+        <a className="atlas-earth-link" href={`https://earth.google.com/web/search/${encodeURIComponent(earthSearch)}`} target="_blank" rel="noreferrer">
           Explore in Google Earth <span aria-hidden="true">↗</span>
         </a>
       </div>
@@ -529,7 +534,7 @@ export default function AtlasExplorer() {
           <div className="atlas-map-fallback" role="status">
             <span>Geographic view unavailable</span>
             <p>{status} The Earth experience above remains available.</p>
-            <a href={`https://earth.google.com/web/search/${encodeURIComponent(current.earth)}`} target="_blank" rel="noreferrer">Continue in Google Earth ↗</a>
+            <a href={`https://earth.google.com/web/search/${encodeURIComponent(earthSearch)}`} target="_blank" rel="noreferrer">Continue in Google Earth ↗</a>
           </div>
         )}
         {!failed && status !== 'World map ready' && <div className="atlas-map-loading" role="status">{status}</div>}
