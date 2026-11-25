@@ -45,12 +45,13 @@ function makeLabel(THREE, text, accent) {
   return { texture, material };
 }
 
-export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady, onError }) {
+export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady, onError, mode }) {
   const host = useRef(null);
   const onSelectRef = useRef(onSelect);
   const onReadyRef = useRef(onReady);
   const onErrorRef = useRef(onError);
   const materialMap = useRef(new Map());
+  const modeGroupRef = useRef(null);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   onSelectRef.current = onSelect;
@@ -117,6 +118,10 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
       root = new THREE.Group();
       scene.add(root);
       materialMap.current = materials;
+      const operationLines = new THREE.Group();
+      operationLines.visible = mode === 'operations';
+      root.add(operationLines);
+      modeGroupRef.current = operationLines;
 
       const ground = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), new THREE.MeshStandardMaterial({ color: '#dce5d9', roughness: 1 }));
       ground.rotation.x = -Math.PI / 2;
@@ -208,6 +213,18 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
         sprite.scale.set(Math.max(2.4, item.w * 1.25), 0.58, 1);
         group.add(sprite);
       }
+
+      const addRoute = (coords) => {
+        const geometry = new THREE.BufferGeometry().setFromPoints(coords.map(point=>new THREE.Vector3(point[0],point[1],point[2])));
+        const line = new THREE.Line(geometry,new THREE.LineDashedMaterial({color:'#a17d48',dashSize:0.28,gapSize:0.18,transparent:true,opacity:0.9}));
+        line.computeLineDistances();
+        operationLines.add(line);
+      };
+      for (const x of [-8,-2.7,2.7,8]) addRoute([[0,0.18,-5.2],[x,0.18,-0.3]]);
+      for (const x of [-8,-2.7,2.7,8]) {
+        for (const target of [-6,0,6]) addRoute([[x,0.18,0.8],[target,0.18,5.1]]);
+      }
+      addRoute([[0,0.18,5.1],[0,0.18,8.1]]);
 
       const planterMat = new THREE.MeshStandardMaterial({ color: '#9aaa91' });
       const trunkMat = new THREE.MeshStandardMaterial({ color: '#8b785a' });
@@ -341,6 +358,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
       renderer?.dispose();
       if (renderer?.domElement?.parentNode) renderer.domElement.parentNode.removeChild(renderer.domElement);
       materials.clear();
+      modeGroupRef.current = null;
     };
   }, [modules]);
 
@@ -352,6 +370,10 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
       }
     }
   }, [selectedId, ready]);
+
+  useEffect(() => {
+    if (modeGroupRef.current) modeGroupRef.current.visible = mode === 'operations';
+  }, [mode, ready]);
 
   return (
     <div className={'ise-three-model ' + (ready ? 'is-ready ' : '') + (failed ? 'has-failed' : '')} ref={host}>
