@@ -31,6 +31,27 @@ const governance = [
   {id:'secretary-general',label:'Secretariat',short:'SG',x:9.45,y:.55,w:1.65,d:1.1,h:1.05,accent:'#b79c70'},
 ];
 
+const sharedServices = [
+  {id:'council-records',label:'Council & Decisions',short:'Governance records',detail:'Formal decisions, approvals, rationale, assigned action owners and follow-through. AI can prepare drafts; only authorised humans confirm decisions.'},
+  {id:'meetings',label:'Meetings & Action Tracker',short:'Meetings · minutes · actions',detail:'Meeting intake, agendas, minutes, confirmed decisions and linked action tracking with named owners and due dates.'},
+  {id:'chamber',label:'Digital Chamber',short:'Formal sessions',detail:'Formal session scheduling, chair controls, draft document intelligence and controlled hand-off to the action tracker.'},
+  {id:'presidential-brief',label:'Presidential Command Brief',short:'Private executive workspace',detail:'A restricted, draft-only workspace for presidential priorities, briefings and recommendations. It does not grant decision authority to AI.'},
+  {id:'development',label:'Developmental Profiles',short:'Member capability',detail:'Consent-based role induction, capability pathways, competency evidence and member development with privacy and access boundaries.'},
+  {id:'learning-register',label:'Learning & Competency',short:'Learning evidence',detail:'Approved learning modules, assessments, competency evidence and induction progress shared across the institution.'},
+  {id:'media-command',label:'Social Media & Content Command',short:'Draft · review · publish',detail:'Public communication workflow with draft, review, approval and publication states. AI output remains draft-only until human approval.'},
+  {id:'partners',label:'Partner & External Engagement',short:'Institutional relationships',detail:'Partner organisations, external contacts, engagement records, due diligence and follow-up.'},
+];
+
+const sharedRegisters = [
+  'Appointment & Role Register',
+  'Programmes & Work Register',
+  'Council Decisions & Action Register',
+  'Department Reports & Scorecards',
+  'Learning & Competency Register',
+  'Partner Organisations & External Engagement',
+  'Meetings, Chamber, Actions & Media records',
+];
+
 const roleTemplates = ['National President','Chief of Staff to the President','Secretary General','Chief Operations Officer','Chief Financial Officer','Head, Education & Capacity Building','Head, Health & Well-being','Head, Software & Technology','Head, Civic Department','Youth Leadership Coordinator','Director of Public Engagement & Awareness','Director of Member Welfare & Social Development','Chair, Disciplinary Committee','Special Adviser to the President'];
 
 const publicLayer = [
@@ -39,7 +60,7 @@ const publicLayer = [
   {id:'institution',label:'ISEYC public institution',short:'What the world sees',detail:'The public identity, four departments, approved programmes and published institutional work.'},
 ];
 
-const allModules = [...governance,...departments,...shared];
+const allModules = [...governance,...departments,...shared,...sharedServices];
 
 function project(x,y,z=0){
   return [560+(x-y)*39,72+(x+y)*22-z*1.05];
@@ -110,7 +131,7 @@ export default function ISEYCArchitecture(){
   const [active,setActive]=useState('president');
   const [mode,setMode]=useState('structure');
   const selected=useMemo(()=>allModules.find(x=>x.id===active)||publicLayer.find(x=>x.id===active)||offices[0],[active]);
-  const kind=governance.some(x=>x.id===active)?'office':departments.some(x=>x.id===active)?'department':shared.some(x=>x.id===active)?'shared':'public';
+  const kind=governance.some(x=>x.id===active)?'office':departments.some(x=>x.id===active)?'department':shared.some(x=>x.id===active)||sharedServices.some(x=>x.id===active)?'shared':'public';
   return <section id="iseyc" className="institution-section ise-architecture-section" aria-labelledby="iseyc-title">
     <header className="ise-architecture-heading">
       <div><p className="institution-kicker">ISEYC / INSTITUTIONAL ARCHITECTURE</p><h2 id="iseyc-title">An institution,<br/><em>made visible.</em></h2></div>
@@ -155,10 +176,18 @@ export default function ISEYCArchitecture(){
       <div className="ise-index-label"><span>01—04</span><b>DEPARTMENTS</b></div>
       {departments.map(item=><button type="button" key={item.id} onClick={()=>setActive(item.id)} aria-pressed={active===item.id}><span>{item.n}</span><b>{item.label}</b><i>↗</i></button>)}
     </div>
+    <div className="ise-architecture-shared-rail">
+      <div><span>INSTITUTION-WIDE SYSTEMS</span><b>Governance, people and operations</b></div>
+      {sharedServices.map(item=><button type="button" key={item.id} onClick={()=>setActive(item.id)} aria-pressed={active===item.id}><b>{item.label}</b><small>{item.short}</small></button>)}
+    </div>
     <div className="ise-architecture-public-rail">
       <div><span>PUBLIC LAYER</span><b>What the world can inspect</b></div>
       {publicLayer.map(item=><button type="button" key={item.id} onClick={()=>setActive(item.id)} aria-pressed={active===item.id}><b>{item.label}</b><small>{item.short}</small></button>)}
     </div>
+    <details className="ise-record-register">
+      <summary><span>INSTITUTIONAL RECORDS / IDCC</span><b>7 shared registers & record systems</b></summary>
+      <div>{sharedRegisters.map((name,i)=><span key={name}><i>{String(i+1).padStart(2,'0')}</i>{name}</span>)}</div>
+    </details>
     <details className="ise-role-register"><summary><span>GOVERNANCE ROLE TEMPLATES</span><b>14 roles · no assumed appointments</b></summary><div>{roleTemplates.map((role,i)=><span key={role}><i>{String(i+1).padStart(2,'0')}</i>{role}</span>)}</div></details>
     <p className="ise-architecture-disclosure">This is a conceptual axonometric model of the documented institutional architecture, not a physical building plan or live staff directory. Office positions are role templates; no individual appointments, occupancy, programme counts or performance outcomes are implied. IDCC records and personal information remain private. Department workspace names are drawn from the current Notion blueprints; database filters are not access controls.</p>
   </section>;
