@@ -656,3 +656,7 @@ html.dark .ise-architecture-shared-rail button[aria-pressed=true]{background:#29
 .ise-architecture-legend,.ise-architecture-compass{z-index:3}
 @media(max-width:760px){.ise-architecture-canvas{height:520px;min-height:520px}.ise-three-hint{left:.55rem;right:.55rem;bottom:.55rem;text-align:center;font-size:.46rem}}
 @media(prefers-reduced-motion:reduce){.ise-three-model{transition:none}}
+
+.ise-architecture-stage.mode-operations .ise-architecture-connectors{opacity:1}
+.ise-architecture-stage.mode-operations .ise-architecture-connectors path{stroke:#a17d48;stroke-width:3;stroke-dasharray:4 5}
+.ise-architecture-stage.mode-operations .ise-platform-labels text{fill:#9a7848}
