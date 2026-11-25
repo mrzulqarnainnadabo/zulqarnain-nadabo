@@ -1,6 +1,6 @@
 import { projects } from '@/lib/content';
 const notes={
-hubil:{number:'02',type:'COMMERCIAL SYSTEMS',question:'How can small-business work move from diagnosis to reliable delivery?',sequence:['Diagnose','Scope','Deliver'],mark:'hubil'},
+hubil:{number:'02',type:'COMMERCIAL SYSTEMS',question:'How can small-business work move from diagnosis to reliable delivery?',sequence:['Diagnose','Approve','Deliver'],mark:'hubil'},
 iseyc:{number:'01',type:'INSTITUTION DESIGN',question:'How can youth-led action become a durable institution?',sequence:['Departments','Programmes','Accountability'],mark:'institution'},
 mandate:{number:'03',type:'CIVIC PARTICIPATION',question:'How can a community voice become a reviewed public record?',sequence:['Listen','Review','Respond'],mark:'civic'},
 brain:{number:'04',type:'INTELLIGENCE SYSTEMS',question:'How should a system answer when evidence is incomplete?',sequence:['Retrieve','Reason','Qualify'],mark:'brain'},
