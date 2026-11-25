@@ -209,7 +209,7 @@ export default function ISEYCArchitecture(){
       {publicLayer.map(item=><button type="button" key={item.id} onClick={()=>setActive(item.id)} aria-pressed={active===item.id}><b>{item.label}</b><small>{item.short}</small></button>)}
     </div>
     <details className="ise-record-register">
-      <summary><span>INSTITUTIONAL RECORDS / IDCC</span><b>7 shared registers & record systems</b></summary>
+      <summary><span>INSTITUTIONAL RECORDS / IDCC</span><b>11 shared registers & record systems</b></summary>
       <div>{sharedRegisters.map((name,i)=><span key={name}><i>{String(i+1).padStart(2,'0')}</i>{name}</span>)}</div>
     </details>
     <details className="ise-role-register"><summary><span>GOVERNANCE ROLE TEMPLATES</span><b>14 roles · no assumed appointments</b></summary><div>{roleTemplates.map((role,i)=><span key={role}><i>{String(i+1).padStart(2,'0')}</i>{role}</span>)}</div></details>
