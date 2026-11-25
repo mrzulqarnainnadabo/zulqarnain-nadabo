@@ -30,6 +30,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
   const onErrorRef = useRef(onError);
   const materialMap = useRef(new Map());
   const modeGroupRef = useRef(null);
+  const renderRef = useRef(null);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   onSelectRef.current = onSelect;
@@ -43,6 +44,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
     let camera;
     let root;
     let raf = 0;
+    let requestRender = () => {};
     let observer;
     let visibilityObserver;
     let raycaster;
@@ -62,6 +64,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
 
     const start = (THREE) => {
       if (disposed || !host.current) return;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const width = Math.max(320, host.current.clientWidth || 760);
       const height = Math.max(360, host.current.clientHeight || 560);
       scene = new THREE.Scene();
@@ -238,6 +241,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
         renderer.setSize(w,h);
+        requestRender();
       };
       observer = new ResizeObserver(resize);
       observer.observe(host.current);
@@ -260,6 +264,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
         }
         lastX = event.clientX;
         lastY = event.clientY;
+        requestRender();
       };
       const up = (event) => {
         if (!drag) return;
@@ -286,13 +291,27 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
       canvas.addEventListener('wheel',wheel,{passive:false});
 
       const draw = () => {
-        if (disposed) return;
-        root.rotation.y += (targetY-root.rotation.y)*0.08;
-        root.rotation.x += (targetX-root.rotation.x)*0.08;
+        raf = 0;
+        if (disposed || document.hidden) return;
+        const deltaY = targetY - root.rotation.y;
+        const deltaX = targetX - root.rotation.x;
+        if (reducedMotion) {
+          root.rotation.y = targetY;
+          root.rotation.x = targetX;
+        } else {
+          root.rotation.y += deltaY * 0.08;
+          root.rotation.x += deltaX * 0.08;
+        }
         renderer.render(scene,camera);
-        raf = requestAnimationFrame(draw);
+        if (!reducedMotion && (Math.abs(deltaY) > 0.0005 || Math.abs(deltaX) > 0.0005)) {
+          raf = requestAnimationFrame(draw);
+        }
       };
-      draw();
+      requestRender = () => {
+        if (!disposed && !document.hidden && !raf) raf = requestAnimationFrame(draw);
+      };
+      renderRef.current = requestRender;
+      requestRender();
       setReady(true);
       onReadyRef.current?.();
 
@@ -304,6 +323,12 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
         canvas.removeEventListener('wheel',wheel);
       };
     };
+
+    const onVisibilityChange = () => {
+      if (document.hidden && raf) { cancelAnimationFrame(raf); raf = 0; }
+      else if (!document.hidden) requestRender();
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
 
     let removeListeners;
     const load = () => loadThree().then(THREE => { if (!disposed) removeListeners = start(THREE); }).catch(() => {
@@ -326,7 +351,9 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
       removeListeners?.();
       observer?.disconnect();
       visibilityObserver?.disconnect();
+      document.removeEventListener('visibilitychange', onVisibilityChange);
       if (raf) cancelAnimationFrame(raf);
+      renderRef.current = null;
       if (scene) scene.traverse(obj => {
         obj.geometry?.dispose?.();
         if (Array.isArray(obj.material)) obj.material.forEach(m=>m.dispose?.());
@@ -351,6 +378,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
 
   useEffect(() => {
     if (modeGroupRef.current) modeGroupRef.current.visible = mode === 'operations';
+    renderRef.current?.();
   }, [mode, ready]);
 
   return (
