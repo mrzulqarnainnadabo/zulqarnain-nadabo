@@ -1,5 +1,6 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
+import { loadThree } from '@/lib/three-loader';
 
 const EARTH_TEXTURE='https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/july/world.200407.3x5400x2700.jpg';
 const NIGERIA={lat:10.5,lon:7.4};
@@ -19,30 +20,6 @@ function nigeriaDaylight(date){
   const altitude=Math.sin(lat)*Math.sin(declination)+Math.cos(lat)*Math.cos(declination)*Math.cos(hourAngle);
   return altitude>0?'DAYLIGHT':'NIGHT';
 }
-function loadThree(){
-  if(window.THREE)return Promise.resolve(window.THREE);
-  return new Promise((resolve,reject)=>{
-    let script=document.querySelector('script[data-three-earth]');
-    if(script?.dataset.loaded==='true'&&window.THREE){resolve(window.THREE);return;}
-    const finish=()=>window.THREE?resolve(window.THREE):reject(new Error('Three.js failed to initialise'));
-    const fail=()=>reject(new Error('Three.js could not be loaded'));
-    if(!script){
-      script=document.createElement('script');
-      script.src='https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js';
-      script.async=true;
-      script.dataset.threeEarth='1';
-      script.addEventListener('load',()=>{script.dataset.loaded='true';finish();},{once:true});
-      script.addEventListener('error',fail,{once:true});
-      document.head.appendChild(script);
-    }else{
-      script.addEventListener('load',finish,{once:true});
-      script.addEventListener('error',fail,{once:true});
-      if(script.dataset.loaded==='true')finish();
-    }
-    window.setTimeout(()=>{if(!window.THREE)fail();},12000);
-  });
-}
-
 export default function WorldCanvas(){
   const host=useRef(null),api=useRef(null);
   const [clock,setClock]=useState({date:'',time:'',zone:'UTC',light:'NIGHT'});
@@ -105,7 +82,7 @@ export default function WorldCanvas(){
         const loader=new THREE.TextureLoader();loader.crossOrigin='anonymous';
         texture=await new Promise((resolve,reject)=>loader.load(EARTH_TEXTURE,resolve,undefined,reject));
         if(disposed){texture.dispose();return;}
-        texture.encoding=THREE.sRGBEncoding;texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
+        texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
         globe=new THREE.Mesh(new THREE.SphereGeometry(1,112,80),new THREE.MeshPhongMaterial({map:texture,shininess:2,specular:0x0a1024}));scene.add(globe);
         atmosphere=new THREE.Mesh(new THREE.SphereGeometry(1.022,96,64),new THREE.ShaderMaterial({
           vertexShader:'varying vec3 n; varying vec3 v; void main(){n=normalize(normalMatrix*normal);vec4 p=modelViewMatrix*vec4(position,1.);v=normalize(-p.xyz);gl_Position=projectionMatrix*p;}',
