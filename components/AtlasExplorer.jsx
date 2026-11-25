@@ -92,6 +92,21 @@ function loadMapLibre() {
   });
 }
 
+function getGeographicLens(center, zoom) {
+  const [longitude, latitude] = center.toArray();
+  const inKaduna = longitude >= 6.5 && longitude <= 8.5 && latitude >= 9.5 && latitude <= 11.8;
+  const nearKadunaSouth = Math.abs(longitude - 7.43) <= 0.28 && Math.abs(latitude - 10.45) <= 0.28;
+  if (inKaduna && nearKadunaSouth && zoom >= 12) return 'kaduna-south';
+  if (inKaduna && zoom >= 6) return 'kaduna';
+  const inNigeria = longitude >= 2.5 && longitude <= 15 && latitude >= 4 && latitude <= 14;
+  if (inNigeria && zoom >= 4.2) return 'nigeria';
+  const inAfrica = longitude >= -20 && longitude <= 55 && latitude >= -36 && latitude <= 38;
+  if (inAfrica && zoom >= 2.1) return 'africa';
+  if (zoom >= 10) return 'local';
+  if (zoom >= 4) return 'regional';
+  return 'world';
+}
+
 export default function AtlasExplorer() {
   const mapHost = useRef(null);
   const mapRef = useRef(null);
@@ -237,6 +252,7 @@ export default function AtlasExplorer() {
     let map;
     let marker;
     let refreshOnMove;
+    let syncLensOnMove;
     const host = mapHost.current;
     if (!host) return undefined;
 
@@ -254,6 +270,8 @@ export default function AtlasExplorer() {
         maxZoom: 19,
       });
       mapRef.current = map;
+      syncLensOnMove = () => setActiveView(getGeographicLens(map.getCenter(), map.getZoom()));
+      map.on('moveend', syncLensOnMove);
       map.addControl(new maplibregl.NavigationControl({ showCompass: true, showZoom: true }), 'bottom-right');
       map.addControl(new maplibregl.ScaleControl({ maxWidth: 110, unit: 'metric' }), 'bottom-left');
 
@@ -462,6 +480,7 @@ export default function AtlasExplorer() {
       marker?.remove();
       settlementAbortRef.current?.abort();
       if (map && refreshOnMove) map.off('moveend', refreshOnMove);
+      if (map && syncLensOnMove) map.off('moveend', syncLensOnMove);
       map?.remove();
       mapRef.current = null;
     };
@@ -517,8 +536,8 @@ export default function AtlasExplorer() {
         {!failed && status !== 'World map ready' && <div className="atlas-map-loading" role="status">{status}</div>}
         <div className="atlas-map-purpose" aria-live="polite">
           <span>GEOGRAPHIC LENS / {activeView.toUpperCase().replace('-', ' ')}</span>
-          <strong>{activeView==='world'?'Scale changes what a map can explain.':activeView==='africa'?'Regional patterns need local context.':activeView==='nigeria'?'National evidence can hide state-level differences.':activeView==='kaduna'?'How do settlement form and vegetation vary across Kaduna?':'What can a street-to-ward view reveal—and what evidence is still missing?'}</strong>
-          <small>{activeView==='kaduna'?'GRID3 settlement layer available · analysis and validation pending':activeView==='kaduna-south'?'Phase 1 framework geography · service-access evidence not yet verified':'Explore the relationship between place, scale and the evidence available.'}</small>
+          <strong>{activeView==='world'?'Scale changes what a map can explain.':activeView==='africa'?'Regional patterns need local context.':activeView==='nigeria'?'National evidence can hide state-level differences.':activeView==='kaduna'?'How do settlement form and vegetation vary across Kaduna?':activeView==='kaduna-south'?'What can a street-to-ward view reveal—and what evidence is still missing?':activeView==='local'?'What is happening at this place—and what local evidence can support it?':activeView==='regional'?'Which patterns hold across this region, and where do they break?':'What can a street-to-ward view reveal—and what evidence is still missing?'}</strong>
+          <small>{activeView==='kaduna'?'GRID3 settlement layer available · analysis and validation pending':activeView==='kaduna-south'?'Phase 1 framework geography · service-access evidence not yet verified':activeView==='local'?'Local scale · check source coverage, date and spatial fit before drawing conclusions.':activeView==='regional'?'Regional scale · compare places without assuming the same conditions everywhere.':'Explore the relationship between place, scale and the evidence available.'}</small>
         </div>
         <div className="atlas-map-caption">
           <span>GLOBAL ATLAS · {sceneMode === 'earth' ? '3D TERRAIN + MAPPED BUILDINGS' : mapMode === 'satellite' ? 'NASA SATELLITE COMPOSITE' : 'OPEN STREET MAP'}</span>
