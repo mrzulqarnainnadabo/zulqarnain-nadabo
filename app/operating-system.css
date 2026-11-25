@@ -440,3 +440,87 @@ html.dark .campus-register-rail>div>span{background:#20362a;border-color:#405746
 .campus-directory i{font-style:normal;color:#a17d48;font-size:.52rem}
 html.dark .campus-directory>div>span{background:#20362a;border-color:#405746;color:#e6eadf}
 html.dark .campus-directory summary b{color:#bac5ba}
+
+/* ISEYC architectural model — axonometric, inspectable, source-led */
+.ise-architecture-section{padding:clamp(5.5rem,9vw,8.5rem) 0;border-top:1px solid var(--atlas-line);color:var(--atlas-ink)}
+.ise-architecture-heading{display:grid;grid-template-columns:1fr .48fr;gap:2.5rem;align-items:end;margin-bottom:2.4rem}
+.ise-architecture-heading h2{margin-top:1rem;font:300 clamp(3.2rem,6.5vw,6.5rem)/.9 var(--font-serif);letter-spacing:-.065em}
+.ise-architecture-heading h2 em{color:#9a7848;font-weight:300}
+.ise-architecture-heading>p{max-width:36ch;color:var(--atlas-muted);font-size:.86rem;line-height:1.8}
+.ise-architecture-toolbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 0;border-top:1px solid var(--atlas-line);border-bottom:1px solid var(--atlas-line)}
+.ise-architecture-toolbar>div:first-child{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap}
+.ise-architecture-toolbar b{font-size:.58rem;letter-spacing:.13em;font-weight:650}
+.ise-architecture-toolbar small{color:var(--atlas-muted);font-size:.54rem;letter-spacing:.1em}
+.ise-model-status{width:7px;height:7px;border-radius:50%;background:#8a9b77;box-shadow:0 0 0 4px rgba(138,155,119,.14)}
+.ise-model-mode{display:flex;gap:.25rem;padding:.2rem;border:1px solid var(--atlas-line);background:var(--atlas-paper)}
+.ise-model-mode button{padding:.48rem .8rem;color:var(--atlas-muted);font-size:.65rem}
+.ise-model-mode button[aria-pressed=true]{background:#203b2e;color:#f2f0e8}
+.ise-architecture-stage{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(270px,.75fr);gap:1px;margin-top:1.1rem;background:var(--atlas-line);border:1px solid var(--atlas-line)}
+.ise-architecture-canvas{position:relative;min-width:0;min-height:600px;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,#f7f6ef 0,#e8ebe2 62%,#dce3d9 100%)}
+.ise-architecture-canvas:before{content:"";position:absolute;inset:0;opacity:.26;pointer-events:none;background-image:linear-gradient(rgba(59,83,64,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(59,83,64,.1) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(145deg,black,transparent 85%)}
+.ise-architecture-canvas svg{position:relative;z-index:1;display:block;width:100%;height:auto;min-height:560px;overflow:visible}
+.ise-platform-labels text{font:700 10px var(--font-sans);letter-spacing:2px;fill:#788879;text-anchor:middle}
+.ise-architecture-public text{font:700 9px var(--font-sans);letter-spacing:1.5px;fill:#6e7e70}
+.ise-3d-module{cursor:pointer;outline:none;transition:filter .2s ease}
+.ise-3d-module:hover,.ise-3d-module:focus-visible{filter:drop-shadow(0 7px 6px rgba(34,59,41,.2))}
+.ise-3d-module.is-selected{filter:drop-shadow(0 10px 9px rgba(143,105,53,.32))}
+.ise-3d-module polygon{transition:fill .2s ease,stroke .2s ease}
+.ise-3d-module.is-selected polygon:first-child{stroke:#4b604e;stroke-width:2}
+.ise-3d-label{font:600 11px var(--font-sans);letter-spacing:.15px;fill:#253b2d;pointer-events:none}
+.ise-3d-sub{font:700 7px var(--font-sans);letter-spacing:1.2px;fill:#725a37;pointer-events:none}
+.ise-architecture-compass{position:absolute;right:1.2rem;top:1.1rem;display:flex;flex-direction:column;align-items:center;gap:.25rem;color:#738276;font-size:.55rem}
+.ise-architecture-compass i{width:1px;height:24px;background:linear-gradient(#a17d48 50%,transparent 50%);position:relative}
+.ise-architecture-compass i:before{content:"";position:absolute;top:0;left:-3px;border-left:3px solid transparent;border-right:3px solid transparent;border-bottom:6px solid #a17d48}
+.ise-architecture-legend{position:absolute;left:1.1rem;bottom:1rem;display:flex;gap:.9rem;flex-wrap:wrap;padding:.6rem .75rem;background:rgba(248,247,240,.88);border:1px solid rgba(56,78,60,.16);backdrop-filter:blur(8px)}
+.ise-architecture-legend span{display:flex;align-items:center;gap:.35rem;color:#667267;font-size:.56rem}
+.ise-architecture-legend i{width:7px;height:7px;display:inline-block;border-radius:1px}
+.legend-office{background:#b79c70}.legend-department{background:#819582}.legend-shared{background:#617b68}
+.ise-architecture-inspector{min-width:0;padding:1.4rem 1.25rem;background:var(--atlas-paper);color:var(--atlas-ink)}
+.ise-inspector-top{display:flex;justify-content:space-between;gap:.7rem;padding-bottom:.9rem;border-bottom:1px solid var(--atlas-line);color:var(--atlas-muted);font-size:.51rem;letter-spacing:.12em}
+.ise-inspector-kicker{margin:1.4rem 0 .55rem;color:#9a7848;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase}
+.ise-architecture-inspector h3{margin:0 0 .8rem;font:400 clamp(1.8rem,2.5vw,2.5rem)/1 var(--font-serif);letter-spacing:-.04em}
+.ise-inspector-description{color:var(--atlas-muted);font-size:.75rem;line-height:1.75}
+.ise-inspector-group{margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--atlas-line)}
+.ise-inspector-group>span{display:block;margin-bottom:.7rem;color:#9a7848;font-size:.53rem;letter-spacing:.14em}
+.ise-chip-list{display:flex;flex-wrap:wrap;gap:.35rem}
+.ise-chip-list span{padding:.35rem .5rem;border:1px solid var(--atlas-line);color:var(--atlas-ink);font-size:.62rem}
+.ise-screen-list{display:grid;gap:.5rem;margin:0;padding:0;list-style:none}
+.ise-screen-list li{display:grid;grid-template-columns:22px 1fr;gap:.45rem;color:var(--atlas-ink);font-size:.67rem;line-height:1.45}
+.ise-screen-list b{color:#9a7848;font-size:.55rem;font-weight:600}
+.ise-lifecycle{color:var(--atlas-muted);font-size:.68rem;line-height:1.7}
+.ise-inspector-group small{display:block;margin-top:.5rem;color:var(--atlas-muted);font-size:.62rem;line-height:1.55}
+.ise-architecture-index{display:grid;grid-template-columns:145px repeat(4,minmax(0,1fr));border:1px solid var(--atlas-line);border-top:0}
+.ise-index-label{display:flex;flex-direction:column;justify-content:center;gap:.35rem;padding:1rem;border-right:1px solid var(--atlas-line);color:#9a7848}
+.ise-index-label span{font:300 1.4rem var(--font-serif)}
+.ise-index-label b{font-size:.52rem;letter-spacing:.13em}
+.ise-architecture-index button{display:flex;align-items:center;gap:.6rem;min-width:0;padding:1rem .8rem;text-align:left;border-right:1px solid var(--atlas-line);color:var(--atlas-ink)}
+.ise-architecture-index button:last-child{border-right:0}
+.ise-architecture-index button span{color:#9a7848;font-size:.56rem}
+.ise-architecture-index button b{font:400 .86rem/1.2 var(--font-serif)}
+.ise-architecture-index button i{margin-left:auto;color:#a17d48;font-style:normal}
+.ise-architecture-index button[aria-pressed=true]{background:rgba(164,124,76,.11)}
+.ise-architecture-public-rail{display:grid;grid-template-columns:1.2fr repeat(3,1fr);gap:1px;margin-top:1.4rem;background:var(--atlas-line);border:1px solid var(--atlas-line)}
+.ise-architecture-public-rail>div,.ise-architecture-public-rail button{padding:1rem;background:var(--atlas-paper);text-align:left}
+.ise-architecture-public-rail>div span{display:block;color:#9a7848;font-size:.52rem;letter-spacing:.14em}
+.ise-architecture-public-rail>div b{display:block;margin-top:.55rem;font:400 1.15rem var(--font-serif)}
+.ise-architecture-public-rail button{display:flex;flex-direction:column;gap:.45rem;color:var(--atlas-ink)}
+.ise-architecture-public-rail button b{font:400 1rem var(--font-serif)}
+.ise-architecture-public-rail button small{color:var(--atlas-muted);font-size:.62rem}
+.ise-architecture-public-rail button[aria-pressed=true]{background:#e4e8de}
+.ise-role-register{margin-top:1.2rem;border-top:1px solid var(--atlas-line);border-bottom:1px solid var(--atlas-line)}
+.ise-role-register summary{display:flex;justify-content:space-between;gap:1rem;padding:1rem 0;cursor:pointer;color:var(--atlas-ink);font-size:.57rem;letter-spacing:.12em;list-style:none}
+.ise-role-register summary::-webkit-details-marker{display:none}
+.ise-role-register summary b{color:var(--atlas-muted);font-weight:500}
+.ise-role-register>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem 1.5rem;padding:1rem 0 1.4rem;border-top:1px solid var(--atlas-line)}
+.ise-role-register>div span{display:flex;gap:.7rem;color:var(--atlas-muted);font-size:.68rem}
+.ise-role-register>div i{color:#9a7848;font-style:normal;font-size:.57rem}
+.ise-architecture-disclosure{max-width:105ch;margin:1.1rem 0 0;color:var(--atlas-muted);font-size:.64rem;line-height:1.7}
+html.dark .ise-architecture-canvas{background:radial-gradient(ellipse at 50% 40%,#2b3e31 0,#1a2d22 65%,#15251c 100%)}
+html.dark .ise-platform-labels text,html.dark .ise-architecture-public text{fill:#aebcae}
+html.dark .ise-architecture-legend{background:rgba(27,43,33,.9);border-color:rgba(220,225,213,.16)}
+html.dark .ise-architecture-legend span{color:#c2cbbf}
+html.dark .ise-3d-label{fill:#263c2f}
+html.dark .ise-architecture-public-rail button[aria-pressed=true]{background:#293e30}
+@media(max-width:1050px){.ise-architecture-stage{grid-template-columns:minmax(0,1fr)}.ise-architecture-inspector{display:grid;grid-template-columns:1fr 1fr;column-gap:1.5rem}.ise-inspector-top,.ise-inspector-kicker,.ise-architecture-inspector h3,.ise-inspector-description{grid-column:1/-1}.ise-inspector-group{margin-top:.9rem}}
+@media(max-width:760px){.ise-architecture-heading{grid-template-columns:1fr;gap:1rem}.ise-architecture-heading>p{max-width:52ch}.ise-architecture-toolbar{align-items:flex-start;flex-direction:column}.ise-architecture-canvas{min-height:360px}.ise-architecture-canvas svg{min-height:0;width:145%;max-width:none;margin-left:-22.5%}.ise-architecture-legend{left:.55rem;right:.55rem;bottom:.55rem;gap:.55rem}.ise-architecture-legend span{font-size:.5rem}.ise-architecture-inspector{display:block;padding:1.1rem}.ise-architecture-index{grid-template-columns:repeat(2,minmax(0,1fr))}.ise-index-label{grid-column:1/-1;border-bottom:1px solid var(--atlas-line)}.ise-architecture-index button:nth-child(3){border-right:0}.ise-architecture-index button{border-bottom:1px solid var(--atlas-line)}.ise-architecture-public-rail{grid-template-columns:1fr 1fr}.ise-architecture-public-rail>div{grid-column:1/-1}.ise-role-register>div{grid-template-columns:1fr}.ise-role-register summary{font-size:.52rem}}
+@media(prefers-reduced-motion:reduce){.ise-3d-module,.ise-3d-module polygon{transition:none}}
