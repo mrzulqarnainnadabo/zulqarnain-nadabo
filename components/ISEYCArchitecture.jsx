@@ -145,7 +145,7 @@ export default function ISEYCArchitecture(){
       </div>
     </div>
     <div className={`ise-architecture-stage mode-${mode}`}>
-      <div className="ise-architecture-canvas">
+      <div className="ise-architecture-canvas" role="region" tabIndex={0} aria-label="Scrollable axonometric institutional model">
         <svg viewBox="0 0 1080 660" role="group" aria-label="Interactive axonometric model of ISEYC institutional architecture">
           <defs><filter id="ise-shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur stdDeviation="7"/></filter></defs>
           <ellipse cx="560" cy="548" rx="440" ry="55" fill="#334a3b" opacity=".12" filter="url(#ise-shadow)"/>
