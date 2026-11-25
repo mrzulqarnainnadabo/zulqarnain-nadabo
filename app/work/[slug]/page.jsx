@@ -98,15 +98,49 @@ export function generateStaticParams() {
   return caseStudies.map((study) => ({ slug: study.slug }));
 }
 
+const searchMetadata = {
+  iseyc: {
+    title: 'ISEYC institutional architecture',
+    description: 'An institutional architecture linking four departments, accountable programmes, shared evidence and a governed path from community input to response.'
+  },
+  hubil: {
+    title: 'Hubil client delivery system',
+    description: 'A client delivery model connecting business diagnosis, human-reviewed outreach, scoped services, project records, task delivery and handover.'
+  },
+  mandate: {
+    title: 'Civic Mandate review workflow',
+    description: 'A civic workflow separating community submissions, human review, published records and institutional response—with clear evidence boundaries.'
+  },
+  brain: {
+    title: 'Civic Brain evidence-grounded AI',
+    description: 'An evidence-grounded civic AI design that retrieves authoritative records, explains uncertainty and abstains when the available evidence is weak.'
+  },
+  observatory: {
+    title: 'Civic Intelligence Observatory',
+    description: 'A public evidence system connecting sources, geography, reference periods, quality checks and accountability questions without hiding uncertainty.'
+  },
+  'kaduna-south': {
+    title: 'Kaduna South grassroots framework',
+    description: 'A street-to-ward framework for organising local concerns, defining representative roles and carrying community priorities into accountable action.'
+  },
+  'sigma-geo': {
+    title: 'SIGMA-GEO spatial AI evaluation',
+    description: 'A spatial AI evaluation framework testing whether models recognise weak, mismatched or insufficient geographical evidence before answering.'
+  }
+};
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const study = getCaseStudy(slug);
   if (!study) return {};
+  const seo = searchMetadata[slug] || { title: study.title, description: study.thesis };
+  const fullTitle = `${seo.title} | Zulqarnain Yusuf Nadabo`;
   return {
-    title: study.title,
-    description: study.thesis,
+    title: seo.title,
+    description: seo.description,
     alternates: { canonical: `/work/${study.slug}` },
-    openGraph: { title: study.title, description: study.thesis, type: 'article' }
+    openGraph: { title: fullTitle, description: seo.description, type: 'article' },
+    twitter: { card: 'summary', title: fullTitle, description: seo.description }
   };
 }
 
