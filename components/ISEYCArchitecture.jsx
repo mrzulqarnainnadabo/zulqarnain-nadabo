@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import ISEYCThreeModel from './ISEYCThreeModel';
 
 const offices = [
   {id:'president',label:'National President',type:'PRESIDENTIAL OFFICE',detail:'Chairs the Presidential Council, sets institutional direction and retains decisions reserved to the President. Delegation must be recorded in writing.'},
@@ -61,6 +62,12 @@ const publicLayer = [
 ];
 
 const allModules = [...governance,...departments,...shared,...sharedServices];
+
+const sceneModules = [
+  ...governance.map((item,i)=>({...item,kind:'office',x:[-8,-4,0,4,8][i],z:-6,w:2.25,d:1.5,h:item.id==='president'?2.05:1.45})),
+  ...departments.map((item,i)=>({...item,kind:'department',x:[-8,-2.7,2.7,8][i],z:-.3,w:3.15,d:2.2,h:2.0})),
+  ...shared.map((item,i)=>({...item,kind:'shared',x:[-6,0,6][i],z:5.1,w:3.35,d:2.2,h:1.55})),
+];
 
 function project(x,y,z=0){
   return [560+(x-y)*39,72+(x+y)*22-z*1.05];
@@ -130,6 +137,8 @@ function DetailPanel({item,kind}){
 export default function ISEYCArchitecture(){
   const [active,setActive]=useState('president');
   const [mode,setMode]=useState('structure');
+  const [threeReady,setThreeReady]=useState(false);
+  const [threeFailed,setThreeFailed]=useState(false);
   const selected=useMemo(()=>allModules.find(x=>x.id===active)||publicLayer.find(x=>x.id===active)||offices[0],[active]);
   const kind=governance.some(x=>x.id===active)?'office':departments.some(x=>x.id===active)?'department':shared.some(x=>x.id===active)||sharedServices.some(x=>x.id===active)?'shared':'public';
   return <section id="iseyc" className="institution-section ise-architecture-section" aria-labelledby="iseyc-title">
@@ -146,7 +155,8 @@ export default function ISEYCArchitecture(){
     </div>
     <div className={`ise-architecture-stage mode-${mode}`}>
       <div className="ise-architecture-canvas" role="region" tabIndex={0} aria-label="Scrollable axonometric institutional model">
-        <svg viewBox="0 0 1080 660" role="group" aria-label="Interactive axonometric model of ISEYC institutional architecture">
+        <ISEYCThreeModel modules={sceneModules} selectedId={active} onSelect={setActive} onReady={()=>setThreeReady(true)} onError={()=>setThreeFailed(true)}/>
+        {!threeReady&&<svg viewBox="0 0 1080 660" role="group" aria-label="Fallback axonometric model of ISEYC institutional architecture">
           <defs><filter id="ise-shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur stdDeviation="7"/></filter></defs>
           <ellipse cx="560" cy="548" rx="440" ry="55" fill="#334a3b" opacity=".12" filter="url(#ise-shadow)"/>
           <Platform/>
@@ -166,7 +176,8 @@ export default function ISEYCArchitecture(){
             <path d="M390 602 L730 602" stroke="#a17e4d" strokeWidth="2"/>
             <text x="560" y="625" textAnchor="middle">PUBLIC INTERFACE / PUBLISHED WORK / COMMUNITY ENGAGEMENT</text>
           </g>
-        </svg>
+        </svg>}
+        {threeFailed&&<span className="ise-three-fallback-note">WebGL is unavailable in this browser. Showing the axonometric model.</span>}
         <div className="ise-architecture-compass"><span>N</span><i/></div>
         <div className="ise-architecture-legend"><span><i className="legend-office"/>Governance</span><span><i className="legend-department"/>Departments</span><span><i className="legend-shared"/>Shared systems</span></div>
       </div>
