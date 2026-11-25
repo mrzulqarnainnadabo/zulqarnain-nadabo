@@ -1,29 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-
-const THREE_SCRIPT = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js';
-
-function loadThree() {
-  if (window.THREE) return Promise.resolve(window.THREE);
-  return new Promise((resolve, reject) => {
-    let script = document.querySelector('script[data-iseyc-three]');
-    const loaded = () => window.THREE ? resolve(window.THREE) : reject(new Error('3D engine unavailable'));
-    if (!script) {
-      script = document.createElement('script');
-      script.src = THREE_SCRIPT;
-      script.async = true;
-      script.dataset.iseycThree = 'true';
-      script.addEventListener('load', () => { script.dataset.loaded = 'true'; loaded(); }, { once: true });
-      script.addEventListener('error', reject, { once: true });
-      document.head.appendChild(script);
-    } else if (script.dataset.loaded === 'true') loaded();
-    else {
-      script.addEventListener('load', loaded, { once: true });
-      script.addEventListener('error', reject, { once: true });
-    }
-  });
-}
+import { loadThree } from '@/lib/three-loader';
 
 function makeLabel(THREE, text, accent) {
   const canvas = document.createElement('canvas');
