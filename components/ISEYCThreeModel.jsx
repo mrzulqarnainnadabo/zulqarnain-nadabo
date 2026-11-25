@@ -65,6 +65,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
     let root;
     let raf = 0;
     let observer;
+    let visibilityObserver;
     let raycaster;
     let pointer;
     let canvas;
@@ -310,14 +311,26 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
     };
 
     let removeListeners;
-    loadThree().then(THREE => { if (!disposed) removeListeners = start(THREE); }).catch(() => {
+    const load = () => loadThree().then(THREE => { if (!disposed) removeListeners = start(THREE); }).catch(() => {
       if (!disposed) { setFailed(true); onErrorRef.current?.(); }
     });
+    if ('IntersectionObserver' in window && host.current) {
+      visibilityObserver = new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          visibilityObserver?.disconnect();
+          load();
+        }
+      }, { rootMargin: '240px' });
+      visibilityObserver.observe(host.current);
+    } else {
+      load();
+    }
 
     return () => {
       disposed = true;
       removeListeners?.();
       observer?.disconnect();
+      visibilityObserver?.disconnect();
       if (raf) cancelAnimationFrame(raf);
       if (scene) scene.traverse(obj => {
         obj.geometry?.dispose?.();
@@ -338,7 +351,7 @@ export default function ISEYCThreeModel({ modules, selectedId, onSelect, onReady
         material.emissiveIntensity = id === selectedId ? 0.25 : 0;
       }
     }
-  }, [selectedId]);
+  }, [selectedId, ready]);
 
   return (
     <div className={'ise-three-model ' + (ready ? 'is-ready ' : '') + (failed ? 'has-failed' : '')} ref={host}>
