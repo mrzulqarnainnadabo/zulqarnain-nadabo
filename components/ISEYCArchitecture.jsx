@@ -65,7 +65,7 @@ const sharedRegisters = [
   'Partner Organisations & External Contacts',
 ];
 
-const roleTemplates = ['National President','Chief of Staff to the President','Secretary General','Chief Operations Officer','Chief Financial Officer','Head, Education & Capacity Building','Head, Health & Well-being','Head, Digital Systems & Technology','Head, Civic Affairs & Public Accountability','Youth Leadership Coordinator','Director of Public Engagement & Awareness','Director of Member Welfare & Social Development','Chair, Disciplinary Committee','Special Adviser to the President'];
+const roleTemplates = ['National President','Chief of Staff to the President','Secretary General','Chief Operations Officer','Chief Financial Officer','Head, Education & Capacity Building','Head, Health & Well-being','Head, Software & Technology','Head, Civic Department','Youth Leadership Coordinator','Director of Public Engagement & Awareness','Director of Member Welfare & Social Development','Chair, Disciplinary Committee','Special Adviser to the President'];
 
 const publicLayer = [
   {id:'mandate',label:'Civic Mandate',short:'Reviewed public records',detail:'Public participation intake with human review and a published-only public record boundary.'},
@@ -129,8 +129,9 @@ function DetailPanel({item,kind}){
   if(!item)return null;
   const isDepartment=kind==='department';
   const isOffice=kind==='office';
+  const isIdccWorkspace=sharedServices.some(x=>x.id===item.id);
   return <aside className="ise-architecture-inspector" aria-live="polite">
-    <div className="ise-inspector-top"><span>{isDepartment?'DEPARTMENT WORKSPACE':isOffice?'GOVERNANCE OFFICE':kind==='shared'?'SHARED INFRASTRUCTURE':'PUBLIC INTERFACE'}</span><span>ISEYC / MODEL</span></div>
+    <div className="ise-inspector-top"><span>{isDepartment?'DEPARTMENT WORKSPACE':isOffice?'GOVERNANCE OFFICE':isIdccWorkspace?'IDCC WORKSPACE':kind==='shared'?'SHARED INFRASTRUCTURE':'PUBLIC INTERFACE'}</span><span>ISEYC / MODEL</span></div>
     <p className="ise-inspector-kicker">{item.n||item.type||item.short||'INSTITUTIONAL LAYER'}</p>
     <h3>{item.label}</h3>
     <p className="ise-inspector-description">{item.mandate||item.detail||'A defined part of the institutional architecture.'}</p>
@@ -142,7 +143,7 @@ function DetailPanel({item,kind}){
       <div className="ise-inspector-group"><span>WHAT GOOD LOOKS LIKE</span><p className="ise-lifecycle">{item.measure}</p></div>
     </>}
     {isOffice&&<div className="ise-inspector-group"><span>AUTHORITY BOUNDARY</span><p className="ise-lifecycle">{item.detail}</p><small>Role template only. No individual appointment or occupancy is implied.</small></div>}
-    {kind==='shared'&&<div className="ise-inspector-group"><span>HOW IT SERVES THE INSTITUTION</span><p className="ise-lifecycle">{item.detail}</p></div>}
+    {kind==='shared'&&<div className="ise-inspector-group"><span>{isIdccWorkspace?'IDCC WORKSPACE FUNCTION':'HOW IT SERVES THE INSTITUTION'}</span><p className="ise-lifecycle">{item.detail}</p>{isIdccWorkspace&&<small>Part of the Digital Operations Centre; the 3D model highlights the IDCC core.</small>}</div>}
     {kind==='public'&&<div className="ise-inspector-group"><span>PUBLIC PRESENTATION</span><p className="ise-lifecycle">{item.detail}</p></div>}
   </aside>;
 }
@@ -154,6 +155,7 @@ export default function ISEYCArchitecture(){
   const [threeFailed,setThreeFailed]=useState(false);
   const selected=useMemo(()=>allModules.find(x=>x.id===active)||publicLayer.find(x=>x.id===active)||offices[0],[active]);
   const kind=governance.some(x=>x.id===active)?'office':departments.some(x=>x.id===active)?'department':shared.some(x=>x.id===active)||sharedServices.some(x=>x.id===active)?'shared':'public';
+  const visualActive=sharedServices.some(x=>x.id===active)?'idcc':active==='mandate'||active==='institution'?'idcc':active==='briefs'?'observatory':active;
   return <section id="iseyc" className="institution-section ise-architecture-section" aria-labelledby="iseyc-title">
     <header className="ise-architecture-heading">
       <div><p className="institution-kicker">ISEYC / INSTITUTIONAL ARCHITECTURE</p><h2 id="iseyc-title">An institution,<br/><em>made visible.</em></h2></div>
@@ -168,7 +170,7 @@ export default function ISEYCArchitecture(){
     </div>
     <div className={`ise-architecture-stage mode-${mode}`}>
       <div className="ise-architecture-canvas" role="region" tabIndex={0} aria-label="Scrollable axonometric institutional model">
-        <ISEYCThreeModel modules={sceneModules} selectedId={active} mode={mode} onSelect={setActive} onReady={()=>setThreeReady(true)} onError={()=>setThreeFailed(true)}/>
+        <ISEYCThreeModel modules={sceneModules} selectedId={visualActive} mode={mode} onSelect={setActive} onReady={()=>setThreeReady(true)} onError={()=>setThreeFailed(true)}/>
         {!threeReady&&<svg viewBox="0 0 1080 660" role="group" aria-label="Fallback axonometric model of ISEYC institutional architecture">
           <defs><filter id="ise-shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur stdDeviation="7"/></filter></defs>
           <ellipse cx="560" cy="548" rx="440" ry="55" fill="#334a3b" opacity=".12" filter="url(#ise-shadow)"/>
