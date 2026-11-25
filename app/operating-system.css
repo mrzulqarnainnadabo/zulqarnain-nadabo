@@ -622,3 +622,21 @@ html.dark .case-study-proof-links small{color:#bac5ba}
 .atlas-method-note{margin:1.5rem 0 0;padding-top:1rem;border-top:1px solid var(--atlas-line);color:var(--atlas-muted);font-size:.68rem;letter-spacing:.02em}
 @media(max-width:900px){.atlas-process{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:1.2rem}.atlas-process-line{display:none}.atlas-process-step{border-top:1px solid var(--atlas-line)}.atlas-process-dot{margin:.7rem 0}}
 @media(max-width:560px){.atlas-method-heading{align-items:flex-start;flex-direction:column}.atlas-process{grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.atlas-process-step{padding:.6rem .45rem}.atlas-process-step h3{font-size:1.05rem}.atlas-process-step p{font-size:.63rem}}
+
+.ise-architecture-shared-rail{display:grid;grid-template-columns:1.2fr repeat(4,minmax(0,1fr));gap:1px;margin-top:1.4rem;border:1px solid var(--atlas-line);background:var(--atlas-line)}
+.ise-architecture-shared-rail>div,.ise-architecture-shared-rail button{min-width:0;padding:.9rem;background:var(--atlas-paper);text-align:left}
+.ise-architecture-shared-rail>div span{display:block;color:#9a7848;font-size:.52rem;letter-spacing:.14em}
+.ise-architecture-shared-rail>div b{display:block;margin-top:.5rem;font:400 1.05rem var(--font-serif)}
+.ise-architecture-shared-rail button{display:flex;flex-direction:column;justify-content:center;gap:.35rem;color:var(--atlas-ink)}
+.ise-architecture-shared-rail button b{font:400 .9rem var(--font-serif)}
+.ise-architecture-shared-rail button small{color:var(--atlas-muted);font-size:.58rem;line-height:1.4}
+.ise-architecture-shared-rail button[aria-pressed=true]{background:#e4e8de}
+.ise-record-register{margin-top:.6rem;border-bottom:1px solid var(--atlas-line)}
+.ise-record-register summary{display:flex;justify-content:space-between;gap:1rem;padding:1rem 0;cursor:pointer;color:var(--atlas-ink);font-size:.57rem;letter-spacing:.12em;list-style:none}
+.ise-record-register summary::-webkit-details-marker{display:none}
+.ise-record-register summary b{color:var(--atlas-muted);font-weight:500}
+.ise-record-register>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem 1.5rem;padding:1rem 0 1.4rem;border-top:1px solid var(--atlas-line)}
+.ise-record-register>div span{display:flex;gap:.7rem;color:var(--atlas-muted);font-size:.68rem}
+.ise-record-register>div i{color:#9a7848;font-style:normal;font-size:.57rem}
+html.dark .ise-architecture-shared-rail button[aria-pressed=true]{background:#293e30}
+@media(max-width:760px){.ise-architecture-shared-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.ise-architecture-shared-rail>div{grid-column:1/-1}.ise-record-register>div{grid-template-columns:1fr}}
