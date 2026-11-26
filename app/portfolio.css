@@ -1,5 +1,5 @@
 /* Portfolio rebuild — readable editorial system, not a feature dashboard */
-:root { --p-ink:#17251e; --p-forest:#183b2b; --p-paper:#f4f2eb; --p-paper-2:#e9e7dd; --p-muted:#626d64; --p-line:rgba(23,37,30,.17); --p-gold:#b89658; }
+:root { --font-serif:"Iowan Old Style","Baskerville","Palatino Linotype","Book Antiqua",Georgia,serif; --font-sans:"Inter",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; --p-ink:#17251e; --p-forest:#183b2b; --p-paper:#f4f2eb; --p-paper-2:#e9e7dd; --p-muted:#626d64; --p-line:rgba(23,37,30,.17); --p-gold:#b89658; }
 .portfolio-site { color:var(--p-ink); background:var(--p-paper); font-family:var(--font-sans),Arial,sans-serif; }
 .portfolio-site * { box-sizing:border-box; }
 .portfolio-container { width:min(1240px,calc(100% - 64px)); margin-inline:auto; }
