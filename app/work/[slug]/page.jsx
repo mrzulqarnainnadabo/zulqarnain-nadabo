@@ -23,7 +23,7 @@ export default async function WorkDetail({ params }) {
   if (!item) notFound();
 
   return (
-    <main className="portfolio-site case-page">
+    <div className="portfolio-site case-page">
       <header className="case-header">
         <div className="portfolio-container nav-inner">
           <Link className="portfolio-wordmark" href="/">ZN<span> / </span></Link>
@@ -43,7 +43,7 @@ export default async function WorkDetail({ params }) {
           </details>
         </div>
       </header>
-      <article className="case-article portfolio-container">
+      <main id="main" className="case-article portfolio-container">
         <Link className="case-back" href="/#work">← Back to selected work</Link>
         <p className="eyebrow case-category">{item.category} <span>·</span> {item.number}</p>
         <h1>{item.title}</h1>
@@ -72,8 +72,8 @@ export default async function WorkDetail({ params }) {
           <div><p className="eyebrow">PROJECT REFERENCES</p><h2>Explore the work</h2></div>
           <div className="case-reference-links">{item.links.map(link=><a href={link.href} target="_blank" rel="noreferrer" key={link.href}>{link.label} <span>↗</span></a>)}</div>
         </div>
-      </article>
+      </main>
       <footer className="portfolio-footer"><div className="portfolio-container footer-inner"><Link className="portfolio-wordmark" href="/">ZN<span> / </span></Link><p>Zulqarnain Yusuf Nadabo · Systems Architect &amp; Technical Builder</p><Link href="/#work">More work ↑</Link></div></footer>
-    </main>
+    </div>
   );
 }
