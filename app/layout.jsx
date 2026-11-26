@@ -1,4 +1,5 @@
 import './globals.css';
+import './portfolio.css';
 import { Newsreader, Hanken_Grotesk } from 'next/font/google';
 
 const serif = Newsreader({
@@ -17,8 +18,8 @@ const sans = Hanken_Grotesk({
 });
 
 const url = 'https://zulqarnain-nadabo.vercel.app';
-const title = 'Zulqarnain Nadabo | Systems Architect';
-const description = 'Systems architect working across research, spatial intelligence, institutional design and digital systems. Explore selected projects and ways of thinking.';
+const title = 'Zulqarnain Nadabo | Systems Architect & Technical Builder';
+const description = 'I design and build systems for complex, real-world problems across institutional design, spatial research and digital products. Explore selected work, methods and evidence.';
 const personId = `${url}/#person`;
 
 const structuredData = {
@@ -29,8 +30,8 @@ const structuredData = {
       '@id': personId,
       name: 'Zulqarnain Yusuf Nadabo',
       url: url,
-      jobTitle: 'Systems Architect',
-      description: 'Systems architect working across research, spatial intelligence, institutional design and digital technology.',
+      jobTitle: 'Systems Architect and Technical Builder',
+      description: 'Systems architect and technical builder working across institutional design, spatial research and digital products.',
       address: {
         '@type': 'PostalAddress',
         addressCountry: 'NG',
