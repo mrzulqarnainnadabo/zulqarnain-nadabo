@@ -74,7 +74,8 @@ export default function WorldCanvas(){
         THREE=await loadThree();if(disposed)return;
         scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(34,1,.1,80);camera.position.z=4.05;
         renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'low-power'});
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.6));
+        const pixelRatioCap=window.matchMedia('(max-width: 640px)').matches?1.15:1.5;
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,pixelRatioCap));
         renderer.setSize(Math.max(node.clientWidth,1),Math.max(node.clientHeight,1));
         renderer.setClearColor(0,0);renderer.domElement.className='earth-webgl';
         renderer.domElement.setAttribute('role','img');
