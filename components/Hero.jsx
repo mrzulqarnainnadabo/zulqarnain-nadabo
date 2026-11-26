@@ -13,6 +13,16 @@ export default function Hero() {
             <a href="#hubil">Hubil</a>
             <a className="atlas-nav-contact" href="#contact">Contact <span aria-hidden="true">↗</span></a>
           </div>
+          <details className="atlas-mobile-menu">
+            <summary>Explore <span aria-hidden="true">+</span></summary>
+            <div className="atlas-mobile-menu-panel">
+              <a href="#work">Selected work</a>
+              <a href="#living-atlas">Living Atlas</a>
+              <a href="#iseyc">ISEYC architecture</a>
+              <a href="#hubil">Hubil systems</a>
+              <a href="#contact">Contact ↗</a>
+            </div>
+          </details>
         </nav>
         <div className="atlas-hero-grid">
           <div className="atlas-copy">
