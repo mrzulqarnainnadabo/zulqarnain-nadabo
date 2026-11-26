@@ -1,6 +1,7 @@
 import './globals.css';
 import './art-direction.css';
 import './operating-system.css';
+import './experience-design.css';
 const url = 'https://zulqarnain-nadabo.vercel.app';
 const title = 'Zulqarnain Nadabo | Systems Architect';
 const description = 'Systems architect and technical builder working across institutional design, spatial intelligence and digital systems to turn complex challenges into practical, evidence-led systems.';
@@ -16,23 +17,13 @@ const structuredData = {
       url: url,
       jobTitle: 'Systems Architect',
       description: 'Systems architect and technical builder working across institutional design, spatial intelligence and digital systems.',
-      address: {
-        '@type': 'PostalAddress',
-        addressCountry: 'NG',
-      },
+      address: { '@type': 'PostalAddress', addressCountry: 'NG' },
       sameAs: [
         'https://www.linkedin.com/in/amb-zulqarnain-yusuf-9b04b0124/',
         'https://github.com/mrzulqarnainnadabo',
         'https://x.com/nain_nadabo',
       ],
-      knowsAbout: [
-        'Institutional architecture',
-        'Systems architecture',
-        'Institutional design',
-        'Spatial intelligence',
-        'Sustainability studies',
-        'Digital systems',
-      ],
+      knowsAbout: ['Institutional architecture','Systems architecture','Institutional design','Spatial intelligence','Sustainability studies','Digital systems'],
       affiliation: [
         { '@type': 'Organization', name: 'Initiative for Sustainable Evolution for Youth and Community (ISEYC)' },
         { '@type': 'Organization', name: 'Hubil Group' },
@@ -60,35 +51,16 @@ const structuredData = {
 
 export const metadata = {
   metadataBase: new URL(url),
-  title: {
-    default: title,
-    template: '%s | Zulqarnain Yusuf Nadabo',
-  },
+  title: { default: title, template: '%s | Zulqarnain Yusuf Nadabo' },
   description,
   applicationName: 'Zulqarnain Yusuf Nadabo',
   alternates: { canonical: url },
-  openGraph: {
-    type: 'profile',
-    url: url,
-    title,
-    description,
-    siteName: 'Zulqarnain Yusuf Nadabo',
-    images: [{ url: '/og.svg', width: 1200, height: 630, alt: 'Zulqarnain Yusuf Nadabo, Systems Architect' }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title,
-    description,
-    images: ['/og.svg'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
-  },
+  openGraph: { type: 'profile', url, title, description, siteName: 'Zulqarnain Yusuf Nadabo', images: [{ url: '/og.svg', width: 1200, height: 630, alt: 'Zulqarnain Yusuf Nadabo, Systems Architect' }] },
+  twitter: { card: 'summary_large_image', title, description, images: ['/og.svg'] },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large' } },
 };
 
-export const viewport = { themeColor: '#f0eee8', width: 'device-width', initialScale: 1 };
+export const viewport = { themeColor: '#101a16', width: 'device-width', initialScale: 1 };
 
 const themeScript = `
 (function() {
