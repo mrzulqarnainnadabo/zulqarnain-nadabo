@@ -52,6 +52,15 @@ export default function PortfolioHome() {
             <a href="#about">About</a>
             <a className="nav-contact" href="#contact">Contact <span aria-hidden="true">↗</span></a>
           </nav>
+          <details className="portfolio-mobile-menu">
+            <summary>Menu <span aria-hidden="true">+</span></summary>
+            <div className="portfolio-mobile-panel">
+              <a href="/#work">Selected work</a>
+              <a href="/#approach">Approach</a>
+              <a href="/#about">About</a>
+              <a href="/#contact">Contact ↗</a>
+            </div>
+          </details>
         </div>
       </header>
 
