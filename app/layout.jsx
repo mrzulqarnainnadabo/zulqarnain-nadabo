@@ -3,7 +3,7 @@ import './art-direction.css';
 import './operating-system.css';
 const url = 'https://zulqarnain-nadabo.vercel.app';
 const title = 'Zulqarnain Nadabo | Systems Architect';
-const description = 'An independent systems thinker exploring spatial intelligence, research and digital systems through visual experiments and selected projects.';
+const description = 'Systems architect and technical builder working across institutional design, spatial intelligence and digital systems to turn complex challenges into practical, evidence-led systems.';
 const personId = `${url}/#person`;
 
 const structuredData = {
@@ -15,7 +15,7 @@ const structuredData = {
       name: 'Zulqarnain Yusuf Nadabo',
       url: url,
       jobTitle: 'Systems Architect',
-      description: 'An independent systems thinker exploring spatial intelligence, research and digital systems.',
+      description: 'Systems architect and technical builder working across institutional design, spatial intelligence and digital systems.',
       address: {
         '@type': 'PostalAddress',
         addressCountry: 'NG',
