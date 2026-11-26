@@ -34,9 +34,7 @@ export default function Hero() {
             <p className="atlas-hero-note">STRATEGY / ARCHITECTURE / BUILD / EVIDENCE</p>
           </div>
           <div className="atlas-visual">
-            <div className="atlas-visual-label atlas-visual-label-top"><span>01 / SPATIAL INTELLIGENCE</span><span>LIVE MODEL</span></div>
             <WorldCanvas />
-            <div className="atlas-visual-label atlas-visual-label-bottom"><span>GLOBAL → LOCAL</span><span>PLACE / SCALE / EVIDENCE</span></div>
           </div>
         </div>
         <div className="atlas-footerline">
