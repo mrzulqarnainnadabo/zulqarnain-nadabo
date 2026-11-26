@@ -64,7 +64,7 @@ export default function PortfolioHome() {
         </div>
       </header>
 
-      <main>
+      <main id="main">
         <section className="portfolio-hero">
           <div className="portfolio-container hero-layout">
             <div className="hero-text">
