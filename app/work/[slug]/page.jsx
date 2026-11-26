@@ -32,6 +32,15 @@ export default async function WorkDetail({ params }) {
             <Link href="/#approach">Approach</Link>
             <Link className="nav-contact" href="/#contact">Contact ↗</Link>
           </nav>
+          <details className="portfolio-mobile-menu">
+            <summary>Menu <span aria-hidden="true">+</span></summary>
+            <div className="portfolio-mobile-panel">
+              <Link href="/#work">Selected work</Link>
+              <Link href="/#approach">Approach</Link>
+              <Link href="/#about">About</Link>
+              <Link href="/#contact">Contact ↗</Link>
+            </div>
+          </details>
         </div>
       </header>
       <article className="case-article portfolio-container">
