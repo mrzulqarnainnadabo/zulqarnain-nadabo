@@ -27,6 +27,7 @@ html.dark { --paper:#f1f0e8; --paper-deep:#e5e7dd; --ink:#111b17; --ink-soft:#65
 .atlas-monogram { color:#f1f0e8; font:600 1.5rem/1 var(--font-sans),sans-serif; letter-spacing:-.1em; }
 .atlas-monogram span { color:#d6f27a; font:400 .8rem var(--font-sans),sans-serif; }
 .atlas-nav-links { gap:clamp(1rem,2.5vw,2.5rem); color:#c2cbc1; font-size:.7rem; letter-spacing:.02em; }
+.atlas-mobile-menu { display:none; }
 .atlas-nav-links a { transition:color .22s ease; }
 .atlas-nav-links a:hover,.atlas-nav-contact { color:#d6f27a!important; }
 .atlas-nav-links a span { color:#d6f27a; }
@@ -133,9 +134,14 @@ html.dark { --paper:#f1f0e8; --paper-deep:#e5e7dd; --ink:#111b17; --ink-soft:#65
 @media(max-width:640px) {
   .atlas-frame { padding:0 1.1rem; }
   .atlas-nav { min-height:66px; }
-  .atlas-nav-links { gap:.75rem; font-size:.58rem; }
-  .atlas-nav-links a:nth-child(2),.atlas-nav-links a:nth-child(3) { display:none; }
-  .atlas-nav-contact { display:inline-flex!important; }
+  .atlas-nav-links { display:none; }
+  .atlas-mobile-menu { display:block; position:relative; }
+  .atlas-mobile-menu summary { display:flex; min-height:44px; align-items:center; gap:10px; padding:0 12px; border:1px solid rgba(214,242,122,.55); color:#f1f0e8; font-size:.62rem; letter-spacing:.1em; list-style:none; cursor:pointer; }
+  .atlas-mobile-menu summary::-webkit-details-marker { display:none; }
+  .atlas-mobile-menu summary span { color:#d6f27a; font-size:1rem; }
+  .atlas-mobile-menu-panel { position:absolute; top:calc(100% + 10px); right:0; z-index:20; display:grid; min-width:220px; padding:8px; border:1px solid rgba(214,242,122,.24); background:#17261d; box-shadow:0 16px 36px rgba(0,0,0,.24); }
+  .atlas-mobile-menu-panel a { display:flex; min-height:44px; align-items:center; padding:0 12px; color:#f1f0e8; font-size:.68rem; }
+  .atlas-mobile-menu-panel a:hover { background:rgba(214,242,122,.1); color:#d6f27a; }
   .atlas-copy h1 { font-size:clamp(3.9rem,16vw,5.6rem); }
   .atlas-name { margin-top:2.3rem; }
   .atlas-visual { padding-top:2rem; }
