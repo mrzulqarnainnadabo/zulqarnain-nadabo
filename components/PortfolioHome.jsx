@@ -103,7 +103,20 @@ export default function PortfolioHome() {
             <div><p className="eyebrow">SELECTED WORK · 2024—2026</p><h2>Built around<br/><em>real problems.</em></h2></div>
             <p>Each project explains the problem, the system design, the decisions behind it and what has—and has not—been verified.</p>
           </div>
-          <div className="work-list">{work.map(item => <WorkRow key={item.slug} item={item} />)}</div>
+          <div className="work-list">{work.slice(0, 4).map(item => <WorkRow key={item.slug} item={item} />)}</div>
+          <div className="research-block">
+            <div className="research-heading"><p className="eyebrow">RESEARCH &amp; PROTOTYPES</p><p>Exploratory work that extends the same evidence-first approach.</p></div>
+            <div className="research-list">
+              {work.slice(4).map(item => (
+                <article className="research-row" key={item.slug}>
+                  <span>{item.number}</span>
+                  <div><h3><Link href={`/work/${item.slug}`}>{item.title}</Link></h3><p>{item.short}</p></div>
+                  <small>{item.status}</small>
+                  <Link className="text-link" href={`/work/${item.slug}`}>Read <span aria-hidden="true">↗</span></Link>
+                </article>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section className="approach-section" id="approach">
