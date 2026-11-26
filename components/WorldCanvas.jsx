@@ -28,10 +28,11 @@ export default function WorldCanvas(){
   useEffect(()=>{
     const tick=()=>{
       const now=new Date();
+      const nigeriaTime={timeZone:'Africa/Lagos'};
       setClock({
-        date:new Intl.DateTimeFormat(undefined,{weekday:'short',day:'2-digit',month:'short',year:'numeric'}).format(now),
-        time:new Intl.DateTimeFormat(undefined,{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(now),
-        zone:Intl.DateTimeFormat().resolvedOptions().timeZone||'Local time',
+        date:new Intl.DateTimeFormat('en-GB',{...nigeriaTime,weekday:'short',day:'2-digit',month:'short',year:'numeric'}).format(now),
+        time:new Intl.DateTimeFormat('en-GB',{...nigeriaTime,hour:'2-digit',minute:'2-digit',hour12:false}).format(now),
+        zone:'WAT',
         light:nigeriaDaylight(now)
       });
     };
@@ -42,7 +43,9 @@ export default function WorldCanvas(){
     let rx=0,ry=0,zoom=0,drag=null,auto=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const node=host.current;if(!node)return;
     const stopFrames=()=>{if(raf)cancelAnimationFrame(raf);raf=0;};
-    const renderFrame=()=>{
+    let renderFrame;
+    const queueFrame=()=>{if(!raf&&active&&!document.hidden)raf=requestAnimationFrame(renderFrame);};
+    renderFrame=()=>{
       raf=0;
       if(disposed||!active||document.hidden)return;
       const sun=solarPosition(new Date());
@@ -52,20 +55,20 @@ export default function WorldCanvas(){
       atmosphere.rotation.copy(globe.rotation);
       camera.position.z=4.05-zoom;
       renderer.render(scene,camera);
-      raf=requestAnimationFrame(renderFrame);
+      if(auto||drag)queueFrame();
     };
     let visible=false,started=false;
-    const onVisibility=()=>{active=visible&&!document.hidden;if(!renderer||!scene){stopFrames();return;}if(active&&!raf)raf=requestAnimationFrame(renderFrame);else stopFrames();};
+    const onVisibility=()=>{active=visible&&!document.hidden;if(!renderer||!scene){stopFrames();return;}if(active)queueFrame();else stopFrames();};
     const cleanup=()=>{
       disposed=true;stopFrames();document.removeEventListener('visibilitychange',onVisibility);
       intersectionObserver?.disconnect();resizeObserver?.disconnect();
       if(renderer){renderer.domElement.removeEventListener('pointerdown',down);renderer.domElement.removeEventListener('pointermove',move);renderer.domElement.removeEventListener('pointerup',up);renderer.domElement.removeEventListener('pointercancel',up);renderer.domElement.removeEventListener('wheel',wheel);renderer.dispose();renderer.domElement.remove();}
       texture?.dispose();api.current=null;
     };
-    const down=e=>{if(!renderer)return;drag={id:e.pointerId,x:e.clientX,y:e.clientY};auto=false;setMotion('PAUSED');renderer.domElement.setPointerCapture?.(e.pointerId);};
-    const move=e=>{if(!drag||drag.id!==e.pointerId)return;ry+=(e.clientX-drag.x)*.006;rx=Math.max(-1.15,Math.min(1.15,rx+(e.clientY-drag.y)*.004));drag.x=e.clientX;drag.y=e.clientY;};
-    const up=e=>{if(drag?.id===e.pointerId)drag=null;};
-    const wheel=e=>{e.preventDefault();zoom=Math.max(-1.1,Math.min(1.8,zoom-e.deltaY*.0018));};
+    const down=e=>{if(!renderer)return;drag={id:e.pointerId,x:e.clientX,y:e.clientY};auto=false;setMotion('PAUSED');renderer.domElement.setPointerCapture?.(e.pointerId);queueFrame();};
+    const move=e=>{if(!drag||drag.id!==e.pointerId)return;ry+=(e.clientX-drag.x)*.006;rx=Math.max(-1.15,Math.min(1.15,rx+(e.clientY-drag.y)*.004));drag.x=e.clientX;drag.y=e.clientY;queueFrame();};
+    const up=e=>{if(drag?.id===e.pointerId){drag=null;queueFrame();}};
+    const wheel=e=>{e.preventDefault();zoom=Math.max(-1.1,Math.min(1.8,zoom-e.deltaY*.0018));queueFrame();};
     const start=async()=>{
       try{
         THREE=await loadThree();if(disposed)return;
@@ -103,11 +106,11 @@ export default function WorldCanvas(){
         renderer.domElement.addEventListener('pointercancel',up);
         renderer.domElement.addEventListener('wheel',wheel,{passive:false});
         api.current={
-          in:()=>zoom=Math.min(1.8,zoom+.38),
-          out:()=>zoom=Math.max(-1.1,zoom-.38),
-          toggle:()=>{auto=!auto;setMotion(auto?'AUTO':'PAUSED');},
-          reset:()=>{rx=0;ry=0;zoom=0;auto=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;setMotion(auto?'AUTO':'PAUSED');},
-          africa:()=>{rx=-.12;ry=-.16;zoom=.32;}
+          in:()=>{zoom=Math.min(1.8,zoom+.38);queueFrame();},
+          out:()=>{zoom=Math.max(-1.1,zoom-.38);queueFrame();},
+          toggle:()=>{auto=!auto;setMotion(auto?'AUTO':'PAUSED');queueFrame();},
+          reset:()=>{rx=0;ry=0;zoom=0;auto=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;setMotion(auto?'AUTO':'PAUSED');queueFrame();},
+          africa:()=>{rx=-.12;ry=-.16;zoom=.32;queueFrame();}
         };
         setStatus('EARTH ONLINE');onVisibility();
       }catch(error){if(!disposed)setStatus('EARTH UNAVAILABLE · CHECK CONNECTION');}
@@ -119,7 +122,12 @@ export default function WorldCanvas(){
   const act=key=>api.current?.[key]?.();
   return <section className="earth-experience" aria-label="Interactive Earth and live solar clock">
     <div className="earth-topline"><span>EARTH / LIVE SOLAR MODEL</span><span>DRAG TO EXPLORE · SCROLL TO ZOOM</span></div>
-    <div className="earth-canvas-host" ref={host}/>
+    <div className="earth-canvas-host" ref={host}>
+      <div className={status==='EARTH ONLINE'?"earth-fallback is-hidden":"earth-fallback"} aria-hidden={status==='EARTH ONLINE'}>
+        <div className="earth-fallback-globe"><span/><i/><b/></div>
+        <p>GLOBAL CONTEXT / LOCAL EVIDENCE</p>
+      </div>
+    </div>
     <div className={status==='EARTH ONLINE'?"earth-loader earth-loader-ready":"earth-loader"} role="status">{status}</div>
     <div className="earth-readout" aria-live="polite"><span className="earth-readout-label">NIGERIA / KADUNA REGION</span><strong>{clock.light==='DAYLIGHT'?'IN DAYLIGHT':'AFTER DARK'}</strong><span>{clock.date} · {clock.time} {clock.zone}</span></div>
     <div className="earth-controls" aria-label="Earth controls">
