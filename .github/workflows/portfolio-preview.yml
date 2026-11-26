@@ -4,13 +4,18 @@ on:
   push:
     branches:
       - feat/systems-architect-positioning
+      - feat/portfolio-readable-case-study-release
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: portfolio-review-build
+  group: portfolio-readable-review-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
