@@ -36,7 +36,7 @@ export default function WorldCanvas(){
         light:nigeriaDaylight(now)
       });
     };
-    tick();const timer=setInterval(tick,1000);return()=>clearInterval(timer);
+    tick();const timer=setInterval(tick,60_000);return()=>clearInterval(timer);
   },[]);
   useEffect(()=>{
     let renderer,scene,camera,globe,atmosphere,texture,raf=0,resizeObserver,intersectionObserver,disposed=false,active=false,THREE;
