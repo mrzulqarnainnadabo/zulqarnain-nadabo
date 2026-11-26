@@ -7,29 +7,31 @@ export default function Hero() {
         <nav className="atlas-nav" aria-label="Main navigation">
           <a className="atlas-monogram" href="#top" aria-label="Zulqarnain Yusuf Nadabo home">ZN<span>°</span></a>
           <div className="atlas-nav-links">
-            <a href="#living-atlas">Atlas</a>
+            <a href="#work">Selected work</a>
+            <a href="#living-atlas">Living Atlas</a>
             <a href="#iseyc">ISEYC</a>
             <a href="#hubil">Hubil</a>
-            <a href="#work">Work</a>
-            <a href="#contact">Connect <span>↗</span></a>
-            <a className="atlas-nav-workspace" href="/workspace">Workspace</a>
+            <a className="atlas-nav-contact" href="#contact">Contact <span aria-hidden="true">↗</span></a>
           </div>
         </nav>
         <div className="atlas-hero-grid">
           <div className="atlas-copy">
-            <p className="atlas-kicker"><span className="atlas-pulse" /> SYSTEMS ARCHITECTURE / RESEARCH / SPATIAL INTELLIGENCE <span>— 2026</span></p>
-            <p className="atlas-name">Zulqarnain Yusuf Nadabo</p>
-            <h1>Making<br/>complex<br/>systems work<br/><em>better.</em></h1>
-            <p className="atlas-subline">I work across research, institutional architecture and digital technology to turn complex challenges into practical, well-structured systems.</p>
-            <a className="atlas-enter" href="#work"><span>Explore the work</span><b>↘</b></a>
+            <p className="atlas-kicker"><span className="atlas-pulse" /> INSTITUTIONAL DESIGN / SPATIAL INTELLIGENCE / DIGITAL SYSTEMS</p>
+            <p className="atlas-name">Zulqarnain Yusuf Nadabo <span>— Nigeria</span></p>
+            <h1>I design the<br/>systems behind<br/><em>change.</em></h1>
+            <p className="atlas-subline">I turn complex challenges into practical, evidence-led systems — across institutions, spatial research and digital products.</p>
+            <a className="atlas-enter" href="#work"><span>Explore selected work</span><b aria-hidden="true">↘</b></a>
+            <p className="atlas-hero-note">STRATEGY / ARCHITECTURE / BUILD / EVIDENCE</p>
           </div>
           <div className="atlas-visual">
+            <div className="atlas-visual-label atlas-visual-label-top"><span>01 / SPATIAL INTELLIGENCE</span><span>LIVE MODEL</span></div>
             <WorldCanvas />
+            <div className="atlas-visual-label atlas-visual-label-bottom"><span>GLOBAL → LOCAL</span><span>PLACE / SCALE / EVIDENCE</span></div>
           </div>
         </div>
         <div className="atlas-footerline">
-          <span>INSTITUTIONAL DESIGN / SPATIAL INTELLIGENCE / DIGITAL SYSTEMS</span>
-          <span>BASED IN NIGERIA <i>·</i> WORKING ACROSS DISCIPLINES</span>
+          <span>INSTITUTIONAL ARCHITECTURE <i>·</i> SPATIAL RESEARCH <i>·</i> DIGITAL SYSTEMS</span>
+          <span>BASED IN NIGERIA <i>·</i> OPEN TO COLLABORATION</span>
         </div>
       </div>
     </header>
